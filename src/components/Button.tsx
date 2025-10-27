@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import Link from 'next/link';
 
 interface ButtonProps {
   children: ReactNode;
@@ -45,6 +46,22 @@ export function Button({
   const combinedClassName = `${baseStyles} ${variantStyles[variant]} ${sizeStyles[size]} ${widthStyle} ${className}`;
 
   if (href) {
+    // Check if it's an internal link (starts with /) or external link
+    const isInternalLink = href.startsWith('/');
+
+    if (isInternalLink) {
+      // Use Next.js Link for internal navigation to respect basePath
+      return (
+        <Link
+          href={href}
+          className={combinedClassName}
+        >
+          {children}
+        </Link>
+      );
+    }
+
+    // Use regular anchor for external links
     return (
       <a
         href={href}
