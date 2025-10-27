@@ -1,65 +1,142 @@
-import Image from "next/image";
+import type { Metadata } from 'next';
+import Image from 'next/image';
+import { Header } from '@/components/Header';
+import { Footer } from '@/components/Footer';
+import { Button } from '@/components/Button';
+import { Card } from '@/components/Card';
+
+export const metadata: Metadata = {
+  title: 'Ben Greene – DadTrack App & Portfolio',
+  description: 'DadTrack – Track the journey, one memory at a time. A daily dad life companion app to capture moments, moods, and milestones.',
+  openGraph: {
+    title: 'Ben Greene – DadTrack App & Portfolio',
+    description: 'DadTrack – Track the journey, one memory at a time.',
+    type: 'website',
+  },
+};
 
 export default function Home() {
+  const screenshots = [
+    {
+      src: '/images/dadtrack/home_screen.png',
+      alt: 'DadTrack Home Timeline',
+      title: 'Your Daily Timeline',
+      description: 'See all your memories in one beautiful scrollable view',
+    },
+    {
+      src: '/images/dadtrack/magazine_mode_journal_entry.png',
+      alt: 'DadTrack Magazine Mode',
+      title: 'Immersive Magazine View',
+      description: 'Relive your moments with a full-screen reading experience',
+    },
+    {
+      src: '/images/dadtrack/add_journal_entry_screen.png',
+      alt: 'Add Journal Entry',
+      title: 'Quick Daily Journaling',
+      description: 'Capture moments with photos, moods, and notes in seconds',
+    },
+  ];
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+    <div className="flex flex-col min-h-screen">
+      <Header />
+
+      <main className="flex-1">
+        {/* Hero Section */}
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32">
+          <div className="text-center space-y-8">
+            <div className="space-y-4">
+              <h1 className="text-5xl md:text-6xl font-bold text-slate-900 dark:text-white bg-clip-text">
+                DadTrack
+              </h1>
+              <p className="text-xl md:text-2xl text-slate-600 dark:text-slate-300 font-medium">
+                Track the journey, one memory at a time
+              </p>
+            </div>
+            <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
+              A daily dad life companion app to capture moments, moods, and milestones.
+            </p>
+            <div className="flex gap-4 justify-center flex-wrap pt-4">
+              <Button href="/waitlist" size="lg">
+                Join the Waitlist
+              </Button>
+              <Button href="/dadtrack" variant="secondary" size="lg">
+                Learn More
+              </Button>
+            </div>
+          </div>
+        </section>
+
+        {/* Intro Section */}
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div className="prose dark:prose-invert max-w-3xl mx-auto">
+            <p className="text-center text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
+              I'm Ben Greene, an engineering leader and dad. DadTrack is born from a simple insight:
+              parenting is one of the most meaningful journeys we take, yet the moments slip away too quickly.
+              This app helps you capture the small, everyday moments—the moods, the memories, the milestones—
+              so you can reflect on them, share them with family, and never lose sight of what matters most.
+            </p>
+          </div>
+        </section>
+
+        {/* Screenshot Grid Section */}
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-center text-slate-900 dark:text-white mb-12">
+            See It In Action
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {screenshots.map((screenshot, index) => (
+              <Card
+                key={index}
+                className="group hover:shadow-xl transition-all duration-300 hover:scale-105"
+              >
+                <div className="space-y-4">
+                  {/* Screenshot Image */}
+                  <div className="relative bg-slate-100 dark:bg-slate-900 rounded-lg overflow-hidden" style={{ minHeight: '400px', maxHeight: '500px' }}>
+                    <Image
+                      src={screenshot.src}
+                      alt={screenshot.alt}
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
+                  {/* Title and Description */}
+                  <div className="text-center space-y-2">
+                    <h3 className="text-xl font-bold text-slate-900 dark:text-white">
+                      {screenshot.title}
+                    </h3>
+                    <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                      {screenshot.description}
+                    </p>
+                  </div>
+                </div>
+              </Card>
+            ))}
+          </div>
+        </section>
+
+        {/* CTA Section */}
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-slate-200 dark:border-slate-800">
+          <div className="text-center space-y-6">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">
+              Ready to start capturing your story?
+            </h2>
+            <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
+              Join other dads in shaping the future of DadTrack.
+            </p>
+            <div className="flex gap-4 justify-center flex-wrap pt-4">
+              <Button href="/waitlist" size="lg">
+                Sign Up for Updates
+              </Button>
+              <Button href="/dadtrack" variant="secondary" size="lg">
+                Give Feedback
+              </Button>
+            </div>
+          </div>
+        </section>
       </main>
+
+      <Footer />
     </div>
   );
 }
