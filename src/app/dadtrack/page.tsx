@@ -4,6 +4,7 @@ import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { Card } from '@/components/Card';
 import { Button } from '@/components/Button';
+import { getAssetPath } from '@/lib/basePath';
 
 export const metadata: Metadata = {
   title: 'DadTrack – Dad Life Companion App',
@@ -22,42 +23,42 @@ export default function DadTrack() {
       title: 'Daily Dad Journal',
       description:
         'One entry per day to capture moments, moods, and memories. Support for multiple mood tags and up to 5 photos per entry.',
-      image: '/images/dadtrack/add_journal_entry_screen.png',
+      image: getAssetPath('/images/dadtrack/add_journal_entry_screen.png'),
       icon: '📝',
     },
     {
       title: 'Multi-Child Support',
       description:
         'Manage multiple children with individual profiles. Switch between child timelines or view "All kids" in one stream.',
-      image: '/images/dadtrack/home_screen.png',
+      image: getAssetPath('/images/dadtrack/home_screen.png'),
       icon: '👨‍👩‍👧‍👦',
     },
     {
       title: 'Magazine Mode',
       description:
         'Immersive, full-screen experience with large photos, dramatic typography, and hero animations for reliving your memories.',
-      image: '/images/dadtrack/magazine_mode_journal_entry.png',
+      image: getAssetPath('/images/dadtrack/magazine_mode_journal_entry.png'),
       icon: '✨',
     },
     {
       title: 'Mood Tracking',
       description:
         'Create custom mood tags to personalize your journal entries. Track emotional patterns over time with advanced filtering.',
-      image: '/images/dadtrack/manage_mood_screen.png',
+      image: getAssetPath('/images/dadtrack/manage_mood_screen.png'),
       icon: '😊',
     },
     {
       title: 'Advanced Filtering',
       description:
         'Find entries by text, date range, mood tags, specific children, or photo presence. Powerful search to relive any moment.',
-      image: '/images/dadtrack/filter_screen.png',
+      image: getAssetPath('/images/dadtrack/filter_screen.png'),
       icon: '🔍',
     },
     {
       title: 'Settings & Customization',
       description:
         'Configure journal reminders, dark mode, together-time windows, and more. Make the app work for your lifestyle.',
-      image: '/images/dadtrack/settings_screen.png',
+      image: getAssetPath('/images/dadtrack/settings_screen.png'),
       icon: '⚙️',
     },
   ];
