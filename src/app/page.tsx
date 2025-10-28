@@ -4,6 +4,7 @@ import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { Button } from '@/components/Button';
 import { Card } from '@/components/Card';
+import { getAssetPath } from '@/lib/basePath';
 
 export const metadata: Metadata = {
   title: 'Ben Greene – Engineering Leader & Builder',
@@ -18,19 +19,19 @@ export const metadata: Metadata = {
 export default function Home() {
   const screenshots = [
     {
-      src: '/images/dadtrack/home_screen.png',
+      src: getAssetPath('/images/dadtrack/home_screen.png'),
       alt: 'DadTrack Home Timeline',
       title: 'Your Daily Timeline',
       description: 'See all your memories in one beautiful scrollable view',
     },
     {
-      src: '/images/dadtrack/magazine_mode_journal_entry.png',
+      src: getAssetPath('/images/dadtrack/magazine_mode_journal_entry.png'),
       alt: 'DadTrack Magazine Mode',
       title: 'Immersive Magazine View',
       description: 'Relive your moments with a full-screen reading experience',
     },
     {
-      src: '/images/dadtrack/add_journal_entry_screen.png',
+      src: getAssetPath('/images/dadtrack/add_journal_entry_screen.png'),
       alt: 'Add Journal Entry',
       title: 'Quick Daily Journaling',
       description: 'Capture moments with photos, moods, and notes in seconds',
