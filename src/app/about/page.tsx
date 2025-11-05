@@ -46,7 +46,7 @@ export default function About() {
             </FadeIn>
             <FadeIn delay={0.4}>
               <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
-                Beyond work, I'm a dad building DadTrack—an app to help other dads capture and reflect on the precious moments with their kids.
+                Beyond work, I'm a dad building DadTrack — an app to help other dads capture and reflect on the precious moments with their kids.
               </p>
             </FadeIn>
           </div>
@@ -62,7 +62,7 @@ export default function About() {
             </SlideUp>
             <FadeIn delay={0.2}>
               <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
-                Becoming a dad fundamentally changed how I see the world. The moments—a laugh, a milestone, a quiet cuddle—they're precious but fleeting. I built DadTrack to help dads like me capture these moments, not just to remember them, but to reflect on the journey and share it with family.
+                Becoming a dad fundamentally changed how I see the world. The moments — a laugh, a milestone, a quiet cuddle — they're precious but fleeting. I built DadTrack to help dads like me capture these moments, not just to remember them, but to reflect on the journey and share it with friends and family.
               </p>
             </FadeIn>
             <FadeIn delay={0.4}>
@@ -116,7 +116,7 @@ export default function About() {
                     Bachelor of Science in Computer Science
                   </p>
                   <p className="text-slate-600 dark:text-slate-400 text-sm">
-                    Engineering Business Minor • Graduated May 2015 with High Distinction
+                    Engineering Business Minor • Graduated May 2015
                   </p>
                 </div>
               </Card>

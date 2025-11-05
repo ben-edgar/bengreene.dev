@@ -80,16 +80,16 @@ export default function DadTrack() {
       items: ['Dad Tips Feed', 'Milestone Tracker', 'Family Photo Reminders'],
     },
     {
-      milestone: 'Milestone 4: Practical Parenting Tools',
+      milestone: 'Milestone 4: Enhanced Experience',
+      items: ['Monthly Memory Highlights', 'Advanced Analytics'],
+    },
+    {
+      milestone: 'Milestone 5: Platform Expansion',
+      items: ['iOS App', 'Wear OS Watch App', 'Dad Community Feed'],
+    },
+    {
+      milestone: 'Milestone 6: Practical Parenting Tools',
       items: ['Child Information Hub', 'Shopping & Development Guide'],
-    },
-    {
-      milestone: 'Milestone 5: Enhanced Experience',
-      items: ['Memory Highlights', 'Shared Features', 'Advanced Analytics'],
-    },
-    {
-      milestone: 'Milestone 6: Platform Expansion',
-      items: ['Wear OS Watch App', 'Dad Community Feed'],
     },
   ];
 

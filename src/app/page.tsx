@@ -111,7 +111,7 @@ export default function Home() {
                     </p>
                     <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
                       Leading global teams building utility data platforms. Managing engineers from interns to senior staff,
-                      driving platform initiatives, and co-founding mentorship programs.
+                      driving platform initiatives, and championing responsible AI driven development.
                     </p>
                   </div>
                 </Card>
@@ -126,8 +126,7 @@ export default function Home() {
                       Shift • 2020 – 2022
                     </p>
                     <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
-                      Managed consumer fulfillment teams, advised CTO on technical direction, and led transition
-                      from monolith to service-oriented architecture.
+                      Managed consumer fulfillment teams, advised CTO on technical direction, and built a team culture of learning and growth.
                     </p>
                   </div>
                 </Card>
