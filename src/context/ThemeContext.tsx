@@ -49,11 +49,22 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
 function updateDocumentTheme(theme: Theme) {
   const htmlElement = document.documentElement;
+
+  // Add transition class for smooth color transitions
+  if (!htmlElement.classList.contains('theme-transitioning')) {
+    htmlElement.classList.add('theme-transitioning');
+  }
+
   if (theme === 'dark') {
     htmlElement.classList.add('dark');
   } else {
     htmlElement.classList.remove('dark');
   }
+
+  // Remove transition class after animation completes
+  setTimeout(() => {
+    htmlElement.classList.remove('theme-transitioning');
+  }, 300);
 }
 
 export function useTheme() {
