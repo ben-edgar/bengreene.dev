@@ -2,6 +2,7 @@
 
 import { useState, FormEvent } from 'react';
 import type { Metadata } from 'next';
+import confetti from 'canvas-confetti';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { Input } from '@/components/form/Input';
@@ -72,6 +73,35 @@ export default function Waitlist() {
           message: 'Thanks for joining the waitlist! We\'ll be in touch soon.',
         });
         setFormData({ name: '', email: '', comment: '' });
+
+        // Trigger confetti celebration
+        confetti({
+          particleCount: 100,
+          spread: 70,
+          origin: { y: 0.6 },
+          colors: ['#0ea5e9', '#3b82f6', '#6366f1', '#8b5cf6', '#ec4899'],
+        });
+
+        // Add a second burst for extra celebration
+        setTimeout(() => {
+          confetti({
+            particleCount: 50,
+            angle: 60,
+            spread: 55,
+            origin: { x: 0 },
+            colors: ['#0ea5e9', '#3b82f6', '#6366f1'],
+          });
+        }, 250);
+
+        setTimeout(() => {
+          confetti({
+            particleCount: 50,
+            angle: 120,
+            spread: 55,
+            origin: { x: 1 },
+            colors: ['#8b5cf6', '#ec4899', '#f43f5e'],
+          });
+        }, 400);
       } else {
         setSubmitStatus({
           type: 'error',
