@@ -1,20 +1,16 @@
 'use client';
 
 import { useState, FormEvent } from 'react';
-import type { Metadata } from 'next';
 import confetti from 'canvas-confetti';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { Input } from '@/components/form/Input';
-import { RadioGroup } from '@/components/form/RadioGroup';
+import { Textarea } from '@/components/form/Textarea';
 import { Button } from '@/components/Button';
 import { submitToGoogleSheet } from '@/lib/formSubmit';
 
-// Note: This component uses 'use client' so metadata is handled via a separate file or wrapper
-// For now, metadata would be set by the parent layout or a separate metadata file
-
-export default function Waitlist() {
-  const [formData, setFormData] = useState({ name: '', email: '', platform: '' });
+export default function Feedback() {
+  const [formData, setFormData] = useState({ name: '', email: '', comment: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<{
     type: 'success' | 'error' | null;
@@ -35,8 +31,8 @@ export default function Waitlist() {
       newErrors.email = 'Please enter a valid email address';
     }
 
-    if (!formData.platform) {
-      newErrors.platform = 'Please select your platform';
+    if (!formData.comment.trim()) {
+      newErrors.comment = 'Feedback is required';
     }
 
     setErrors(newErrors);
@@ -54,14 +50,6 @@ export default function Waitlist() {
     }
   };
 
-  const handlePlatformChange = (value: string) => {
-    setFormData((prev) => ({ ...prev, platform: value }));
-    // Clear error for platform field
-    if (errors.platform) {
-      setErrors((prev) => ({ ...prev, platform: '' }));
-    }
-  };
-
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -76,16 +64,16 @@ export default function Waitlist() {
       const result = await submitToGoogleSheet({
         name: formData.name,
         email: formData.email,
-        platform: formData.platform,
-        type: 'waitlist',
+        comment: formData.comment,
+        type: 'feedback',
       });
 
       if (result.success) {
         setSubmitStatus({
           type: 'success',
-          message: 'Thanks for joining the waitlist! We\'ll be in touch soon.',
+          message: 'Thanks for your feedback! We appreciate your input.',
         });
-        setFormData({ name: '', email: '', platform: '' });
+        setFormData({ name: '', email: '', comment: '' });
 
         // Trigger confetti celebration
         confetti({
@@ -141,13 +129,13 @@ export default function Waitlist() {
             {/* Header */}
             <div className="text-center space-y-6">
               <h1 className="text-5xl md:text-6xl font-bold text-slate-900 dark:text-white">
-                Join the Waitlist
+                Share Your Feedback
               </h1>
               <p className="text-xl md:text-2xl text-slate-600 dark:text-slate-300 font-medium">
-                Be among the first to get early access to DadTrack
+                Help us build the best dad life companion
               </p>
               <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
-                Join other dads and get early access to DadTrack. Be the first to experience the dad life companion app.
+                Your thoughts and ideas shape DadTrack. Whether it's a feature request, bug report, or general feedback, we want to hear from you.
               </p>
             </div>
 
@@ -175,16 +163,14 @@ export default function Waitlist() {
                 required
               />
 
-              <RadioGroup
-                label="Which platform will you use?"
-                name="platform"
-                options={[
-                  { value: 'ios', label: 'iOS' },
-                  { value: 'android', label: 'Android' },
-                ]}
-                value={formData.platform}
-                onChange={handlePlatformChange}
-                error={errors.platform}
+              <Textarea
+                label="Your Feedback"
+                name="comment"
+                placeholder="Share your thoughts, feature requests, or bug reports..."
+                value={formData.comment}
+                onChange={handleChange}
+                error={errors.comment}
+                rows={6}
                 required
               />
 
@@ -213,26 +199,17 @@ export default function Waitlist() {
                 disabled={isSubmitting}
                 className={isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}
               >
-                {isSubmitting ? 'Submitting...' : 'Join the Waitlist'}
+                {isSubmitting ? 'Submitting...' : 'Submit Feedback'}
               </Button>
             </form>
 
             {/* Additional Info */}
             <div className="text-center space-y-4 pt-8 border-t border-slate-200 dark:border-slate-800">
               <p className="text-slate-600 dark:text-slate-400">
-                No spam, just updates about DadTrack.
+                We read every piece of feedback and appreciate your input.
               </p>
               <p className="text-sm text-slate-500 dark:text-slate-500">
-                We respect your privacy. Your email will only be used to send DadTrack updates.
-              </p>
-              <p className="text-sm text-slate-600 dark:text-slate-400">
-                Have feedback or ideas?{' '}
-                <a
-                  href="/feedback"
-                  className="text-primary-600 dark:text-primary-400 hover:underline"
-                >
-                  Share your thoughts
-                </a>
+                We'll get back to you as soon as possible.
               </p>
             </div>
           </div>

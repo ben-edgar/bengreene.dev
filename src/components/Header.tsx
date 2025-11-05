@@ -29,6 +29,9 @@ export function Header() {
             <Link href="/dadtrack" className="text-slate-700 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors text-sm font-medium">
               DadTrack
             </Link>
+            <Link href="/feedback" className="text-slate-700 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors text-sm font-medium">
+              Feedback
+            </Link>
             <Link href="/waitlist" className="text-slate-700 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors text-sm font-medium">
               Waitlist
             </Link>

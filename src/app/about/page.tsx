@@ -7,6 +7,7 @@ import { FadeIn } from '@/components/animations/FadeIn';
 import { SlideUp } from '@/components/animations/SlideUp';
 import { StaggerContainer } from '@/components/animations/StaggerContainer';
 import { StaggerItem } from '@/components/animations/StaggerItem';
+import { ParallaxContent } from '@/components/animations/Parallax';
 
 export default function About() {
   const skills = [
@@ -32,24 +33,26 @@ export default function About() {
 
       <main className="flex-1">
         {/* Introduction */}
-        <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32">
-          <div className="space-y-6">
-            <FadeIn>
-              <h1 className="text-5xl md:text-6xl font-bold text-slate-900 dark:text-white">
-                About Me
-              </h1>
-            </FadeIn>
-            <FadeIn delay={0.2}>
-              <p className="text-xl text-slate-600 dark:text-slate-300 leading-relaxed">
-                I'm an engineering leader passionate about building effective teams, shipping great software, and mentoring engineers at all levels.
-              </p>
-            </FadeIn>
-            <FadeIn delay={0.4}>
-              <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
-                Beyond work, I'm a dad building DadTrack — an app to help other dads capture and reflect on the precious moments with their kids.
-              </p>
-            </FadeIn>
-          </div>
+        <section className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32 overflow-hidden">
+          <ParallaxContent>
+            <div className="space-y-6">
+              <FadeIn>
+                <h1 className="text-5xl md:text-6xl font-bold text-slate-900 dark:text-white">
+                  About Me
+                </h1>
+              </FadeIn>
+              <FadeIn delay={0.2}>
+                <p className="text-xl text-slate-600 dark:text-slate-300 leading-relaxed">
+                  I'm an engineering leader passionate about building effective teams, shipping great software, and mentoring engineers at all levels.
+                </p>
+              </FadeIn>
+              <FadeIn delay={0.4}>
+                <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
+                  Beyond work, I'm a dad building DadTrack — an app to help other dads capture and reflect on the precious moments with their kids.
+                </p>
+              </FadeIn>
+            </div>
+          </ParallaxContent>
         </section>
 
         {/* Personal Note */}

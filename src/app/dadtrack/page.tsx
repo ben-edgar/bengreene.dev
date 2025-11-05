@@ -5,12 +5,14 @@ import Image from 'next/image';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { Card } from '@/components/Card';
+import { TiltCard } from '@/components/TiltCard';
 import { Button } from '@/components/Button';
 import { ImageLightbox } from '@/components/ImageLightbox';
 import { FadeIn } from '@/components/animations/FadeIn';
 import { SlideUp } from '@/components/animations/SlideUp';
 import { StaggerContainer } from '@/components/animations/StaggerContainer';
 import { StaggerItem } from '@/components/animations/StaggerItem';
+import { ParallaxContent } from '@/components/animations/Parallax';
 import { getAssetPath } from '@/lib/basePath';
 
 export default function DadTrack() {
@@ -119,25 +121,27 @@ export default function DadTrack() {
 
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32">
-          <div className="text-center space-y-6">
-            <FadeIn>
-              <h1 className="text-5xl md:text-6xl font-bold text-slate-900 dark:text-white">
-                DadTrack
-              </h1>
-            </FadeIn>
-            <FadeIn delay={0.2}>
-              <p className="text-xl md:text-2xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
-                Track the journey, one memory at a time
-              </p>
-            </FadeIn>
-            <FadeIn delay={0.4}>
-              <p className="text-lg text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed">
-                A daily dad life companion app designed to help you capture moments, moods, and milestones with your kids.
-                One journal entry, some photos, a mood tag—and over time, you build a rich archive of memories.
-              </p>
-            </FadeIn>
-          </div>
+        <section className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32 overflow-hidden">
+          <ParallaxContent>
+            <div className="text-center space-y-6">
+              <FadeIn>
+                <h1 className="text-5xl md:text-6xl font-bold text-slate-900 dark:text-white">
+                  DadTrack
+                </h1>
+              </FadeIn>
+              <FadeIn delay={0.2}>
+                <p className="text-xl md:text-2xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
+                  Track the journey, one memory at a time
+                </p>
+              </FadeIn>
+              <FadeIn delay={0.4}>
+                <p className="text-lg text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed">
+                  A daily dad life companion app designed to help you capture moments, moods, and milestones with your kids.
+                  One journal entry, some photos, a mood tag—and over time, you build a rich archive of memories.
+                </p>
+              </FadeIn>
+            </div>
+          </ParallaxContent>
         </section>
 
         {/* Key Features */}
@@ -150,40 +154,42 @@ export default function DadTrack() {
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-8" staggerDelay={0.15}>
             {features.map((feature, index) => (
               <StaggerItem key={index}>
-                <Card className="group hover:shadow-xl transition-all duration-300">
-                <div className="space-y-6">
-                  {/* Screenshot Image */}
-                  <div
-                    className="relative bg-slate-100 dark:bg-slate-900 rounded-xl overflow-hidden shadow-md cursor-pointer group/image"
-                    style={{ minHeight: '400px', maxHeight: '500px' }}
-                    onClick={() => openLightbox(index)}
-                  >
-                    <Image
-                      src={feature.image}
-                      alt={feature.title}
-                      fill
-                      className="object-contain p-4 transition-transform duration-300 group-hover/image:scale-105"
-                    />
-                    {/* Click to expand hint */}
-                    <div className="absolute inset-0 bg-black/0 group-hover/image:bg-black/20 transition-colors flex items-center justify-center">
-                      <div className="opacity-0 group-hover/image:opacity-100 transition-opacity bg-white dark:bg-slate-800 px-4 py-2 rounded-full text-sm font-medium">
-                        Click to expand
+                <TiltCard intensity={10}>
+                  <Card className="group hover:shadow-xl transition-all duration-300 h-full">
+                    <div className="space-y-6">
+                      {/* Screenshot Image */}
+                      <div
+                        className="relative bg-slate-100 dark:bg-slate-900 rounded-xl overflow-hidden shadow-md cursor-zoom-in group/image"
+                        style={{ minHeight: '400px', maxHeight: '500px' }}
+                        onClick={() => openLightbox(index)}
+                      >
+                        <Image
+                          src={feature.image}
+                          alt={feature.title}
+                          fill
+                          className="object-contain p-4 transition-transform duration-300 group-hover/image:scale-110"
+                        />
+                        {/* Click to expand hint */}
+                        <div className="absolute inset-0 bg-black/0 group-hover/image:bg-black/20 transition-colors flex items-center justify-center">
+                          <div className="opacity-0 group-hover/image:opacity-100 transition-opacity bg-white dark:bg-slate-800 px-4 py-2 rounded-full text-sm font-medium shadow-lg">
+                            🔍 Click to expand
+                          </div>
+                        </div>
                       </div>
+                      {/* Icon + Title */}
+                      <div className="flex items-center gap-3">
+                        <span className="text-4xl">{feature.icon}</span>
+                        <h3 className="text-2xl font-bold text-slate-900 dark:text-white">
+                          {feature.title}
+                        </h3>
+                      </div>
+                      {/* Description */}
+                      <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
+                        {feature.description}
+                      </p>
                     </div>
-                  </div>
-                  {/* Icon + Title */}
-                  <div className="flex items-center gap-3">
-                    <span className="text-4xl">{feature.icon}</span>
-                    <h3 className="text-2xl font-bold text-slate-900 dark:text-white">
-                      {feature.title}
-                    </h3>
-                  </div>
-                  {/* Description */}
-                  <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
-                    {feature.description}
-                  </p>
-                </div>
-              </Card>
+                  </Card>
+                </TiltCard>
               </StaggerItem>
             ))}
           </StaggerContainer>
@@ -199,16 +205,18 @@ export default function DadTrack() {
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {keyPoints.map((point, index) => (
               <StaggerItem key={index}>
-                <Card className="bg-primary-50 dark:bg-primary-950">
-                <div className="space-y-3">
-                  <h3 className="text-xl font-bold text-primary-600 dark:text-primary-400">
-                    {point.title}
-                  </h3>
-                  <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
-                    {point.description}
-                  </p>
-                </div>
-              </Card>
+                <TiltCard intensity={12}>
+                  <Card className="bg-primary-50 dark:bg-primary-950 h-full">
+                    <div className="space-y-3">
+                      <h3 className="text-xl font-bold text-primary-600 dark:text-primary-400">
+                        {point.title}
+                      </h3>
+                      <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
+                        {point.description}
+                      </p>
+                    </div>
+                  </Card>
+                </TiltCard>
               </StaggerItem>
             ))}
           </StaggerContainer>
@@ -267,7 +275,7 @@ export default function DadTrack() {
                 <Button href="/waitlist" size="lg">
                   Join the Waitlist
                 </Button>
-                <Button href="/waitlist" variant="secondary" size="lg">
+                <Button href="/feedback" variant="secondary" size="lg">
                   Send Feedback
                 </Button>
               </div>
