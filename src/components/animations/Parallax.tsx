@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode, useRef } from 'react';
+import { ReactNode, useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
 interface ParallaxProps {
@@ -11,6 +11,19 @@ interface ParallaxProps {
 
 export function Parallax({ children, speed = 0.5, className = '' }: ParallaxProps) {
   const ref = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Detect mobile/tablet devices on mount
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -20,6 +33,11 @@ export function Parallax({ children, speed = 0.5, className = '' }: ParallaxProp
   // Transform scroll progress into vertical movement
   // Negative values move up as you scroll down (parallax effect)
   const y = useTransform(scrollYProgress, [0, 1], ['0%', `${(1 - speed) * 100}%`]);
+
+  // Disable parallax on mobile for performance
+  if (isMobile) {
+    return <div ref={ref} className={className}>{children}</div>;
+  }
 
   return (
     <motion.div ref={ref} style={{ y }} className={className}>

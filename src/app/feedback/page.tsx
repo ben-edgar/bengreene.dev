@@ -10,7 +10,7 @@ import { Button } from '@/components/Button';
 import { submitToGoogleSheet } from '@/lib/formSubmit';
 
 export default function Feedback() {
-  const [formData, setFormData] = useState({ name: '', email: '', comment: '' });
+  const [formData, setFormData] = useState({ name: '', email: '', comment: '', website: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<{
     type: 'success' | 'error' | null;
@@ -20,6 +20,13 @@ export default function Feedback() {
 
   const validateForm = () => {
     const newErrors: { [key: string]: string } = {};
+
+    // Honeypot check - if filled, it's likely a bot
+    if (formData.website) {
+      newErrors.website = 'Bot detected';
+      setErrors(newErrors);
+      return false;
+    }
 
     if (!formData.name.trim()) {
       newErrors.name = 'Name is required';
@@ -73,7 +80,7 @@ export default function Feedback() {
           type: 'success',
           message: 'Thanks for your feedback! We appreciate your input.',
         });
-        setFormData({ name: '', email: '', comment: '' });
+        setFormData({ name: '', email: '', comment: '', website: '' });
 
         // Trigger confetti celebration
         confetti({
@@ -172,6 +179,18 @@ export default function Feedback() {
                 error={errors.comment}
                 rows={6}
                 required
+              />
+
+              {/* Honeypot field - hidden from users, catches bots */}
+              <input
+                type="text"
+                name="website"
+                value={formData.website}
+                onChange={handleChange}
+                style={{ display: 'none' }}
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
               />
 
               {/* Status Messages */}

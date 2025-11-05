@@ -14,7 +14,7 @@ import { submitToGoogleSheet } from '@/lib/formSubmit';
 // For now, metadata would be set by the parent layout or a separate metadata file
 
 export default function Waitlist() {
-  const [formData, setFormData] = useState({ name: '', email: '', platform: '' });
+  const [formData, setFormData] = useState({ name: '', email: '', platform: '', website: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<{
     type: 'success' | 'error' | null;
@@ -24,6 +24,13 @@ export default function Waitlist() {
 
   const validateForm = () => {
     const newErrors: { [key: string]: string } = {};
+
+    // Honeypot check - if filled, it's likely a bot
+    if (formData.website) {
+      newErrors.website = 'Bot detected';
+      setErrors(newErrors);
+      return false;
+    }
 
     if (!formData.name.trim()) {
       newErrors.name = 'Name is required';
@@ -85,7 +92,7 @@ export default function Waitlist() {
           type: 'success',
           message: 'Thanks for joining the waitlist! We\'ll be in touch soon.',
         });
-        setFormData({ name: '', email: '', platform: '' });
+        setFormData({ name: '', email: '', platform: '', website: '' });
 
         // Trigger confetti celebration
         confetti({
@@ -186,6 +193,18 @@ export default function Waitlist() {
                 onChange={handlePlatformChange}
                 error={errors.platform}
                 required
+              />
+
+              {/* Honeypot field - hidden from users, catches bots */}
+              <input
+                type="text"
+                name="website"
+                value={formData.website}
+                onChange={handleChange}
+                style={{ display: 'none' }}
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
               />
 
               {/* Status Messages */}

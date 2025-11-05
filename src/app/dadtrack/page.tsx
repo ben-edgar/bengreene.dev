@@ -170,7 +170,7 @@ export default function DadTrack() {
                           className="object-contain p-4 transition-transform duration-300 group-hover/image:scale-110"
                         />
                         {/* Click to expand hint */}
-                        <div className="absolute inset-0 bg-black/0 group-hover/image:bg-black/20 transition-colors flex items-center justify-center">
+                        <div className="absolute inset-0 bg-black/0 group-hover/image:bg-black/20 transition-colors flex items-center justify-center pointer-events-none">
                           <div className="opacity-0 group-hover/image:opacity-100 transition-opacity bg-white dark:bg-slate-800 px-4 py-2 rounded-full text-sm font-medium shadow-lg">
                             🔍 Click to expand
                           </div>

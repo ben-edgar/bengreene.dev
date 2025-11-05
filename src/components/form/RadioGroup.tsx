@@ -26,13 +26,15 @@ export function RadioGroup({
   required = false,
   className = '',
 }: RadioGroupProps) {
+  const errorId = error ? `${name}-error` : undefined;
+
   return (
-    <div className={`space-y-2 ${className}`}>
-      <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">
+    <fieldset className={`space-y-2 ${className}`} aria-invalid={!!error} aria-describedby={errorId}>
+      <legend className="block text-sm font-medium text-slate-700 dark:text-slate-300">
         {label}
-        {required && <span className="text-accent-500 ml-1">*</span>}
-      </label>
-      <div className="space-y-3">
+        {required && <span className="text-accent-500 ml-1" aria-label="required">*</span>}
+      </legend>
+      <div role="radiogroup" aria-required={required} className="space-y-3">
         {options.map((option) => (
           <label
             key={option.value}
@@ -44,6 +46,7 @@ export function RadioGroup({
               value={option.value}
               checked={value === option.value}
               onChange={(e) => onChange(e.target.value)}
+              aria-checked={value === option.value}
               className="w-4 h-4 text-primary-600 border-slate-300 dark:border-slate-600 focus:ring-primary-500 focus:ring-2 cursor-pointer"
             />
             <span className="text-slate-700 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">
@@ -53,10 +56,10 @@ export function RadioGroup({
         ))}
       </div>
       {error && (
-        <p className="mt-1 text-sm text-accent-600 dark:text-accent-400">
+        <p id={errorId} role="alert" className="mt-1 text-sm text-accent-600 dark:text-accent-400">
           {error}
         </p>
       )}
-    </div>
+    </fieldset>
   );
 }
