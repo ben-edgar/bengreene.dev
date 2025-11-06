@@ -11,7 +11,7 @@ interface TiltCardProps {
 export function TiltCard({ children, className = '', intensity = 15 }: TiltCardProps) {
   const [transform, setTransform] = useState('');
   const cardRef = useRef<HTMLDivElement>(null);
-  const rafRef = useRef<number>();
+  const rafRef = useRef<number | undefined>(undefined);
   const hasHoverSupport = useRef<boolean>(false);
 
   // Cache hover support check on mount
