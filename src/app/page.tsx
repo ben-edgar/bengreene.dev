@@ -11,6 +11,7 @@ import { FadeIn } from '@/components/animations/FadeIn';
 import { SlideUp } from '@/components/animations/SlideUp';
 import { StaggerContainer } from '@/components/animations/StaggerContainer';
 import { StaggerItem } from '@/components/animations/StaggerItem';
+import { ParallaxContent } from '@/components/animations/Parallax';
 import { getAssetPath } from '@/lib/basePath';
 
 export default function Home() {
@@ -61,34 +62,36 @@ export default function Home() {
 
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32">
-          <div className="text-center space-y-8">
-            <FadeIn>
-              <div className="space-y-4">
-                <h1 className="text-5xl md:text-6xl font-bold text-slate-900 dark:text-white bg-clip-text">
-                  Ben Greene
-                </h1>
-                <p className="text-xl md:text-2xl text-slate-600 dark:text-slate-300 font-medium">
-                  Engineering Leader & Builder
+        <section className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32 overflow-hidden">
+          <ParallaxContent>
+            <div className="text-center space-y-8">
+              <FadeIn>
+                <div className="space-y-4">
+                  <h1 className="text-5xl md:text-6xl font-bold text-slate-900 dark:text-white bg-clip-text">
+                    Ben Greene
+                  </h1>
+                  <p className="text-xl md:text-2xl text-slate-600 dark:text-slate-300 font-medium">
+                    Engineering Leader & Builder
+                  </p>
+                </div>
+              </FadeIn>
+              <FadeIn delay={0.2}>
+                <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
+                  Professional engineering leader passionate about building effective teams, shipping software, and mentoring engineers.
                 </p>
-              </div>
-            </FadeIn>
-            <FadeIn delay={0.2}>
-              <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
-                Professional engineering leader passionate about building effective teams, shipping software, and mentoring engineers.
-              </p>
-            </FadeIn>
-            <FadeIn delay={0.4}>
-              <div className="flex gap-4 justify-center flex-wrap pt-4">
-                <Button href="/about" size="lg">
-                  About Me
-                </Button>
-                <Button href="https://github.com/ben-edgar" variant="secondary" size="lg" target="_blank" rel="noopener noreferrer">
-                  GitHub
-                </Button>
-              </div>
-            </FadeIn>
-          </div>
+              </FadeIn>
+              <FadeIn delay={0.4}>
+                <div className="flex gap-4 justify-center flex-wrap pt-4">
+                  <Button href="/about" size="lg">
+                    About Me
+                  </Button>
+                  <Button href="https://github.com/ben-edgar" variant="secondary" size="lg" target="_blank" rel="noopener noreferrer">
+                    GitHub
+                  </Button>
+                </div>
+              </FadeIn>
+            </div>
+          </ParallaxContent>
         </section>
 
         {/* Professional Highlights */}

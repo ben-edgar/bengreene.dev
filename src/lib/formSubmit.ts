@@ -7,6 +7,9 @@ export async function submitToGoogleSheet(data: {
   name: string;
   email: string;
   comment?: string;
+  platform?: string;
+  type?: string;
+  [key: string]: string | undefined; // Allow additional properties
 }): Promise<{ success: boolean; message: string }> {
   if (!GOOGLE_APPS_SCRIPT_URL) {
     // For development, just log and return success

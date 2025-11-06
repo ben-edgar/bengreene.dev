@@ -100,6 +100,15 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
               </li>
               <li>
                 <Link
+                  href="/feedback"
+                  onClick={onClose}
+                  className="block text-lg font-medium text-slate-700 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors py-2"
+                >
+                  Feedback
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/waitlist"
                   onClick={onClose}
                   className="block text-lg font-medium text-slate-700 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors py-2"
