@@ -23,11 +23,9 @@ export default function Feedback() {
 
     // Honeypot check - if filled, it's likely a bot
     if (formData.website) {
-      newErrors.website = 'Bot detected';
-      setErrors(newErrors);
+      // Honeypot triggered: fail silently, do not set user-visible error
       return false;
     }
-
     if (!formData.name.trim()) {
       newErrors.name = 'Name is required';
     }

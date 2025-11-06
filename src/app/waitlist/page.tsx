@@ -27,8 +27,7 @@ export default function Waitlist() {
 
     // Honeypot check - if filled, it's likely a bot
     if (formData.website) {
-      newErrors.website = 'Bot detected';
-      setErrors(newErrors);
+      // Honeypot triggered: silently fail without setting a user-visible error
       return false;
     }
 
