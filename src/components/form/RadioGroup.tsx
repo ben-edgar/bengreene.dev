@@ -44,12 +44,12 @@ export function RadioGroup({
             <label
               key={option.value}
               className={`
-                relative flex flex-col items-center justify-center p-4 rounded-xl border-2 cursor-pointer
-                transition-all duration-200 active:scale-95
+                relative flex items-center justify-center px-4 py-3 rounded-lg border-2 cursor-pointer
+                transition-all duration-200
                 ${
                   isSelected
-                    ? 'border-primary-600 dark:border-primary-500 bg-primary-50 dark:bg-primary-950 shadow-md'
-                    : 'border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 hover:border-primary-400 dark:hover:border-primary-600 hover:shadow-sm'
+                    ? 'border-primary-600 dark:border-primary-500 bg-primary-50/50 dark:bg-primary-950/50'
+                    : 'border-slate-200 dark:border-slate-700 hover:border-primary-300 dark:hover:border-primary-700 hover:bg-slate-100/50 dark:hover:bg-slate-800/50'
                 }
               `}
             >
@@ -66,45 +66,33 @@ export function RadioGroup({
               {/* Selection indicator */}
               <div
                 className={`
-                  absolute top-3 right-3 w-5 h-5 rounded-full border-2 flex items-center justify-center
+                  absolute left-3 w-4 h-4 rounded-full border-2 flex items-center justify-center
                   transition-all duration-200
                   ${
                     isSelected
-                      ? 'border-primary-600 dark:border-primary-500 bg-primary-600 dark:bg-primary-500'
-                      : 'border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800'
+                      ? 'border-primary-600 dark:border-primary-400'
+                      : 'border-slate-300 dark:border-slate-600'
                   }
                 `}
               >
                 {isSelected && (
-                  <div className="w-2 h-2 rounded-full bg-white" />
+                  <div className="w-2 h-2 rounded-full bg-primary-600 dark:bg-primary-400" />
                 )}
               </div>
-
-              {/* Icon if provided */}
-              {option.icon && (
-                <span className="text-3xl mb-2">{option.icon}</span>
-              )}
 
               {/* Label */}
               <span
                 className={`
-                  text-base font-semibold text-center transition-colors
+                  text-sm font-medium text-center transition-colors ml-2
                   ${
                     isSelected
-                      ? 'text-primary-700 dark:text-primary-400'
+                      ? 'text-primary-700 dark:text-primary-300'
                       : 'text-slate-700 dark:text-slate-300'
                   }
                 `}
               >
                 {option.label}
               </span>
-
-              {/* Description if provided */}
-              {option.description && (
-                <span className="text-xs text-slate-500 dark:text-slate-400 text-center mt-1">
-                  {option.description}
-                </span>
-              )}
             </label>
           );
         })}

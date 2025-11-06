@@ -186,8 +186,8 @@ export default function Waitlist() {
                 label="Which platform will you use?"
                 name="platform"
                 options={[
-                  { value: 'ios', label: 'iOS', icon: '🍎' },
-                  { value: 'android', label: 'Android', icon: '🤖' },
+                  { value: 'ios', label: 'iOS' },
+                  { value: 'android', label: 'Android' },
                 ]}
                 value={formData.platform}
                 onChange={handlePlatformChange}
