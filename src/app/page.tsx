@@ -13,6 +13,7 @@ import { StaggerContainer } from '@/components/animations/StaggerContainer';
 import { StaggerItem } from '@/components/animations/StaggerItem';
 import { ParallaxContent } from '@/components/animations/Parallax';
 import { getAssetPath } from '@/lib/basePath';
+import { DADTRACK_GOOGLE_PLAY_URL } from '@/lib/constants';
 
 export default function Home() {
   const screenshots = [
@@ -169,7 +170,7 @@ export default function Home() {
                   Learn More
                 </Button>
                 <Button
-                  href="https://play.google.com/store/apps/details?id=dev.bengreene.dadtrack"
+                  href={DADTRACK_GOOGLE_PLAY_URL}
                   variant="secondary"
                   size="lg"
                   target="_blank"
@@ -234,18 +235,18 @@ export default function Home() {
           <div className="text-center space-y-6">
             <SlideUp>
               <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">
-                Let's Connect
+                Let&apos;s Connect
               </h2>
             </SlideUp>
             <FadeIn delay={0.2}>
               <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
-                Interested in DadTrack or want to connect? I'd love to hear from you.
+                Interested in DadTrack or want to connect? I&apos;d love to hear from you.
               </p>
             </FadeIn>
             <FadeIn delay={0.4}>
               <div className="flex gap-4 justify-center flex-wrap pt-4">
                 <Button
-                  href="https://play.google.com/store/apps/details?id=dev.bengreene.dadtrack"
+                  href={DADTRACK_GOOGLE_PLAY_URL}
                   size="lg"
                   target="_blank"
                   rel="noopener noreferrer"

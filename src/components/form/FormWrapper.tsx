@@ -13,7 +13,7 @@ export function FormWrapper({
   children,
   onSubmit,
   className = '',
-  loading = false,
+  loading: _loading = false,
 }: FormWrapperProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
 

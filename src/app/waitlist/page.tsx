@@ -1,14 +1,13 @@
 'use client';
 
 import { useState, FormEvent } from 'react';
-import type { Metadata } from 'next';
 import confetti from 'canvas-confetti';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { Input } from '@/components/form/Input';
-// RadioGroup no longer needed - platform is iOS only now
 import { Button } from '@/components/Button';
 import { submitToGoogleSheet } from '@/lib/formSubmit';
+import { DADTRACK_GOOGLE_PLAY_URL } from '@/lib/constants';
 
 // Note: This component uses 'use client' so metadata is handled via a separate file or wrapper
 // For now, metadata would be set by the parent layout or a separate metadata file
@@ -56,7 +55,6 @@ export default function Waitlist() {
     }
   };
 
-  // Platform is now fixed to iOS since Android is available
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -117,7 +115,7 @@ export default function Waitlist() {
           message: result.message,
         });
       }
-    } catch (error) {
+    } catch (_error) {
       setSubmitStatus({
         type: 'error',
         message: 'An error occurred. Please try again.',
@@ -151,7 +149,7 @@ export default function Waitlist() {
                 <p className="text-green-800 dark:text-green-200 font-medium">
                   🤖 Android user? DadTrack is available now!{' '}
                   <a
-                    href="https://play.google.com/store/apps/details?id=dev.bengreene.dadtrack"
+                    href={DADTRACK_GOOGLE_PLAY_URL}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="underline hover:no-underline"

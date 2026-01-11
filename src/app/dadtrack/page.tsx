@@ -14,6 +14,7 @@ import { StaggerContainer } from '@/components/animations/StaggerContainer';
 import { StaggerItem } from '@/components/animations/StaggerItem';
 import { ParallaxContent } from '@/components/animations/Parallax';
 import { getAssetPath } from '@/lib/basePath';
+import { DADTRACK_GOOGLE_PLAY_URL } from '@/lib/constants';
 
 export default function DadTrack() {
   const features = [
@@ -166,7 +167,7 @@ export default function DadTrack() {
               <FadeIn delay={0.5}>
                 <div className="flex gap-4 justify-center flex-wrap pt-4">
                   <Button
-                    href="https://play.google.com/store/apps/details?id=dev.bengreene.dadtrack"
+                    href={DADTRACK_GOOGLE_PLAY_URL}
                     size="lg"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -186,7 +187,7 @@ export default function DadTrack() {
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-slate-200 dark:border-slate-800">
           <SlideUp>
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-16 text-center">
-              What's Included
+              What&apos;s Included
             </h2>
           </SlideUp>
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-8" staggerDelay={0.15}>
@@ -311,7 +312,7 @@ export default function DadTrack() {
             <FadeIn delay={0.4}>
               <div className="flex gap-4 justify-center flex-wrap">
                 <Button
-                  href="https://play.google.com/store/apps/details?id=dev.bengreene.dadtrack"
+                  href={DADTRACK_GOOGLE_PLAY_URL}
                   size="lg"
                   target="_blank"
                   rel="noopener noreferrer"

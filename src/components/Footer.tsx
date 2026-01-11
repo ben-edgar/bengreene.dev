@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { DADTRACK_GOOGLE_PLAY_URL } from '@/lib/constants';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -60,7 +61,7 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  href="https://play.google.com/store/apps/details?id=dev.bengreene.dadtrack"
+                  href={DADTRACK_GOOGLE_PLAY_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-slate-600 dark:text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
