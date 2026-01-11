@@ -13,6 +13,7 @@ import { StaggerContainer } from '@/components/animations/StaggerContainer';
 import { StaggerItem } from '@/components/animations/StaggerItem';
 import { ParallaxContent } from '@/components/animations/Parallax';
 import { getAssetPath } from '@/lib/basePath';
+import { DADTRACK_GOOGLE_PLAY_URL } from '@/lib/constants';
 
 export default function Home() {
   const screenshots = [
@@ -154,13 +155,28 @@ export default function Home() {
                 so you can reflect on them, share them with family, and never lose sight of what matters most.
               </p>
             </FadeIn>
+            <FadeIn delay={0.3}>
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-100 dark:bg-green-900/50 text-green-700 dark:text-green-300 rounded-full text-sm font-semibold">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                </span>
+                Now Available on Android!
+              </div>
+            </FadeIn>
             <FadeIn delay={0.4}>
               <div className="flex gap-4 justify-center flex-wrap pt-4">
                 <Button href="/dadtrack" size="lg">
                   Learn More
                 </Button>
-                <Button href="/waitlist" variant="secondary" size="lg">
-                  Join Waitlist
+                <Button
+                  href={DADTRACK_GOOGLE_PLAY_URL}
+                  variant="secondary"
+                  size="lg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  🤖 Get it on Google Play
                 </Button>
               </div>
             </FadeIn>
@@ -219,18 +235,23 @@ export default function Home() {
           <div className="text-center space-y-6">
             <SlideUp>
               <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">
-                Let's Connect
+                Let&apos;s Connect
               </h2>
             </SlideUp>
             <FadeIn delay={0.2}>
               <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
-                Interested in DadTrack or want to connect? I'd love to hear from you.
+                Interested in DadTrack or want to connect? I&apos;d love to hear from you.
               </p>
             </FadeIn>
             <FadeIn delay={0.4}>
               <div className="flex gap-4 justify-center flex-wrap pt-4">
-                <Button href="/waitlist" size="lg">
-                  Join DadTrack Waitlist
+                <Button
+                  href={DADTRACK_GOOGLE_PLAY_URL}
+                  size="lg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  🤖 Download DadTrack
                 </Button>
                 <Button href="https://www.linkedin.com/in/ben-greene-dev/" variant="secondary" size="lg" target="_blank" rel="noopener noreferrer">
                   LinkedIn

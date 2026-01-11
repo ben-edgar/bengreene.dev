@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { DADTRACK_GOOGLE_PLAY_URL } from '@/lib/constants';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -28,7 +29,7 @@ export function Footer() {
               </li>
               <li>
                 <Link href="/waitlist" className="text-slate-600 dark:text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
-                  Waitlist
+                  iOS Waitlist
                 </Link>
               </li>
             </ul>
@@ -58,6 +59,16 @@ export function Footer() {
                   LinkedIn
                 </a>
               </li>
+              <li>
+                <a
+                  href={DADTRACK_GOOGLE_PLAY_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-slate-600 dark:text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+                >
+                  Google Play
+                </a>
+              </li>
             </ul>
           </div>
 
@@ -65,7 +76,7 @@ export function Footer() {
           <div>
             <h3 className="font-semibold text-slate-900 dark:text-white mb-4">About</h3>
             <p className="text-slate-600 dark:text-slate-400 text-sm">
-              Engineering leader building DadTrack, a journaling app for dads to capture moments with their kids.
+              Engineering leader building DadTrack, a journaling app for dads. Now available on Android!
             </p>
           </div>
         </div>

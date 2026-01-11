@@ -39,9 +39,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
 
       {/* Drawer */}
       <div
-        className={`fixed top-0 right-0 bottom-0 w-64 bg-white dark:bg-slate-950 shadow-2xl z-50 transform transition-transform duration-300 ease-in-out ${
-          isOpen ? 'translate-x-0' : 'translate-x-full'
-        }`}
+        className={`fixed top-0 right-0 bottom-0 w-64 bg-white dark:bg-slate-950 shadow-2xl z-50 transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}
       >
         <div className="flex flex-col h-full">
           {/* Header with Close Button */}
@@ -113,7 +111,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                   onClick={onClose}
                   className="block text-lg font-medium text-slate-700 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors py-2"
                 >
-                  Waitlist
+                  iOS Waitlist
                 </Link>
               </li>
             </ul>

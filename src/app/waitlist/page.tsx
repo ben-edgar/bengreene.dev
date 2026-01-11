@@ -1,20 +1,19 @@
 'use client';
 
 import { useState, FormEvent } from 'react';
-import type { Metadata } from 'next';
 import confetti from 'canvas-confetti';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { Input } from '@/components/form/Input';
-import { RadioGroup } from '@/components/form/RadioGroup';
 import { Button } from '@/components/Button';
 import { submitToGoogleSheet } from '@/lib/formSubmit';
+import { DADTRACK_GOOGLE_PLAY_URL } from '@/lib/constants';
 
 // Note: This component uses 'use client' so metadata is handled via a separate file or wrapper
 // For now, metadata would be set by the parent layout or a separate metadata file
 
 export default function Waitlist() {
-  const [formData, setFormData] = useState({ name: '', email: '', platform: '', website: '' });
+  const [formData, setFormData] = useState({ name: '', email: '', website: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<{
     type: 'success' | 'error' | null;
@@ -41,10 +40,6 @@ export default function Waitlist() {
       newErrors.email = 'Please enter a valid email address';
     }
 
-    if (!formData.platform) {
-      newErrors.platform = 'Please select your platform';
-    }
-
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -60,13 +55,6 @@ export default function Waitlist() {
     }
   };
 
-  const handlePlatformChange = (value: string) => {
-    setFormData((prev) => ({ ...prev, platform: value }));
-    // Clear error for platform field
-    if (errors.platform) {
-      setErrors((prev) => ({ ...prev, platform: '' }));
-    }
-  };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -82,16 +70,16 @@ export default function Waitlist() {
       const result = await submitToGoogleSheet({
         name: formData.name,
         email: formData.email,
-        platform: formData.platform,
+        platform: 'ios',
         type: 'waitlist',
       });
 
       if (result.success) {
         setSubmitStatus({
           type: 'success',
-          message: 'Thanks for joining the waitlist! We\'ll be in touch soon.',
+          message: 'Thanks for joining the iOS waitlist! We\'ll notify you when DadTrack launches on iOS.',
         });
-        setFormData({ name: '', email: '', platform: '', website: '' });
+        setFormData({ name: '', email: '', website: '' });
 
         // Trigger confetti celebration
         confetti({
@@ -127,7 +115,7 @@ export default function Waitlist() {
           message: result.message,
         });
       }
-    } catch (error) {
+    } catch (_error) {
       setSubmitStatus({
         type: 'error',
         message: 'An error occurred. Please try again.',
@@ -147,14 +135,29 @@ export default function Waitlist() {
             {/* Header */}
             <div className="text-center space-y-6">
               <h1 className="text-5xl md:text-6xl font-bold text-slate-900 dark:text-white">
-                Join the Waitlist
+                Join the iOS Waitlist
               </h1>
               <p className="text-xl md:text-2xl text-slate-600 dark:text-slate-300 font-medium">
-                Be among the first to get early access to DadTrack
+                Be among the first to get DadTrack on iOS
               </p>
               <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
-                Join other dads and get early access to DadTrack. Be the first to experience the dad life companion app.
+                iOS version is coming soon! Join the waitlist to get early access when it launches.
               </p>
+
+              {/* Android Available Note */}
+              <div className="p-4 rounded-lg bg-green-50 dark:bg-green-950 border border-green-200 dark:border-green-800">
+                <p className="text-green-800 dark:text-green-200 font-medium">
+                  🤖 Android user? DadTrack is available now!{' '}
+                  <a
+                    href={DADTRACK_GOOGLE_PLAY_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline hover:no-underline"
+                  >
+                    Get it on Google Play →
+                  </a>
+                </p>
+              </div>
             </div>
 
             {/* Form */}
@@ -181,17 +184,11 @@ export default function Waitlist() {
                 required
               />
 
-              <RadioGroup
-                label="Which platform will you use?"
+              {/* Platform field - iOS only, hidden since Android is now available */}
+              <input
+                type="hidden"
                 name="platform"
-                options={[
-                  { value: 'ios', label: 'iOS' },
-                  { value: 'android', label: 'Android' },
-                ]}
-                value={formData.platform}
-                onChange={handlePlatformChange}
-                error={errors.platform}
-                required
+                value="ios"
               />
 
               {/* Honeypot field - hidden from users, catches bots */}

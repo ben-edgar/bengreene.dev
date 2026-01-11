@@ -14,6 +14,7 @@ import { StaggerContainer } from '@/components/animations/StaggerContainer';
 import { StaggerItem } from '@/components/animations/StaggerItem';
 import { ParallaxContent } from '@/components/animations/Parallax';
 import { getAssetPath } from '@/lib/basePath';
+import { DADTRACK_GOOGLE_PLAY_URL } from '@/lib/constants';
 
 export default function DadTrack() {
   const features = [
@@ -148,11 +149,35 @@ export default function DadTrack() {
                   Track the journey, one memory at a time
                 </p>
               </FadeIn>
+              <FadeIn delay={0.3}>
+                <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-100 dark:bg-green-900/50 text-green-700 dark:text-green-300 rounded-full text-sm font-semibold">
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                  </span>
+                  Now Available on Android!
+                </div>
+              </FadeIn>
               <FadeIn delay={0.4}>
                 <p className="text-lg text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed">
                   The dad journaling app that helps you capture moments, moods, and memories with AI-powered insights.
                   Voice journaling, daily tips, monthly recaps, and streak celebrations—all designed to make memory-keeping effortless.
                 </p>
+              </FadeIn>
+              <FadeIn delay={0.5}>
+                <div className="flex gap-4 justify-center flex-wrap pt-4">
+                  <Button
+                    href={DADTRACK_GOOGLE_PLAY_URL}
+                    size="lg"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    🤖 Get it on Google Play
+                  </Button>
+                  <Button href="/waitlist" variant="secondary" size="lg">
+                    📱 iOS Waitlist
+                  </Button>
+                </div>
               </FadeIn>
             </div>
           </ParallaxContent>
@@ -162,7 +187,7 @@ export default function DadTrack() {
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-slate-200 dark:border-slate-800">
           <SlideUp>
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-16 text-center">
-              What's Included
+              What&apos;s Included
             </h2>
           </SlideUp>
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-8" staggerDelay={0.15}>
@@ -276,23 +301,36 @@ export default function DadTrack() {
           <div className="text-center space-y-8">
             <SlideUp>
               <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">
-                Join the Journey
+                Get DadTrack Today
               </h2>
             </SlideUp>
             <FadeIn delay={0.2}>
               <p className="text-lg text-slate-600 dark:text-slate-400">
-                Help us build the best dad life companion. Early feedback shapes the future of DadTrack.
+                Start capturing memories with your kids. Available now on Android—iOS coming soon!
               </p>
             </FadeIn>
             <FadeIn delay={0.4}>
               <div className="flex gap-4 justify-center flex-wrap">
-                <Button href="/waitlist" size="lg">
-                  Join the Waitlist
+                <Button
+                  href={DADTRACK_GOOGLE_PLAY_URL}
+                  size="lg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  🤖 Download on Google Play
                 </Button>
-                <Button href="/feedback" variant="secondary" size="lg">
-                  Send Feedback
+                <Button href="/waitlist" variant="secondary" size="lg">
+                  📱 Join iOS Waitlist
                 </Button>
               </div>
+            </FadeIn>
+            <FadeIn delay={0.6}>
+              <p className="text-sm text-slate-500 dark:text-slate-500">
+                Have feedback or ideas?{' '}
+                <a href="/feedback" className="text-primary-600 dark:text-primary-400 hover:underline">
+                  Share your thoughts
+                </a>
+              </p>
             </FadeIn>
           </div>
         </section>

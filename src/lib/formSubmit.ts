@@ -18,7 +18,7 @@ export async function submitToGoogleSheet(data: {
   }
 
   try {
-    const response = await fetch(GOOGLE_APPS_SCRIPT_URL, {
+    await fetch(GOOGLE_APPS_SCRIPT_URL, {
       method: 'POST',
       mode: 'no-cors',
       headers: {

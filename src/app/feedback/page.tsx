@@ -114,7 +114,7 @@ export default function Feedback() {
           message: result.message,
         });
       }
-    } catch (error) {
+    } catch (_error) {
       setSubmitStatus({
         type: 'error',
         message: 'An error occurred. Please try again.',
@@ -140,7 +140,7 @@ export default function Feedback() {
                 Help us build the best dad life companion
               </p>
               <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
-                Your thoughts and ideas shape DadTrack. Whether it's a feature request, bug report, or general feedback, we want to hear from you.
+                Your thoughts and ideas shape DadTrack. Whether it&apos;s a feature request, bug report, or general feedback, we want to hear from you.
               </p>
             </div>
 
@@ -226,7 +226,7 @@ export default function Feedback() {
                 We read every piece of feedback and appreciate your input.
               </p>
               <p className="text-sm text-slate-500 dark:text-slate-500">
-                We'll get back to you as soon as possible.
+                We&apos;ll get back to you as soon as possible.
               </p>
             </div>
           </div>

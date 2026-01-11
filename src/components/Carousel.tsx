@@ -19,8 +19,8 @@ interface CarouselProps {
 
 export function Carousel({
   slides,
-  autoPlay = true,
-  autoPlayInterval = 5000,
+  autoPlay: _autoPlay = true,
+  autoPlayInterval: _autoPlayInterval = 5000,
   showDots = true,
   showArrows = true,
 }: CarouselProps) {
@@ -89,11 +89,10 @@ export function Carousel({
             <button
               key={index}
               onClick={() => goToSlide(index)}
-              className={`h-2 rounded-full transition-all ${
-                index === currentIndex
+              className={`h-2 rounded-full transition-all ${index === currentIndex
                   ? 'bg-white w-8'
                   : 'bg-white/50 w-2 hover:bg-white/75'
-              }`}
+                }`}
               aria-label={`Go to slide ${index + 1}`}
             />
           ))}
