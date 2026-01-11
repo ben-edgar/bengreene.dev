@@ -18,46 +18,60 @@ import { getAssetPath } from '@/lib/basePath';
 export default function DadTrack() {
   const features = [
     {
-      title: 'Daily Dad Journal',
+      title: 'AI-Powered Daily Tips',
       description:
-        'One entry per day to capture moments, moods, and memories. Support for multiple mood tags and up to 5 photos per entry.',
-      image: getAssetPath('/images/dadtrack/add_journal_entry_screen.png'),
-      icon: '📝',
+        'Get personalized, age-appropriate parenting tips powered by AI. Tips appear at the top of your timeline each day—dismiss or save your favorites for later.',
+      image: getAssetPath('/images/dadtrack/1_homescreen_with_tip.png'),
+      icon: '🤖',
     },
     {
-      title: 'Multi-Child Support',
+      title: 'Monthly AI Recaps',
       description:
-        'Manage multiple children with individual profiles. Switch between child timelines or view "All kids" in one stream.',
-      image: getAssetPath('/images/dadtrack/home_screen.png'),
-      icon: '👨‍👩‍👧‍👦',
+        'Each month, DadTrack generates a beautiful narrative summary of your journaling journey—complete with photo highlights and references to your entries.',
+      image: getAssetPath('/images/dadtrack/2_monthly_recap.png'),
+      icon: '📖',
     },
     {
       title: 'Magazine Mode',
       description:
-        'Immersive, full-screen experience with large photos, dramatic typography, and hero animations for reliving your memories.',
-      image: getAssetPath('/images/dadtrack/magazine_mode_journal_entry.png'),
+        'Relive memories in an immersive, full-screen experience with large photos, dramatic typography, and smooth hero animations.',
+      image: getAssetPath('/images/dadtrack/3_magazine_mode.png'),
       icon: '✨',
     },
     {
-      title: 'Mood Tracking',
+      title: 'Flexible View Modes',
       description:
-        'Create custom mood tags to personalize your journal entries. Track emotional patterns over time with advanced filtering.',
-      image: getAssetPath('/images/dadtrack/manage_mood_screen.png'),
-      icon: '😊',
+        'Choose how you browse your memories. Basic mode offers a clean, focused reading experience, while Magazine mode delivers immersive full-screen photos with dramatic typography.',
+      image: getAssetPath('/images/dadtrack/4_regular_view.png'),
+      icon: '📱',
     },
     {
-      title: 'Advanced Filtering',
+      title: 'Journaling Streaks',
       description:
-        'Find entries by text, date range, mood tags, specific children, or photo presence. Powerful search to relive any moment.',
-      image: getAssetPath('/images/dadtrack/filter_screen.png'),
+        'Build a consistent journaling habit with streak tracking. Hit milestones and celebrate with confetti animations and motivational messages.',
+      image: getAssetPath('/images/dadtrack/5_streak_celebration.png'),
+      icon: '🔥',
+    },
+    {
+      title: 'Tip History & Favorites',
+      description:
+        'Never lose a great tip again. Star your favorites and search through your tip history with edge scrolling for quick navigation.',
+      image: getAssetPath('/images/dadtrack/6_tip_history.png'),
+      icon: '⭐',
+    },
+    {
+      title: 'Advanced Search',
+      description:
+        'Find any memory instantly. Filter by text, date range, mood tags, children, or photo presence. The powerful search helps you relive any moment.',
+      image: getAssetPath('/images/dadtrack/7_search.png'),
       icon: '🔍',
     },
     {
-      title: 'Settings & Customization',
+      title: 'Custom Mood Tags',
       description:
-        'Configure journal reminders, dark mode, together-time windows, and more. Make the app work for your lifestyle.',
-      image: getAssetPath('/images/dadtrack/settings_screen.png'),
-      icon: '⚙️',
+        'Create and manage custom mood tags to personalize your journal entries. Track emotional patterns over time with your own vocabulary.',
+      image: getAssetPath('/images/dadtrack/manage_mood_screen.png'),
+      icon: '😊',
     },
   ];
 
@@ -68,30 +82,30 @@ export default function DadTrack() {
     },
     {
       title: 'Low Effort, High Impact',
-      description: 'Just take a photo, read a tip, jot a feeling. Over time, build a rich memory archive.',
+      description: 'Snap a photo, dictate with voice, jot a feeling. Over time, build a rich memory archive effortlessly.',
     },
     {
-      title: 'Family-Inclusive',
-      description: 'While dad-focused, includes features that benefit the whole family—sharing, data export, and more.',
+      title: 'Your Data, Your Control',
+      description: 'Automatic nightly backups, cross-device migration, and complete data export. Your memories are always safe.',
     },
   ];
 
   const roadmap = [
     {
-      milestone: 'Milestone 3: Smart Parenting Support',
-      items: ['Dad Tips Feed', 'Milestone Tracker', 'Family Photo Reminders'],
+      milestone: 'Milestone Tracker',
+      items: ['Weekly milestones for first 3 months', 'Monthly milestones up to age 5', 'Achievement tracking (rolling, walking, first words)'],
     },
     {
-      milestone: 'Milestone 4: Enhanced Experience',
-      items: ['Monthly Memory Highlights', 'Advanced Analytics'],
+      milestone: 'Child Information Hub',
+      items: ['Doctor\'s office and doctor name', 'Insurance card information', 'Emergency contacts and allergies'],
     },
     {
-      milestone: 'Milestone 5: Platform Expansion',
-      items: ['iOS App', 'Wear OS Watch App', 'Dad Community Feed'],
+      milestone: 'Memory Highlights',
+      items: ['Monthly "look back" collages', 'Yearly memory books', 'Photo frequency tracking'],
     },
     {
-      milestone: 'Milestone 6: Practical Parenting Tools',
-      items: ['Child Information Hub', 'Shopping & Development Guide'],
+      milestone: 'Family Sharing',
+      items: ['Invite partner or grandparents', 'Shared timeline access', 'Selective entry sharing'],
     },
   ];
 
@@ -136,8 +150,8 @@ export default function DadTrack() {
               </FadeIn>
               <FadeIn delay={0.4}>
                 <p className="text-lg text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed">
-                  A daily dad life companion app designed to help you capture moments, moods, and milestones with your kids.
-                  One journal entry, some photos, a mood tag—and over time, you build a rich archive of memories.
+                  The dad journaling app that helps you capture moments, moods, and memories with AI-powered insights.
+                  Voice journaling, daily tips, monthly recaps, and streak celebrations—all designed to make memory-keeping effortless.
                 </p>
               </FadeIn>
             </div>
@@ -233,25 +247,25 @@ export default function DadTrack() {
             {roadmap.map((section, index) => (
               <StaggerItem key={index}>
                 <Card>
-                <div className="space-y-4">
-                  <h3 className="text-xl font-bold text-slate-900 dark:text-white">
-                    {section.milestone}
-                  </h3>
-                  <ul className="space-y-2">
-                    {section.items.map((item, itemIndex) => (
-                      <li
-                        key={itemIndex}
-                        className="flex items-start gap-3 text-slate-700 dark:text-slate-300"
-                      >
-                        <span className="text-primary-600 dark:text-primary-400 font-bold mt-1">
-                          •
-                        </span>
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </Card>
+                  <div className="space-y-4">
+                    <h3 className="text-xl font-bold text-slate-900 dark:text-white">
+                      {section.milestone}
+                    </h3>
+                    <ul className="space-y-2">
+                      {section.items.map((item, itemIndex) => (
+                        <li
+                          key={itemIndex}
+                          className="flex items-start gap-3 text-slate-700 dark:text-slate-300"
+                        >
+                          <span className="text-primary-600 dark:text-primary-400 font-bold mt-1">
+                            •
+                          </span>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </Card>
               </StaggerItem>
             ))}
           </StaggerContainer>

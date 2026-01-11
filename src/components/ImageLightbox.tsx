@@ -161,7 +161,7 @@ export function ImageLightbox({
 
             {/* Image Info */}
             {(currentImage.title || currentImage.description) && (
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6 text-white">
+              <div className="absolute bottom-4 left-4 right-4 bg-slate-900/90 backdrop-blur-sm rounded-xl p-6 text-white shadow-lg">
                 {currentImage.title && (
                   <h3 className="text-2xl font-bold mb-2">
                     {currentImage.title}

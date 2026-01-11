@@ -17,22 +17,22 @@ import { getAssetPath } from '@/lib/basePath';
 export default function Home() {
   const screenshots = [
     {
-      src: getAssetPath('/images/dadtrack/home_screen.png'),
-      alt: 'DadTrack Home Timeline',
-      title: 'Your Daily Timeline',
-      description: 'See all your memories in one beautiful scrollable view',
+      src: getAssetPath('/images/dadtrack/1_homescreen_with_tip.png'),
+      alt: 'DadTrack Home Timeline with AI Tip',
+      title: 'AI-Powered Daily Tips',
+      description: 'Get personalized parenting tips powered by AI, right in your timeline',
     },
     {
-      src: getAssetPath('/images/dadtrack/magazine_mode_journal_entry.png'),
+      src: getAssetPath('/images/dadtrack/2_monthly_recap.png'),
+      alt: 'DadTrack Monthly Recap',
+      title: 'Monthly AI Recaps',
+      description: 'Beautiful narrative summaries of your journaling journey each month',
+    },
+    {
+      src: getAssetPath('/images/dadtrack/3_magazine_mode.png'),
       alt: 'DadTrack Magazine Mode',
-      title: 'Immersive Magazine View',
-      description: 'Relive your moments with a full-screen reading experience',
-    },
-    {
-      src: getAssetPath('/images/dadtrack/add_journal_entry_screen.png'),
-      alt: 'Add Journal Entry',
-      title: 'Quick Daily Journaling',
-      description: 'Capture moments with photos, moods, and notes in seconds',
+      title: 'Immersive Magazine Mode',
+      description: 'Relive your moments with full-screen photos and dramatic typography',
     },
   ];
 
