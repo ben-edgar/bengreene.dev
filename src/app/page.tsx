@@ -154,13 +154,28 @@ export default function Home() {
                 so you can reflect on them, share them with family, and never lose sight of what matters most.
               </p>
             </FadeIn>
+            <FadeIn delay={0.3}>
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-100 dark:bg-green-900/50 text-green-700 dark:text-green-300 rounded-full text-sm font-semibold">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                </span>
+                Now Available on Android!
+              </div>
+            </FadeIn>
             <FadeIn delay={0.4}>
               <div className="flex gap-4 justify-center flex-wrap pt-4">
                 <Button href="/dadtrack" size="lg">
                   Learn More
                 </Button>
-                <Button href="/waitlist" variant="secondary" size="lg">
-                  Join Waitlist
+                <Button
+                  href="https://play.google.com/store/apps/details?id=dev.bengreene.dadtrack"
+                  variant="secondary"
+                  size="lg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  🤖 Get it on Google Play
                 </Button>
               </div>
             </FadeIn>
@@ -229,8 +244,13 @@ export default function Home() {
             </FadeIn>
             <FadeIn delay={0.4}>
               <div className="flex gap-4 justify-center flex-wrap pt-4">
-                <Button href="/waitlist" size="lg">
-                  Join DadTrack Waitlist
+                <Button
+                  href="https://play.google.com/store/apps/details?id=dev.bengreene.dadtrack"
+                  size="lg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  🤖 Download DadTrack
                 </Button>
                 <Button href="https://www.linkedin.com/in/ben-greene-dev/" variant="secondary" size="lg" target="_blank" rel="noopener noreferrer">
                   LinkedIn
