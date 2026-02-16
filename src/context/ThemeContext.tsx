@@ -12,14 +12,16 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setTheme] = useState<Theme>(() => {
-    // Only run on client-side
-    if (typeof window === 'undefined') return 'light';
+  // Keep initial SSR and first client render deterministic to avoid hydration mismatches.
+  const [theme, setTheme] = useState<Theme>('light');
 
+  useEffect(() => {
     const savedTheme = localStorage.getItem('theme') as Theme | null;
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    return savedTheme || (prefersDark ? 'dark' : 'light');
-  });
+    const resolvedTheme = savedTheme || (prefersDark ? 'dark' : 'light');
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setTheme(resolvedTheme);
+  }, []);
 
   // Apply theme to document on initial mount and when theme changes
   useEffect(() => {
