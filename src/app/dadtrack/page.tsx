@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
@@ -14,7 +14,13 @@ import { StaggerContainer } from '@/components/animations/StaggerContainer';
 import { StaggerItem } from '@/components/animations/StaggerItem';
 import { ParallaxContent } from '@/components/animations/Parallax';
 import { getAssetPath } from '@/lib/basePath';
-import { DADTRACK_GOOGLE_PLAY_URL } from '@/lib/constants';
+import {
+  DADTRACK_APP_STORE_URL,
+  DADTRACK_APP_STORE_URL_TRACKED,
+  DADTRACK_GOOGLE_PLAY_URL,
+  DADTRACK_GOOGLE_PLAY_URL_TRACKED,
+  SITE_CANONICAL_URL,
+} from '@/lib/constants';
 
 export default function DadTrack() {
   const features = [
@@ -110,8 +116,98 @@ export default function DadTrack() {
     },
   ];
 
+  const softwareApplicationSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: 'DadTrack',
+    applicationCategory: 'LifestyleApplication',
+    operatingSystem: 'iOS, Android',
+    description:
+      'A dad-focused journaling app for capturing memories, moods, and milestones with AI-powered insights.',
+    url: `${SITE_CANONICAL_URL}/dadtrack`,
+    image: `${SITE_CANONICAL_URL}/opengraph-image.png`,
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'USD',
+    },
+    sameAs: [DADTRACK_APP_STORE_URL, DADTRACK_GOOGLE_PLAY_URL],
+    downloadUrl: [DADTRACK_APP_STORE_URL, DADTRACK_GOOGLE_PLAY_URL],
+  };
+
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [platform, setPlatform] = useState<'ios' | 'android' | 'other' | null>(null);
+
+  useEffect(() => {
+    const userAgent = navigator.userAgent || navigator.vendor;
+    const isAndroid = /android/i.test(userAgent);
+    const isIOS = /iPad|iPhone|iPod/.test(userAgent)
+      || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    const detectedPlatform = isAndroid ? 'android' : isIOS ? 'ios' : 'other';
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setPlatform(detectedPlatform);
+  }, []);
+
+  const storeCtas = platform === null
+    ? null
+    : platform === 'android'
+    ? [
+      {
+        key: 'android',
+        href: DADTRACK_GOOGLE_PLAY_URL_TRACKED,
+        label: '🤖 Get it on Google Play',
+      },
+      {
+        key: 'ios',
+        href: DADTRACK_APP_STORE_URL_TRACKED,
+        label: '🍎 Download on the App Store',
+      },
+    ]
+    : [
+      {
+        key: 'ios',
+        href: DADTRACK_APP_STORE_URL_TRACKED,
+        label: '🍎 Download on the App Store',
+      },
+      {
+        key: 'android',
+        href: DADTRACK_GOOGLE_PLAY_URL_TRACKED,
+        label: '🤖 Get it on Google Play',
+      },
+    ];
+
+  const renderStoreCtas = (keyPrefix = '') => {
+    if (!storeCtas) {
+      return (
+        <>
+          <div
+            key={`${keyPrefix}loading-primary`}
+            className="h-14 w-64 rounded-xl bg-slate-200 dark:bg-slate-800 animate-pulse"
+            aria-hidden="true"
+          />
+          <div
+            key={`${keyPrefix}loading-secondary`}
+            className="h-14 w-64 rounded-xl bg-slate-200 dark:bg-slate-800 animate-pulse"
+            aria-hidden="true"
+          />
+        </>
+      );
+    }
+
+    return storeCtas.map((cta, index) => (
+      <Button
+        key={`${keyPrefix}${cta.key}`}
+        href={cta.href}
+        variant={index === 0 ? undefined : 'secondary'}
+        size="lg"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {cta.label}
+      </Button>
+    ));
+  };
 
   const openLightbox = (index: number) => {
     setCurrentImageIndex(index);
@@ -135,6 +231,11 @@ export default function DadTrack() {
       <Header />
 
       <main className="flex-1">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareApplicationSchema) }}
+        />
+
         {/* Hero Section */}
         <section className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32 overflow-hidden">
           <ParallaxContent>
@@ -155,7 +256,7 @@ export default function DadTrack() {
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
                   </span>
-                  Now Available on Android!
+                  Now Available on iOS and Android!
                 </div>
               </FadeIn>
               <FadeIn delay={0.4}>
@@ -166,17 +267,7 @@ export default function DadTrack() {
               </FadeIn>
               <FadeIn delay={0.5}>
                 <div className="flex gap-4 justify-center flex-wrap pt-4">
-                  <Button
-                    href={DADTRACK_GOOGLE_PLAY_URL}
-                    size="lg"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    🤖 Get it on Google Play
-                  </Button>
-                  <Button href="/waitlist" variant="secondary" size="lg">
-                    📱 iOS Waitlist
-                  </Button>
+                  {renderStoreCtas('hero-')}
                 </div>
               </FadeIn>
             </div>
@@ -297,7 +388,7 @@ export default function DadTrack() {
         </section>
 
         {/* CTA Section */}
-        <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-slate-200 dark:border-slate-800">
+        <section id="download" className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-slate-200 dark:border-slate-800">
           <div className="text-center space-y-8">
             <SlideUp>
               <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">
@@ -306,22 +397,12 @@ export default function DadTrack() {
             </SlideUp>
             <FadeIn delay={0.2}>
               <p className="text-lg text-slate-600 dark:text-slate-400">
-                Start capturing memories with your kids. Available now on Android—iOS coming soon!
+                Start capturing memories with your kids. Available now on iOS and Android.
               </p>
             </FadeIn>
             <FadeIn delay={0.4}>
               <div className="flex gap-4 justify-center flex-wrap">
-                <Button
-                  href={DADTRACK_GOOGLE_PLAY_URL}
-                  size="lg"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  🤖 Download on Google Play
-                </Button>
-                <Button href="/waitlist" variant="secondary" size="lg">
-                  📱 Join iOS Waitlist
-                </Button>
+                {renderStoreCtas('download-')}
               </div>
             </FadeIn>
             <FadeIn delay={0.6}>

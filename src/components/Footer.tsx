@@ -1,5 +1,8 @@
 import Link from 'next/link';
-import { DADTRACK_GOOGLE_PLAY_URL } from '@/lib/constants';
+import {
+  DADTRACK_APP_STORE_URL_TRACKED,
+  DADTRACK_GOOGLE_PLAY_URL_TRACKED,
+} from '@/lib/constants';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -25,11 +28,6 @@ export function Footer() {
               <li>
                 <Link href="/dadtrack" className="text-slate-600 dark:text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
                   DadTrack
-                </Link>
-              </li>
-              <li>
-                <Link href="/waitlist" className="text-slate-600 dark:text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
-                  iOS Waitlist
                 </Link>
               </li>
             </ul>
@@ -61,7 +59,17 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  href={DADTRACK_GOOGLE_PLAY_URL}
+                  href={DADTRACK_APP_STORE_URL_TRACKED}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-slate-600 dark:text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+                >
+                  App Store
+                </a>
+              </li>
+              <li>
+                <a
+                  href={DADTRACK_GOOGLE_PLAY_URL_TRACKED}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-slate-600 dark:text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
@@ -76,7 +84,7 @@ export function Footer() {
           <div>
             <h3 className="font-semibold text-slate-900 dark:text-white mb-4">About</h3>
             <p className="text-slate-600 dark:text-slate-400 text-sm">
-              Engineering leader building DadTrack, a journaling app for dads. Now available on Android!
+              Engineering leader building DadTrack, a journaling app for dads. Now available on iOS and Android.
             </p>
           </div>
         </div>

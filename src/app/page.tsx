@@ -13,7 +13,10 @@ import { StaggerContainer } from '@/components/animations/StaggerContainer';
 import { StaggerItem } from '@/components/animations/StaggerItem';
 import { ParallaxContent } from '@/components/animations/Parallax';
 import { getAssetPath } from '@/lib/basePath';
-import { DADTRACK_GOOGLE_PLAY_URL } from '@/lib/constants';
+import {
+  DADTRACK_APP_STORE_URL_TRACKED,
+  DADTRACK_GOOGLE_PLAY_URL_TRACKED,
+} from '@/lib/constants';
 
 export default function Home() {
   const screenshots = [
@@ -161,7 +164,7 @@ export default function Home() {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
                 </span>
-                Now Available on Android!
+                Now Available on iOS and Android!
               </div>
             </FadeIn>
             <FadeIn delay={0.4}>
@@ -170,7 +173,16 @@ export default function Home() {
                   Learn More
                 </Button>
                 <Button
-                  href={DADTRACK_GOOGLE_PLAY_URL}
+                  href={DADTRACK_APP_STORE_URL_TRACKED}
+                  variant="secondary"
+                  size="lg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  🍎 Download on the App Store
+                </Button>
+                <Button
+                  href={DADTRACK_GOOGLE_PLAY_URL_TRACKED}
                   variant="secondary"
                   size="lg"
                   target="_blank"
@@ -246,12 +258,21 @@ export default function Home() {
             <FadeIn delay={0.4}>
               <div className="flex gap-4 justify-center flex-wrap pt-4">
                 <Button
-                  href={DADTRACK_GOOGLE_PLAY_URL}
+                  href={DADTRACK_APP_STORE_URL_TRACKED}
                   size="lg"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  🤖 Download DadTrack
+                  🍎 Download on the App Store
+                </Button>
+                <Button
+                  href={DADTRACK_GOOGLE_PLAY_URL_TRACKED}
+                  variant="secondary"
+                  size="lg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  🤖 Get it on Google Play
                 </Button>
                 <Button href="https://www.linkedin.com/in/ben-greene-dev/" variant="secondary" size="lg" target="_blank" rel="noopener noreferrer">
                   LinkedIn

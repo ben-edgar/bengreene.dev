@@ -17,9 +17,11 @@ export function StaggerContainer({
   return (
     <motion.div
       initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: '-50px' }}
+      // Use mount-triggered animation to avoid IntersectionObserver race conditions
+      // during rapid App Router transitions.
+      animate="visible"
       variants={{
+        hidden: {},
         visible: {
           transition: {
             staggerChildren: staggerDelay,
