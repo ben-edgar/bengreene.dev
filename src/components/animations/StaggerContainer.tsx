@@ -21,6 +21,7 @@ export function StaggerContainer({
       // during rapid App Router transitions.
       animate="visible"
       variants={{
+        hidden: {},
         visible: {
           transition: {
             staggerChildren: staggerDelay,

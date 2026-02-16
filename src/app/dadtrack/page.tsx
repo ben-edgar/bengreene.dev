@@ -137,7 +137,7 @@ export default function DadTrack() {
 
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [platform, setPlatform] = useState<'ios' | 'android' | 'other'>('other');
+  const [platform, setPlatform] = useState<'ios' | 'android' | 'other' | null>(null);
 
   useEffect(() => {
     const userAgent = navigator.userAgent || navigator.vendor;
@@ -149,7 +149,9 @@ export default function DadTrack() {
     setPlatform(detectedPlatform);
   }, []);
 
-  const storeCtas = platform === 'android'
+  const storeCtas = platform === null
+    ? null
+    : platform === 'android'
     ? [
       {
         key: 'android',
@@ -174,6 +176,38 @@ export default function DadTrack() {
         label: '🤖 Get it on Google Play',
       },
     ];
+
+  const renderStoreCtas = (keyPrefix = '') => {
+    if (!storeCtas) {
+      return (
+        <>
+          <div
+            key={`${keyPrefix}loading-primary`}
+            className="h-14 w-64 rounded-xl bg-slate-200 dark:bg-slate-800 animate-pulse"
+            aria-hidden="true"
+          />
+          <div
+            key={`${keyPrefix}loading-secondary`}
+            className="h-14 w-64 rounded-xl bg-slate-200 dark:bg-slate-800 animate-pulse"
+            aria-hidden="true"
+          />
+        </>
+      );
+    }
+
+    return storeCtas.map((cta, index) => (
+      <Button
+        key={`${keyPrefix}${cta.key}`}
+        href={cta.href}
+        variant={index === 0 ? undefined : 'secondary'}
+        size="lg"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {cta.label}
+      </Button>
+    ));
+  };
 
   const openLightbox = (index: number) => {
     setCurrentImageIndex(index);
@@ -233,18 +267,7 @@ export default function DadTrack() {
               </FadeIn>
               <FadeIn delay={0.5}>
                 <div className="flex gap-4 justify-center flex-wrap pt-4">
-                  {storeCtas.map((cta, index) => (
-                    <Button
-                      key={cta.key}
-                      href={cta.href}
-                      variant={index === 0 ? undefined : 'secondary'}
-                      size="lg"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {cta.label}
-                    </Button>
-                  ))}
+                  {renderStoreCtas('hero-')}
                 </div>
               </FadeIn>
             </div>
@@ -379,18 +402,7 @@ export default function DadTrack() {
             </FadeIn>
             <FadeIn delay={0.4}>
               <div className="flex gap-4 justify-center flex-wrap">
-                {storeCtas.map((cta, index) => (
-                  <Button
-                    key={`download-${cta.key}`}
-                    href={cta.href}
-                    variant={index === 0 ? undefined : 'secondary'}
-                    size="lg"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {cta.label}
-                  </Button>
-                ))}
+                {renderStoreCtas('download-')}
               </div>
             </FadeIn>
             <FadeIn delay={0.6}>
