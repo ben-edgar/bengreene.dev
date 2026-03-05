@@ -183,13 +183,13 @@ const MobileShowcase: React.FC<MobileShowcaseProps> = ({
                                     </div>
 
                                     {/* Screenshot Content */}
-                                    <div className="w-full h-full relative">
+                                    <div className="w-full h-full relative pt-10">
                                         <motion.div
                                             key={currentIndex}
                                             initial={{ opacity: 0, scale: 0.95 }}
                                             animate={{ opacity: 1, scale: 1 }}
                                             transition={{ duration: 0.4 }}
-                                            className="absolute inset-0"
+                                            className="absolute inset-0 top-10"
                                         >
                                             <Image
                                                 src={currentScreenshot.src}
