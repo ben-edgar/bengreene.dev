@@ -200,6 +200,7 @@ export default function DadTrack() {
         href={cta.href}
         variant={index === 0 ? undefined : 'secondary'}
         size="lg"
+        mobileFullWidth
         target="_blank"
         rel="noopener noreferrer"
       >
@@ -279,7 +280,7 @@ export default function DadTrack() {
                 </p>
               </FadeIn>
               <FadeIn delay={0.5}>
-                <div className="flex gap-4 justify-center flex-wrap pt-4">
+                <div className="flex w-full max-w-md mx-auto flex-col gap-4 pt-4 sm:max-w-none sm:flex-row sm:flex-wrap sm:justify-center">
                   {renderStoreCtas('hero-')}
                 </div>
               </FadeIn>
@@ -421,7 +422,7 @@ export default function DadTrack() {
               </p>
             </FadeIn>
             <FadeIn delay={0.4}>
-              <div className="flex gap-4 justify-center flex-wrap">
+              <div className="flex w-full max-w-md mx-auto flex-col gap-4 sm:max-w-none sm:flex-row sm:flex-wrap sm:justify-center">
                 {renderStoreCtas('download-')}
               </div>
             </FadeIn>

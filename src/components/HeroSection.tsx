@@ -48,10 +48,11 @@ const HeroSection = () => {
                 </p>
 
                 {/* CTA Buttons */}
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16 animate-[fade-in-up_0.8s_ease-out_0.4s_forwards]">
+                <div className="flex w-full max-w-md mx-auto flex-col items-stretch gap-4 mb-16 animate-[fade-in-up_0.8s_ease-out_0.4s_forwards] sm:max-w-none sm:flex-row sm:items-center sm:justify-center">
                     <Button
                         size="lg"
                         href="/about"
+                        mobileFullWidth
                         className="group relative overflow-hidden bg-teal-600 text-white hover:bg-teal-500 px-8 py-6 text-lg"
                     >
                         <span className="relative z-10 flex items-center gap-2">
@@ -65,6 +66,7 @@ const HeroSection = () => {
                         size="lg"
                         variant="secondary"
                         href="https://github.com/ben-edgar"
+                        mobileFullWidth
                         target="_blank"
                         rel="noopener noreferrer"
                         className="border-white/10 bg-white/5 hover:bg-white/10 hover:text-white px-8 py-6 text-lg backdrop-blur-sm"

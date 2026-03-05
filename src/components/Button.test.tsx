@@ -14,4 +14,14 @@ describe('Button', () => {
     expect(element.props.className).toContain('hover:bg-white/10');
     expect(element.props.className).not.toContain('hover:bg-primary-50');
   });
+
+  it('can expand to full width on mobile and shrink back on larger screens', () => {
+    const element = Button({
+      children: 'Responsive CTA',
+      href: 'https://example.com',
+      mobileFullWidth: true,
+    });
+
+    expect(element.props.className).toContain('w-full sm:w-auto');
+  });
 });

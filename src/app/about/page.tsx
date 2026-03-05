@@ -1,5 +1,6 @@
 'use client';
 
+import { Button } from '@/components/Button';
 import { Header } from '@/components/Header';
 import { FadeIn } from '@/components/animations/FadeIn';
 import { SlideUp } from '@/components/animations/SlideUp';
@@ -7,6 +8,7 @@ import { StaggerContainer } from '@/components/animations/StaggerContainer';
 import { StaggerItem } from '@/components/animations/StaggerItem';
 import { motion } from 'framer-motion';
 import { GlowDivider } from '@/components/GlowDivider';
+import { DADTRACK_APP_STORE_URL_TRACKED } from '@/lib/constants';
 
 export default function About() {
   const skills = [
@@ -154,6 +156,58 @@ export default function About() {
               </FadeIn>
             </div>
           </div>
+        </section>
+
+        <GlowDivider className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8" />
+
+        <section className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <FadeIn>
+            <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-[linear-gradient(135deg,rgba(15,23,42,0.95),rgba(15,118,110,0.18),rgba(30,41,59,0.92))] px-6 py-10 text-center shadow-[0_20px_80px_rgba(8,145,178,0.15)] backdrop-blur-xl md:px-12 md:py-14">
+              <div className="absolute -top-20 right-0 h-44 w-44 rounded-full bg-teal-400/15 blur-3xl" />
+              <div className="absolute -bottom-24 left-0 h-52 w-52 rounded-full bg-blue-400/10 blur-3xl" />
+
+              <div className="relative space-y-6">
+                <div className="inline-flex items-center gap-2 rounded-full border border-teal-400/20 bg-teal-400/10 px-4 py-2 text-sm font-medium text-teal-300">
+                  Build Something Meaningful
+                </div>
+                <div className="space-y-4">
+                  <h2 className="text-3xl font-bold text-white md:text-4xl">
+                    Want to see what I&apos;m building?
+                  </h2>
+                  <p className="mx-auto max-w-2xl text-lg leading-relaxed text-slate-300">
+                    Check out DadTrack to see the product side of my work, or reach out on LinkedIn if you want to talk engineering leadership, product thinking, or building with AI.
+                  </p>
+                </div>
+                <div className="flex w-full max-w-md mx-auto flex-col gap-4 pt-2 sm:max-w-none sm:flex-row sm:justify-center">
+                  <Button href="/dadtrack" size="lg" mobileFullWidth>
+                    Check Out DadTrack
+                  </Button>
+                  <Button
+                    href="https://www.linkedin.com/in/ben-greene-dev/"
+                    variant="secondary"
+                    size="lg"
+                    mobileFullWidth
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Reach Out on LinkedIn
+                  </Button>
+                </div>
+                <p className="text-sm text-slate-400">
+                  Prefer app-first?{' '}
+                  <a
+                    href={DADTRACK_APP_STORE_URL_TRACKED}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-teal-300 transition-colors hover:text-teal-200"
+                  >
+                    Download DadTrack on the App Store
+                  </a>
+                  .
+                </p>
+              </div>
+            </div>
+          </FadeIn>
         </section>
       </main>
     </div>

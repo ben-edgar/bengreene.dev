@@ -6,6 +6,7 @@ interface ButtonProps {
   variant?: 'primary' | 'secondary';
   size?: 'sm' | 'md' | 'lg';
   fullWidth?: boolean;
+  mobileFullWidth?: boolean;
   type?: 'button' | 'submit' | 'reset';
   onClick?: () => void;
   href?: string;
@@ -20,6 +21,7 @@ export function Button({
   variant = 'primary',
   size = 'md',
   fullWidth = false,
+  mobileFullWidth = false,
   type = 'button',
   onClick,
   href,
@@ -41,7 +43,7 @@ export function Button({
     lg: 'px-8 py-4 text-lg',
   };
 
-  const widthStyle = fullWidth ? 'w-full' : '';
+  const widthStyle = fullWidth ? 'w-full' : mobileFullWidth ? 'w-full sm:w-auto' : '';
 
   const combinedClassName = `${baseStyles} ${variantStyles[variant]} ${sizeStyles[size]} ${widthStyle} ${className}`;
 

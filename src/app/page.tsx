@@ -76,14 +76,15 @@ export default function Home() {
               </div>
             </FadeIn>
             <FadeIn delay={0.4}>
-              <div className="flex gap-4 justify-center flex-wrap pt-4">
-                <Button href="/dadtrack" size="lg">
+              <div className="flex w-full max-w-md mx-auto flex-col gap-4 pt-4 sm:max-w-none sm:flex-row sm:flex-wrap sm:justify-center">
+                <Button href="/dadtrack" size="lg" mobileFullWidth>
                   Learn More
                 </Button>
                 <Button
                   href={DADTRACK_APP_STORE_URL_TRACKED}
                   variant="secondary"
                   size="lg"
+                  mobileFullWidth
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -93,6 +94,7 @@ export default function Home() {
                   href={DADTRACK_GOOGLE_PLAY_URL_TRACKED}
                   variant="secondary"
                   size="lg"
+                  mobileFullWidth
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -124,10 +126,11 @@ export default function Home() {
               </p>
             </FadeIn>
             <FadeIn delay={0.4}>
-              <div className="flex gap-4 justify-center flex-wrap pt-4">
+              <div className="flex w-full max-w-md mx-auto flex-col gap-4 pt-4 sm:max-w-none sm:flex-row sm:flex-wrap sm:justify-center">
                 <Button
                   href={DADTRACK_APP_STORE_URL_TRACKED}
                   size="lg"
+                  mobileFullWidth
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -137,12 +140,13 @@ export default function Home() {
                   href={DADTRACK_GOOGLE_PLAY_URL_TRACKED}
                   variant="secondary"
                   size="lg"
+                  mobileFullWidth
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   🤖 Get it on Google Play
                 </Button>
-                <Button href="https://www.linkedin.com/in/ben-greene-dev/" variant="secondary" size="lg" target="_blank" rel="noopener noreferrer">
+                <Button href="https://www.linkedin.com/in/ben-greene-dev/" variant="secondary" size="lg" mobileFullWidth target="_blank" rel="noopener noreferrer">
                   LinkedIn
                 </Button>
               </div>
