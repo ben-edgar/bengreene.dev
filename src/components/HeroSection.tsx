@@ -28,7 +28,7 @@ const HeroSection = () => {
                 </div>
 
                 {/* Title with gradient */}
-                <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 animate-[fade-in-up_0.8s_ease-out_forwards]">
+                <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-4 animate-[fade-in-up_0.8s_ease-out_forwards]">
                     <span className="text-slate-50">
                         Ben Greene
                     </span>
@@ -38,13 +38,18 @@ const HeroSection = () => {
                     </span>
                 </h1>
 
+                {/* Subtitle — mirrors deployed site */}
+                <p className="text-xl md:text-2xl font-semibold text-slate-300 mb-8 animate-[fade-in-up_0.8s_ease-out_0.15s_forwards]">
+                    Engineering Leader &amp; Builder
+                </p>
+
                 {/* Bio */}
-                <p className="text-lg md:text-xl text-slate-400 mb-12 max-w-2xl mx-auto leading-relaxed animate-[fade-in-up_0.8s_ease-out_forwards] [animation-delay:0.3s] opacity-0 fill-mode-forwards">
+                <p className="text-lg md:text-xl text-slate-400 mb-12 max-w-2xl mx-auto leading-relaxed animate-[fade-in-up_0.8s_ease-out_0.3s_forwards]">
                     Professional engineering leader passionate about building effective teams, shipping software, and mentoring engineers.
                 </p>
 
                 {/* CTA Buttons */}
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16 animate-[fade-in-up_0.8s_ease-out_forwards] [animation-delay:0.4s] opacity-0 fill-mode-forwards">
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16 animate-[fade-in-up_0.8s_ease-out_0.4s_forwards]">
                     <Button
                         size="lg"
                         href="/about"
@@ -61,6 +66,8 @@ const HeroSection = () => {
                         size="lg"
                         variant="secondary"
                         href="https://github.com/ben-edgar"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="border-white/10 bg-white/5 hover:bg-white/10 hover:text-white px-8 py-6 text-lg backdrop-blur-sm"
                     >
                         GitHub

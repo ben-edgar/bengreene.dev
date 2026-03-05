@@ -27,7 +27,7 @@ const AnimatedTimeline: React.FC<TimelineProps> = ({
             id: 1,
             company: 'Arcadia',
             role: 'Senior Engineering Manager',
-            period: '2021 - Present',
+            period: '2022 - Present',
             location: 'Remote',
             description: 'Leading global teams building utility data platforms. Managing engineers from interns to senior staff, driving platform initiatives, and championing responsible AI driven development.',
             achievements: [
@@ -35,7 +35,7 @@ const AnimatedTimeline: React.FC<TimelineProps> = ({
                 'Drove platform-wide initiatives',
                 'Championed responsible AI driven development'
             ],
-            technologies: ['React', 'Node.js', 'PostgreSQL', 'AWS', 'Team Leadership'],
+            technologies: ['AI-Driven Development', 'Cursor', 'dbt', 'Snowflake', 'Java', 'Spring Boot', 'AWS', 'Team Leader'],
             icon: <Users className="w-5 h-5" />,
             color: 'from-blue-500 to-cyan-500'
         },
@@ -51,7 +51,7 @@ const AnimatedTimeline: React.FC<TimelineProps> = ({
                 'Advised CTO on technical direction',
                 'Built a strong team culture of learning and growth'
             ],
-            technologies: ['React', 'Ruby on Rails', 'PostgreSQL', 'Management'],
+            technologies: ['React', 'Ruby on Rails', 'PostgreSQL', 'Go', 'Engineering Management'],
             icon: <Briefcase className="w-5 h-5" />,
             color: 'from-purple-500 to-pink-500'
         }

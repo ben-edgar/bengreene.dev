@@ -174,28 +174,21 @@ const MobileShowcase: React.FC<MobileShowcaseProps> = ({
 
                                 {/* Screen */}
                                 <div className="relative w-full h-full bg-slate-900 rounded-[2.5rem] overflow-hidden">
-                                    {/* Status Bar */}
-                                    <div className="absolute top-0 left-0 right-0 h-10 bg-gradient-to-b from-black/60 to-transparent z-10 flex items-center justify-between px-6 pt-2">
-                                        <span className="text-white text-[10px] font-semibold">9:41</span>
-                                        <div className="flex gap-1 items-center">
-                                            <div className="w-4 h-2.5 border border-white rounded-[2px]" />
-                                        </div>
-                                    </div>
 
                                     {/* Screenshot Content */}
-                                    <div className="w-full h-full relative pt-10">
+                                    <div className="w-full h-full relative">
                                         <motion.div
                                             key={currentIndex}
                                             initial={{ opacity: 0, scale: 0.95 }}
                                             animate={{ opacity: 1, scale: 1 }}
                                             transition={{ duration: 0.4 }}
-                                            className="absolute inset-0 top-10"
+                                            className="absolute inset-0"
                                         >
                                             <Image
                                                 src={currentScreenshot.src}
                                                 alt={currentScreenshot.alt}
                                                 fill
-                                                className="object-cover"
+                                                className="object-cover object-top"
                                                 sizes="(max-width: 768px) 100vw, 320px"
                                             />
                                         </motion.div>
