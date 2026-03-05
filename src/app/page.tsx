@@ -3,16 +3,15 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { Header } from '@/components/Header';
-import { Footer } from '@/components/Footer';
 import { Button } from '@/components/Button';
 import { Card } from '@/components/Card';
 import { ImageLightbox } from '@/components/ImageLightbox';
 import { FadeIn } from '@/components/animations/FadeIn';
 import { SlideUp } from '@/components/animations/SlideUp';
-import { StaggerContainer } from '@/components/animations/StaggerContainer';
-import { StaggerItem } from '@/components/animations/StaggerItem';
 import AnimatedTimeline from '@/components/AnimatedTimeline';
 import HeroSection from '@/components/HeroSection';
+import MobileShowcase from '@/components/MobileShowcase';
+import { GlowDivider } from '@/components/GlowDivider';
 import { getAssetPath } from '@/lib/basePath';
 import {
   DADTRACK_APP_STORE_URL_TRACKED,
@@ -71,16 +70,18 @@ export default function Home() {
         {/* Professional Highlights */}
         <AnimatedTimeline />
 
+        <GlowDivider className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4" />
+
         {/* DadTrack Introduction */}
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="max-w-3xl mx-auto text-center space-y-6">
             <SlideUp>
-              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">
+              <h2 className="text-3xl md:text-4xl font-bold text-white">
                 Current Project: DadTrack
               </h2>
             </SlideUp>
             <FadeIn delay={0.2}>
-              <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
+              <p className="text-lg text-slate-400 leading-relaxed">
                 As an engineering leader and dad, I built DadTrack from a simple insight:
                 parenting is one of the most meaningful journeys we take, yet the moments slip away too quickly.
                 DadTrack helps dads capture the small, everyday moments—the moods, the memories, the milestones—
@@ -88,7 +89,7 @@ export default function Home() {
               </p>
             </FadeIn>
             <FadeIn delay={0.3}>
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-100 dark:bg-green-900/50 text-green-700 dark:text-green-300 rounded-full text-sm font-semibold">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-900/50 text-green-300 rounded-full text-sm font-semibold">
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
@@ -125,62 +126,20 @@ export default function Home() {
         </section>
 
         {/* Screenshot Grid Section */}
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 bg-slate-50 dark:bg-slate-900/50">
-          <SlideUp>
-            <h2 className="text-3xl md:text-4xl font-bold text-center text-slate-900 dark:text-white mb-12">
-              DadTrack in Action
-            </h2>
-          </SlideUp>
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" staggerDelay={0.15}>
-            {screenshots.map((screenshot, index) => (
-              <StaggerItem key={index}>
-                <Card className="group hover:shadow-xl transition-all duration-300 hover:scale-105">
-                  <div className="space-y-4">
-                    {/* Screenshot Image */}
-                    <div
-                      className="relative bg-slate-100 dark:bg-slate-900 rounded-lg overflow-hidden cursor-pointer group/image"
-                      style={{ minHeight: '400px', maxHeight: '500px' }}
-                      onClick={() => openLightbox(index)}
-                    >
-                      <Image
-                        src={screenshot.src}
-                        alt={screenshot.alt}
-                        fill
-                        className="object-contain transition-transform duration-300 group-hover/image:scale-105"
-                      />
-                      {/* Click to expand hint */}
-                      <div className="absolute inset-0 bg-black/0 group-hover/image:bg-black/20 transition-colors flex items-center justify-center">
-                        <div className="opacity-0 group-hover/image:opacity-100 transition-opacity bg-white dark:bg-slate-800 px-4 py-2 rounded-full text-sm font-medium">
-                          Click to expand
-                        </div>
-                      </div>
-                    </div>
-                    {/* Title and Description */}
-                    <div className="text-center space-y-2">
-                      <h3 className="text-xl font-bold text-slate-900 dark:text-white">
-                        {screenshot.title}
-                      </h3>
-                      <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
-                        {screenshot.description}
-                      </p>
-                    </div>
-                  </div>
-                </Card>
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
-        </section>
+        <MobileShowcase screenshots={screenshots} />
+
+        <GlowDivider className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4" />
 
         {/* CTA Section */}
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="text-center space-y-6">
             <SlideUp>
-              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">
+              <h2 className="text-3xl md:text-4xl font-bold text-white">
                 Let&apos;s Connect
               </h2>
             </SlideUp>
             <FadeIn delay={0.2}>
-              <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
+              <p className="text-lg text-slate-400 leading-relaxed">
                 Interested in DadTrack or want to connect? I&apos;d love to hear from you.
               </p>
             </FadeIn>
@@ -211,8 +170,6 @@ export default function Home() {
           </div>
         </section>
       </main>
-
-      <Footer />
 
       {/* Image Lightbox */}
       <ImageLightbox
