@@ -3,7 +3,7 @@
 import React from 'react';
 
 interface OrbitColor {
-    color: string; // Tailwind color class e.g. 'teal-500'
+    bgColor: string; // Full Tailwind class e.g. 'bg-teal-500'
     position: string; // Tailwind position classes e.g. 'top-1/4 left-1/4'
     size?: string; // Tailwind size class e.g. 'w-96 h-96'
     delay?: string; // animation delay e.g. 'delay-700'
@@ -17,9 +17,9 @@ interface AnimatedBackgroundProps {
 }
 
 const defaultOrbs: OrbitColor[] = [
-    { color: 'teal-500', position: 'top-1/4 left-1/4', size: 'w-96 h-96', opacity: 'opacity-10' },
-    { color: 'blue-500', position: 'bottom-1/4 right-1/4', size: 'w-96 h-96', delay: 'delay-700', opacity: 'opacity-10' },
-    { color: 'purple-500', position: 'top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2', size: 'w-[600px] h-[600px]', delay: 'delay-1000', opacity: 'opacity-5' },
+    { bgColor: 'bg-teal-500', position: 'top-1/4 left-1/4', size: 'w-96 h-96', opacity: 'opacity-10' },
+    { bgColor: 'bg-blue-500', position: 'bottom-1/4 right-1/4', size: 'w-96 h-96', delay: 'delay-700', opacity: 'opacity-10' },
+    { bgColor: 'bg-purple-500', position: 'top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2', size: 'w-[600px] h-[600px]', delay: 'delay-1000', opacity: 'opacity-5' },
 ];
 
 export function AnimatedBackground({ orbs = defaultOrbs, grid = true, topGlow = true }: AnimatedBackgroundProps) {
@@ -28,7 +28,7 @@ export function AnimatedBackground({ orbs = defaultOrbs, grid = true, topGlow = 
             {orbs.map((orb, i) => (
                 <div
                     key={i}
-                    className={`absolute ${orb.position} ${orb.size ?? 'w-96 h-96'} bg-${orb.color} rounded-full blur-3xl animate-pulse ${orb.delay ?? ''} ${orb.opacity ?? 'opacity-10'}`}
+                    className={`absolute ${orb.position} ${orb.size ?? 'w-96 h-96'} ${orb.bgColor} rounded-full blur-3xl animate-pulse ${orb.delay ?? ''} ${orb.opacity ?? 'opacity-10'}`}
                 />
             ))}
             {grid && (

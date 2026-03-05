@@ -41,7 +41,7 @@ export function Carousel({
   const currentSlide = slides[currentIndex];
 
   return (
-    <div className="relative w-full bg-slate-100 dark:bg-slate-900 rounded-xl overflow-hidden shadow-lg">
+    <div className="relative w-full bg-slate-900 rounded-xl overflow-hidden shadow-lg">
       {/* Image Container */}
       <div className="relative w-full" style={{ minHeight: '400px', maxHeight: '600px' }}>
         <Image
@@ -64,7 +64,7 @@ export function Carousel({
       {showArrows && (
         <button
           onClick={goToPrevious}
-          className="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-white dark:bg-slate-800 rounded-full p-2 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
+          className="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-slate-800 rounded-full p-2 hover:bg-slate-700 transition-colors"
           aria-label="Previous slide"
         >
           ←
@@ -75,7 +75,7 @@ export function Carousel({
       {showArrows && (
         <button
           onClick={goToNext}
-          className="absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-white dark:bg-slate-800 rounded-full p-2 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
+          className="absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-slate-800 rounded-full p-2 hover:bg-slate-700 transition-colors"
           aria-label="Next slide"
         >
           →
