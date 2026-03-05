@@ -7,11 +7,11 @@ interface CardProps {
 }
 
 export function Card({ children, className = '', border = true }: CardProps) {
-  const borderClass = border ? 'border border-slate-200 dark:border-slate-800' : '';
+  const borderClass = border ? 'border border-white/10' : '';
 
   return (
     <div
-      className={`rounded-xl bg-slate-50 dark:bg-slate-900 p-6 shadow-sm ${borderClass} ${className}`}
+      className={`rounded-xl bg-white/5 p-6 shadow-sm backdrop-blur-sm ${borderClass} ${className}`}
     >
       {children}
     </div>

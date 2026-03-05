@@ -6,6 +6,7 @@ interface ButtonProps {
   variant?: 'primary' | 'secondary';
   size?: 'sm' | 'md' | 'lg';
   fullWidth?: boolean;
+  mobileFullWidth?: boolean;
   type?: 'button' | 'submit' | 'reset';
   onClick?: () => void;
   href?: string;
@@ -20,6 +21,7 @@ export function Button({
   variant = 'primary',
   size = 'md',
   fullWidth = false,
+  mobileFullWidth = false,
   type = 'button',
   onClick,
   href,
@@ -31,8 +33,8 @@ export function Button({
   const baseStyles = 'font-semibold rounded-xl transition-all duration-200 inline-flex items-center justify-center cursor-pointer active:scale-95';
 
   const variantStyles = {
-    primary: 'bg-primary-600 hover:bg-primary-700 dark:bg-primary-600 dark:hover:bg-primary-700 !text-white border-2 border-primary-700 dark:border-primary-600 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none',
-    secondary: 'border-2 border-primary-600 dark:border-primary-400 text-primary-600 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-950 shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none',
+    primary: 'bg-primary-600 hover:bg-primary-700 !text-white border-2 border-primary-700 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none',
+    secondary: 'border-2 border-primary-400/70 bg-white/5 text-primary-300 hover:border-primary-300 hover:bg-white/10 hover:text-primary-200 shadow-sm hover:shadow-[0_18px_40px_rgba(20,184,166,0.12)] backdrop-blur-sm disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none',
   };
 
   const sizeStyles = {
@@ -41,7 +43,7 @@ export function Button({
     lg: 'px-8 py-4 text-lg',
   };
 
-  const widthStyle = fullWidth ? 'w-full' : '';
+  const widthStyle = fullWidth ? 'w-full' : mobileFullWidth ? 'w-full sm:w-auto' : '';
 
   const combinedClassName = `${baseStyles} ${variantStyles[variant]} ${sizeStyles[size]} ${widthStyle} ${className}`;
 

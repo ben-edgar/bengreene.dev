@@ -8,25 +8,25 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="w-full border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950">
+    <footer className="w-full border-t border-white/10 bg-slate-950">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           {/* Navigation */}
           <div>
-            <h3 className="font-semibold text-slate-900 dark:text-white mb-4">Navigation</h3>
+            <h3 className="mb-4 font-semibold text-white">Navigation</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/" className="text-slate-600 dark:text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                <Link href="/" className="text-slate-400 transition-colors hover:text-primary-300">
                   Home
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="text-slate-600 dark:text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                <Link href="/about" className="text-slate-400 transition-colors hover:text-primary-300">
                   About
                 </Link>
               </li>
               <li>
-                <Link href="/dadtrack" className="text-slate-600 dark:text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                <Link href="/dadtrack" className="text-slate-400 transition-colors hover:text-primary-300">
                   DadTrack
                 </Link>
               </li>
@@ -35,14 +35,14 @@ export function Footer() {
 
           {/* Connect */}
           <div>
-            <h3 className="font-semibold text-slate-900 dark:text-white mb-4">Connect</h3>
+            <h3 className="mb-4 font-semibold text-white">Connect</h3>
             <ul className="space-y-2">
               <li>
                 <a
                   href="https://github.com/ben-edgar"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-slate-600 dark:text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+                  className="text-slate-400 transition-colors hover:text-primary-300"
                 >
                   GitHub
                 </a>
@@ -52,7 +52,7 @@ export function Footer() {
                   href="https://www.linkedin.com/in/ben-greene-dev/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-slate-600 dark:text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+                  className="text-slate-400 transition-colors hover:text-primary-300"
                 >
                   LinkedIn
                 </a>
@@ -62,7 +62,7 @@ export function Footer() {
                   href={DADTRACK_APP_STORE_URL_TRACKED}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-slate-600 dark:text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+                  className="text-slate-400 transition-colors hover:text-primary-300"
                 >
                   App Store
                 </a>
@@ -72,7 +72,7 @@ export function Footer() {
                   href={DADTRACK_GOOGLE_PLAY_URL_TRACKED}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-slate-600 dark:text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+                  className="text-slate-400 transition-colors hover:text-primary-300"
                 >
                   Google Play
                 </a>
@@ -82,16 +82,16 @@ export function Footer() {
 
           {/* About Section */}
           <div>
-            <h3 className="font-semibold text-slate-900 dark:text-white mb-4">About</h3>
-            <p className="text-slate-600 dark:text-slate-400 text-sm">
+            <h3 className="mb-4 font-semibold text-white">About</h3>
+            <p className="text-sm text-slate-400">
               Engineering leader building DadTrack, a journaling app for dads. Now available on iOS and Android.
             </p>
           </div>
         </div>
 
         {/* Divider */}
-        <div className="border-t border-slate-200 dark:border-slate-800 pt-8">
-          <p className="text-center text-slate-600 dark:text-slate-400 text-sm">
+        <div className="border-t border-white/10 pt-8">
+          <p className="text-center text-sm text-slate-400">
             © {currentYear} Ben Greene. All rights reserved.
           </p>
         </div>
