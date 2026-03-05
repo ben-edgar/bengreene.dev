@@ -11,7 +11,8 @@ import { FadeIn } from '@/components/animations/FadeIn';
 import { SlideUp } from '@/components/animations/SlideUp';
 import { StaggerContainer } from '@/components/animations/StaggerContainer';
 import { StaggerItem } from '@/components/animations/StaggerItem';
-import { ParallaxContent } from '@/components/animations/Parallax';
+import AnimatedTimeline from '@/components/AnimatedTimeline';
+import HeroSection from '@/components/HeroSection';
 import { getAssetPath } from '@/lib/basePath';
 import {
   DADTRACK_APP_STORE_URL_TRACKED,
@@ -65,82 +66,10 @@ export default function Home() {
       <Header />
 
       <main className="flex-1">
-        {/* Hero Section */}
-        <section className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32 overflow-hidden">
-          <ParallaxContent>
-            <div className="text-center space-y-8">
-              <FadeIn>
-                <div className="space-y-4">
-                  <h1 className="text-5xl md:text-6xl font-bold text-slate-900 dark:text-white bg-clip-text">
-                    Ben Greene
-                  </h1>
-                  <p className="text-xl md:text-2xl text-slate-600 dark:text-slate-300 font-medium">
-                    Engineering Leader & Builder
-                  </p>
-                </div>
-              </FadeIn>
-              <FadeIn delay={0.2}>
-                <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
-                  Professional engineering leader passionate about building effective teams, shipping software, and mentoring engineers.
-                </p>
-              </FadeIn>
-              <FadeIn delay={0.4}>
-                <div className="flex gap-4 justify-center flex-wrap pt-4">
-                  <Button href="/about" size="lg">
-                    About Me
-                  </Button>
-                  <Button href="https://github.com/ben-edgar" variant="secondary" size="lg" target="_blank" rel="noopener noreferrer">
-                    GitHub
-                  </Button>
-                </div>
-              </FadeIn>
-            </div>
-          </ParallaxContent>
-        </section>
+        <HeroSection />
 
         {/* Professional Highlights */}
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 bg-slate-50 dark:bg-slate-900/50">
-          <div className="max-w-4xl mx-auto">
-            <SlideUp>
-              <h2 className="text-3xl md:text-4xl font-bold text-center text-slate-900 dark:text-white mb-12">
-                Experience
-              </h2>
-            </SlideUp>
-            <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <StaggerItem>
-                <Card>
-                  <div className="space-y-3">
-                    <h3 className="text-xl font-bold text-slate-900 dark:text-white">
-                      Senior Engineering Manager
-                    </h3>
-                    <p className="text-primary-600 dark:text-primary-400 font-medium">
-                      Arcadia • 2021 – Present
-                    </p>
-                    <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
-                      Leading global teams building utility data platforms. Managing engineers from interns to senior staff,
-                      driving platform initiatives, and championing responsible AI driven development.
-                    </p>
-                  </div>
-                </Card>
-              </StaggerItem>
-              <StaggerItem>
-                <Card>
-                  <div className="space-y-3">
-                    <h3 className="text-xl font-bold text-slate-900 dark:text-white">
-                      Engineering Manager
-                    </h3>
-                    <p className="text-primary-600 dark:text-primary-400 font-medium">
-                      Shift • 2020 – 2022
-                    </p>
-                    <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
-                      Managed consumer fulfillment teams, advised CTO on technical direction, and built a team culture of learning and growth.
-                    </p>
-                  </div>
-                </Card>
-              </StaggerItem>
-            </StaggerContainer>
-          </div>
-        </section>
+        <AnimatedTimeline />
 
         {/* DadTrack Introduction */}
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
