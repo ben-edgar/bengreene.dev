@@ -3,7 +3,6 @@
 import { useState, FormEvent } from 'react';
 import confetti from 'canvas-confetti';
 import { Header } from '@/components/Header';
-import { Button } from '@/components/Button';
 import { submitToGoogleSheet } from '@/lib/formSubmit';
 import { motion } from 'framer-motion';
 
@@ -111,7 +110,7 @@ export default function Feedback() {
           message: result.message,
         });
       }
-    } catch (_error) {
+    } catch {
       setSubmitStatus({
         type: 'error',
         message: 'An error occurred. Please try again.',

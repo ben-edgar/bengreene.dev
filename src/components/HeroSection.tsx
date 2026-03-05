@@ -1,7 +1,6 @@
 import React from 'react';
-import Link from 'next/link';
 import { Button } from '@/components/Button';
-import { ArrowRight, Sparkles, Github, Linkedin } from 'lucide-react';
+import { ArrowRight, Sparkles } from 'lucide-react';
 
 const HeroSection = () => {
     return (

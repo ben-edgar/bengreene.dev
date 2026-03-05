@@ -30,7 +30,7 @@ export default function About() {
     <div className="flex flex-col min-h-screen">
       <Header />
 
-      <main className="flex-1 relative">
+      <main className="flex-1 relative bg-slate-950">
         {/* Page-wide subtle background */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-teal-500/5 rounded-full blur-3xl" />
@@ -59,7 +59,7 @@ export default function About() {
               </p>
             </FadeIn>
             <FadeIn delay={0.4}>
-              <p className="text-lg text-slate-400 leading-relaxed max-w-2xl">
+              <p className="text-lg text-slate-300 leading-relaxed max-w-2xl">
                 Beyond work, I&apos;m a dad building DadTrack — an app to help other dads capture and reflect on the precious moments with their kids.
               </p>
             </FadeIn>
@@ -69,23 +69,25 @@ export default function About() {
         <GlowDivider className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8" />
 
         {/* Personal Note */}
-        <section className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-          <div className="space-y-6">
-            <SlideUp>
-              <h2 className="text-3xl md:text-4xl font-bold text-white">
-                Why DadTrack?
-              </h2>
-            </SlideUp>
-            <FadeIn delay={0.2}>
-              <p className="text-lg text-slate-400 leading-relaxed">
-                Becoming a dad fundamentally changed how I see the world. The moments — a laugh, a milestone, a quiet cuddle — they&apos;re precious but fleeting. I built DadTrack to help dads like me capture these moments, not just to remember them, but to reflect on the journey and share it with friends and family.
-              </p>
-            </FadeIn>
-            <FadeIn delay={0.4}>
-              <p className="text-lg text-slate-400 leading-relaxed">
-                It&apos;s a low-effort, high-impact app designed with the busy dad in mind. One daily journal entry, some photos, a mood tag, and over time you build a rich archive of memories. That&apos;s the magic.
-              </p>
-            </FadeIn>
+        <section className="relative py-20 border-y border-white/10 bg-slate-900/40">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="space-y-6">
+              <SlideUp>
+                <h2 className="text-3xl md:text-4xl font-bold text-white">
+                  Why DadTrack?
+                </h2>
+              </SlideUp>
+              <FadeIn delay={0.2}>
+                <p className="text-lg text-slate-300 leading-relaxed">
+                  Becoming a dad fundamentally changed how I see the world. The moments — a laugh, a milestone, a quiet cuddle — they&apos;re precious but fleeting. I built DadTrack to help dads like me capture these moments, not just to remember them, but to reflect on the journey and share it with friends and family.
+                </p>
+              </FadeIn>
+              <FadeIn delay={0.4}>
+                <p className="text-lg text-slate-300 leading-relaxed">
+                  It&apos;s a low-effort, high-impact app designed with the busy dad in mind. One daily journal entry, some photos, a mood tag, and over time you build a rich archive of memories. That&apos;s the magic.
+                </p>
+              </FadeIn>
+            </div>
           </div>
         </section>
 
@@ -118,37 +120,39 @@ export default function About() {
         <GlowDivider className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8" />
 
         {/* Education */}
-        <section className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-          <div className="space-y-8">
-            <SlideUp>
-              <h2 className="text-3xl md:text-4xl font-bold text-white">
-                Education
-              </h2>
-            </SlideUp>
-            <FadeIn delay={0.2}>
-              <motion.div
-                whileHover={{ y: -4 }}
-                transition={{ duration: 0.25 }}
-                className="p-6 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 hover:border-white/20 transition-all duration-300"
-              >
-                <div className="flex items-start gap-4">
-                  <div className="p-3 rounded-xl bg-gradient-to-br from-blue-500/20 to-teal-500/20 border border-white/10 shrink-0">
-                    <span className="text-2xl">🎓</span>
+        <section className="relative py-20 border-y border-white/10 bg-slate-900/40">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="space-y-8">
+              <SlideUp>
+                <h2 className="text-3xl md:text-4xl font-bold text-white">
+                  Education
+                </h2>
+              </SlideUp>
+              <FadeIn delay={0.2}>
+                <motion.div
+                  whileHover={{ y: -4 }}
+                  transition={{ duration: 0.25 }}
+                  className="p-6 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 hover:border-white/20 transition-all duration-300"
+                >
+                  <div className="flex items-start gap-4">
+                    <div className="p-3 rounded-xl bg-gradient-to-br from-blue-500/20 to-teal-500/20 border border-white/10 shrink-0">
+                      <span className="text-2xl">🎓</span>
+                    </div>
+                    <div className="space-y-1">
+                      <h3 className="text-xl font-semibold text-white">
+                        University of Virginia
+                      </h3>
+                      <p className="text-slate-300">
+                        Bachelor of Science in Computer Science
+                      </p>
+                      <p className="text-slate-500 text-sm">
+                        Engineering Business Minor · Graduated May 2015
+                      </p>
+                    </div>
                   </div>
-                  <div className="space-y-1">
-                    <h3 className="text-xl font-semibold text-white">
-                      University of Virginia
-                    </h3>
-                    <p className="text-slate-300">
-                      Bachelor of Science in Computer Science
-                    </p>
-                    <p className="text-slate-500 text-sm">
-                      Engineering Business Minor · Graduated May 2015
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            </FadeIn>
+                </motion.div>
+              </FadeIn>
+            </div>
           </div>
         </section>
       </main>

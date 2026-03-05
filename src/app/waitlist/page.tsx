@@ -12,10 +12,10 @@ export default function WaitlistRedirectPage() {
   }, [router]);
 
   return (
-    <main className="min-h-screen flex items-center justify-center px-4 bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-50">
+    <main className="min-h-screen flex items-center justify-center px-4 bg-slate-950 text-slate-50">
       <div className="max-w-xl text-center space-y-4">
         <h1 className="text-3xl md:text-4xl font-bold">DadTrack Is Live on iOS and Android</h1>
-        <p className="text-slate-600 dark:text-slate-400">
+        <p className="text-slate-300">
           Redirecting you to the DadTrack page. If you are not redirected, use the link below.
         </p>
         <Link

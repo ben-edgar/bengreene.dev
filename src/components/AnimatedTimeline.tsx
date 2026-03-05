@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Briefcase, Calendar, MapPin, Award, Code, Rocket, Users } from 'lucide-react';
+import { Briefcase, Calendar, Users } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 
@@ -15,13 +15,17 @@ interface Experience {
     technologies: string[];
     icon: React.ReactNode;
     color: string;
+    dotFrom: string;
+    dotTo: string;
 }
 
 interface TimelineProps {
     experiences?: Experience[];
+    className?: string;
 }
 
 const AnimatedTimeline: React.FC<TimelineProps> = ({
+    className = '',
     experiences = [
         {
             id: 1,
@@ -37,7 +41,9 @@ const AnimatedTimeline: React.FC<TimelineProps> = ({
             ],
             technologies: ['AI-Driven Development', 'Cursor', 'dbt', 'Snowflake', 'Java', 'Spring Boot', 'AWS', 'Team Leader'],
             icon: <Users className="w-5 h-5" />,
-            color: 'from-blue-500 to-cyan-500'
+            color: 'from-blue-500 to-cyan-500',
+            dotFrom: '#3080ff',
+            dotTo: '#00b7d7',
         },
         {
             id: 2,
@@ -53,12 +59,14 @@ const AnimatedTimeline: React.FC<TimelineProps> = ({
             ],
             technologies: ['React', 'Ruby on Rails', 'PostgreSQL', 'Go', 'Engineering Management'],
             icon: <Briefcase className="w-5 h-5" />,
-            color: 'from-purple-500 to-pink-500'
+            color: 'from-purple-500 to-pink-500',
+            dotFrom: '#ac4bff',
+            dotTo: '#f6339a',
         }
     ]
 }) => {
     return (
-        <div className="w-full bg-slate-950 text-slate-50 py-16">
+        <div className={`w-full text-slate-50 py-16 ${className}`}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Header */}
                 <motion.div
@@ -99,12 +107,12 @@ const AnimatedTimeline: React.FC<TimelineProps> = ({
                                     transition={{ duration: 0.4, delay: index * 0.1 + 0.2 }}
                                     className="absolute left-8 top-8 w-4 h-4 rounded-full bg-gradient-to-br hidden md:block z-10 -translate-x-1.5"
                                     style={{
-                                        backgroundImage: `linear-gradient(to bottom right, ${exp.color.split(' ')[1]}, ${exp.color.split(' ')[3]})`
+                                        backgroundImage: `linear-gradient(to bottom right, ${exp.dotFrom}, ${exp.dotTo})`
                                     }}
                                 >
                                     <div className="absolute inset-0 rounded-full bg-gradient-to-br animate-pulse opacity-50 blur-sm"
                                         style={{
-                                            backgroundImage: `linear-gradient(to bottom right, ${exp.color.split(' ')[1]}, ${exp.color.split(' ')[3]})`
+                                            backgroundImage: `linear-gradient(to bottom right, ${exp.dotFrom}, ${exp.dotTo})`
                                         }}
                                     />
                                 </motion.div>

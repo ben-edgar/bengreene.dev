@@ -1,11 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import Image from 'next/image';
 import { Header } from '@/components/Header';
 import { Button } from '@/components/Button';
-import { Card } from '@/components/Card';
-import { ImageLightbox } from '@/components/ImageLightbox';
 import { FadeIn } from '@/components/animations/FadeIn';
 import { SlideUp } from '@/components/animations/SlideUp';
 import AnimatedTimeline from '@/components/AnimatedTimeline';
@@ -40,35 +36,17 @@ export default function Home() {
     },
   ];
 
-  const [lightboxOpen, setLightboxOpen] = useState(false);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
-  const openLightbox = (index: number) => {
-    setCurrentImageIndex(index);
-    setLightboxOpen(true);
-  };
-
-  const closeLightbox = () => {
-    setLightboxOpen(false);
-  };
-
-  const goToNext = () => {
-    setCurrentImageIndex((prev) => (prev + 1) % screenshots.length);
-  };
-
-  const goToPrevious = () => {
-    setCurrentImageIndex((prev) => (prev - 1 + screenshots.length) % screenshots.length);
-  };
-
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
 
-      <main className="flex-1">
+      <main className="flex-1 bg-slate-950">
         <HeroSection />
 
         {/* Professional Highlights */}
-        <AnimatedTimeline />
+        <section className="border-y border-white/10 bg-slate-900/40">
+          <AnimatedTimeline />
+        </section>
 
         <GlowDivider className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4" />
 
@@ -81,7 +59,7 @@ export default function Home() {
               </h2>
             </SlideUp>
             <FadeIn delay={0.2}>
-              <p className="text-lg text-slate-400 leading-relaxed">
+              <p className="text-lg text-slate-300 leading-relaxed">
                 As an engineering leader and dad, I built DadTrack from a simple insight:
                 parenting is one of the most meaningful journeys we take, yet the moments slip away too quickly.
                 DadTrack helps dads capture the small, everyday moments—the moods, the memories, the milestones—
@@ -126,7 +104,9 @@ export default function Home() {
         </section>
 
         {/* Screenshot Grid Section */}
-        <MobileShowcase screenshots={screenshots} />
+        <section className="border-y border-white/10 bg-slate-900/40">
+          <MobileShowcase screenshots={screenshots} backgroundColor="bg-transparent" />
+        </section>
 
         <GlowDivider className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4" />
 
@@ -139,7 +119,7 @@ export default function Home() {
               </h2>
             </SlideUp>
             <FadeIn delay={0.2}>
-              <p className="text-lg text-slate-400 leading-relaxed">
+              <p className="text-lg text-slate-300 leading-relaxed">
                 Interested in DadTrack or want to connect? I&apos;d love to hear from you.
               </p>
             </FadeIn>
@@ -170,16 +150,6 @@ export default function Home() {
           </div>
         </section>
       </main>
-
-      {/* Image Lightbox */}
-      <ImageLightbox
-        images={screenshots}
-        currentIndex={currentImageIndex}
-        isOpen={lightboxOpen}
-        onClose={closeLightbox}
-        onNext={goToNext}
-        onPrevious={goToPrevious}
-      />
     </div>
   );
 }

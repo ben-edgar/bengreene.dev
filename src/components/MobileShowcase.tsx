@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
@@ -24,6 +24,7 @@ const MobileShowcase: React.FC<MobileShowcaseProps> = ({
     backgroundColor = "bg-slate-950",
 }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [isDesktopInteractive, setIsDesktopInteractive] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
 
     const mouseX = useMotionValue(0);
@@ -38,7 +39,20 @@ const MobileShowcase: React.FC<MobileShowcaseProps> = ({
         damping: 30,
     });
 
+    useEffect(() => {
+        const mediaQuery = window.matchMedia("(min-width: 1024px)");
+        const handleMediaQueryChange = () => setIsDesktopInteractive(mediaQuery.matches);
+
+        handleMediaQueryChange();
+        mediaQuery.addEventListener("change", handleMediaQueryChange);
+
+        return () => {
+            mediaQuery.removeEventListener("change", handleMediaQueryChange);
+        };
+    }, []);
+
     const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+        if (!isDesktopInteractive) return;
         if (!containerRef.current) return;
         const rect = containerRef.current.getBoundingClientRect();
         const centerX = rect.left + rect.width / 2;
@@ -48,6 +62,7 @@ const MobileShowcase: React.FC<MobileShowcaseProps> = ({
     };
 
     const handleMouseLeave = () => {
+        if (!isDesktopInteractive) return;
         mouseX.set(0);
         mouseY.set(0);
     };
@@ -148,15 +163,15 @@ const MobileShowcase: React.FC<MobileShowcaseProps> = ({
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8, delay: 0.2 }}
-                        onMouseMove={handleMouseMove}
-                        onMouseLeave={handleMouseLeave}
+                        onMouseMove={isDesktopInteractive ? handleMouseMove : undefined}
+                        onMouseLeave={isDesktopInteractive ? handleMouseLeave : undefined}
                         className="relative flex flex-col items-center justify-center gap-6"
-                        style={{ perspective: "1000px" }}
+                        style={{ perspective: isDesktopInteractive ? "1000px" : undefined }}
                     >
                         <motion.div
                             style={{
-                                rotateX,
-                                rotateY,
+                                rotateX: isDesktopInteractive ? rotateX : 0,
+                                rotateY: isDesktopInteractive ? rotateY : 0,
                                 transformStyle: "preserve-3d",
                             }}
                             className="relative"

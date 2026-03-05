@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { Header } from '@/components/Header';
-import { Card } from '@/components/Card';
 import { TiltCard } from '@/components/TiltCard';
 import { Button } from '@/components/Button';
 import { ImageLightbox } from '@/components/ImageLightbox';
@@ -230,7 +229,7 @@ export default function DadTrack() {
     <div className="flex flex-col min-h-screen">
       <Header />
 
-      <main className="flex-1 relative">
+      <main className="flex-1 relative bg-slate-950">
         {/* Subtle page-wide background ambiance */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-0 left-1/4 w-[700px] h-[700px] bg-teal-500/5 rounded-full blur-3xl" />
@@ -274,7 +273,7 @@ export default function DadTrack() {
                 </div>
               </FadeIn>
               <FadeIn delay={0.4}>
-                <p className="text-lg text-slate-400 max-w-3xl mx-auto leading-relaxed">
+                <p className="text-lg text-slate-300 max-w-3xl mx-auto leading-relaxed">
                   The dad journaling app that helps you capture moments, moods, and memories with AI-powered insights.
                   Voice journaling, daily tips, monthly recaps, and streak celebrations—all designed to make memory-keeping effortless.
                 </p>
@@ -291,55 +290,57 @@ export default function DadTrack() {
         <GlowDivider className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" />
 
         {/* Key Features */}
-        <section className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-          <SlideUp>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-16 text-center">
-              What&apos;s Included
-            </h2>
-          </SlideUp>
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-6" staggerDelay={0.1}>
-            {features.map((feature, index) => (
-              <StaggerItem key={index}>
-                <TiltCard intensity={8}>
-                  <div
-                    className="group rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 hover:border-white/20 transition-all duration-300 h-full overflow-hidden cursor-zoom-in"
-                    onClick={() => openLightbox(index)}
-                  >
-                    {/* Screenshot Image */}
+        <section className="relative py-20 border-y border-white/10 bg-slate-900/40">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <SlideUp>
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-16 text-center">
+                What&apos;s Included
+              </h2>
+            </SlideUp>
+            <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-6" staggerDelay={0.1}>
+              {features.map((feature, index) => (
+                <StaggerItem key={index}>
+                  <TiltCard intensity={8}>
                     <div
-                      className="relative bg-slate-900/80 overflow-hidden"
-                      style={{ height: '320px' }}
+                      className="group rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 hover:border-white/20 transition-all duration-300 h-full overflow-hidden cursor-zoom-in"
+                      onClick={() => openLightbox(index)}
                     >
-                      <Image
-                        src={feature.image}
-                        alt={feature.title}
-                        fill
-                        className="object-contain p-3 transition-transform duration-500 group-hover:scale-105"
-                      />
-                      {/* Hover hint */}
-                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors flex items-center justify-center pointer-events-none">
-                        <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-slate-900/90 px-4 py-2 rounded-full text-sm font-medium text-slate-200 border border-white/20">
-                          🔍 Click to expand
+                      {/* Screenshot Image */}
+                      <div
+                        className="relative bg-slate-900/80 overflow-hidden"
+                        style={{ height: '320px' }}
+                      >
+                        <Image
+                          src={feature.image}
+                          alt={feature.title}
+                          fill
+                          className="object-contain p-3 transition-transform duration-500 group-hover:scale-105"
+                        />
+                        {/* Hover hint */}
+                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors flex items-center justify-center pointer-events-none">
+                          <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-slate-900/90 px-4 py-2 rounded-full text-sm font-medium text-slate-200 border border-white/20">
+                            🔍 Click to expand
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    {/* Content */}
-                    <div className="p-5 space-y-2">
-                      <div className="flex items-center gap-3">
-                        <span className="text-2xl">{feature.icon}</span>
-                        <h3 className="text-lg font-bold text-white">
-                          {feature.title}
-                        </h3>
+                      {/* Content */}
+                      <div className="p-5 space-y-2">
+                        <div className="flex items-center gap-3">
+                          <span className="text-2xl">{feature.icon}</span>
+                          <h3 className="text-lg font-bold text-white">
+                            {feature.title}
+                          </h3>
+                        </div>
+                        <p className="text-sm text-slate-300 leading-relaxed">
+                          {feature.description}
+                        </p>
                       </div>
-                      <p className="text-sm text-slate-400 leading-relaxed">
-                        {feature.description}
-                      </p>
                     </div>
-                  </div>
-                </TiltCard>
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
+                  </TiltCard>
+                </StaggerItem>
+              ))}
+            </StaggerContainer>
+          </div>
         </section>
 
         <GlowDivider className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" />
@@ -372,34 +373,36 @@ export default function DadTrack() {
         <GlowDivider className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" />
 
         {/* Roadmap */}
-        <section className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-          <SlideUp>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-12 text-center">
-              Coming Soon
-            </h2>
-          </SlideUp>
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {roadmap.map((section, index) => (
-              <StaggerItem key={index}>
-                <div className="p-6 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 hover:border-white/20 transition-all duration-300 space-y-4">
-                  <h3 className="text-xl font-bold text-white">
-                    {section.milestone}
-                  </h3>
-                  <ul className="space-y-2">
-                    {section.items.map((item, itemIndex) => (
-                      <li
-                        key={itemIndex}
-                        className="flex items-start gap-3 text-slate-300"
-                      >
-                        <span className="text-teal-400 font-bold mt-1">•</span>
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
+        <section className="relative py-20 border-y border-white/10 bg-slate-900/40">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <SlideUp>
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-12 text-center">
+                Coming Soon
+              </h2>
+            </SlideUp>
+            <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {roadmap.map((section, index) => (
+                <StaggerItem key={index}>
+                  <div className="p-6 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 hover:border-white/20 transition-all duration-300 space-y-4">
+                    <h3 className="text-xl font-bold text-white">
+                      {section.milestone}
+                    </h3>
+                    <ul className="space-y-2">
+                      {section.items.map((item, itemIndex) => (
+                        <li
+                          key={itemIndex}
+                          className="flex items-start gap-3 text-slate-300"
+                        >
+                          <span className="text-teal-400 font-bold mt-1">•</span>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </StaggerItem>
+              ))}
+            </StaggerContainer>
+          </div>
         </section>
 
         <GlowDivider className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8" />
@@ -413,7 +416,7 @@ export default function DadTrack() {
               </h2>
             </SlideUp>
             <FadeIn delay={0.2}>
-              <p className="text-lg text-slate-400">
+              <p className="text-lg text-slate-300">
                 Start capturing memories with your kids. Available now on iOS and Android.
               </p>
             </FadeIn>

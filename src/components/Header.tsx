@@ -3,8 +3,8 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Github, Linkedin, Menu, X } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Github, Linkedin, Menu } from 'lucide-react';
 import { MobileMenu } from './MobileMenu';
 
 const navLinks = [
