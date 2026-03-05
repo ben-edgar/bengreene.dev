@@ -8,9 +8,11 @@ import { StaggerContainer } from '@/components/animations/StaggerContainer';
 import { StaggerItem } from '@/components/animations/StaggerItem';
 import { motion } from 'framer-motion';
 import { GlowDivider } from '@/components/GlowDivider';
-import { DADTRACK_APP_STORE_URL_TRACKED } from '@/lib/constants';
+import { getPrimaryTrackedStoreCta, useDetectedStorePlatform } from '@/lib/storeLinks';
 
 export default function About() {
+  const platform = useDetectedStorePlatform();
+  const primaryStoreCta = getPrimaryTrackedStoreCta(platform ?? 'other');
   const skills = [
     'Flutter & Dart',
     'React & TypeScript',
@@ -196,12 +198,12 @@ export default function About() {
                 <p className="text-sm text-slate-400">
                   Prefer app-first?{' '}
                   <a
-                    href={DADTRACK_APP_STORE_URL_TRACKED}
+                    href={primaryStoreCta.href}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-teal-300 transition-colors hover:text-teal-200"
                   >
-                    Download DadTrack on the App Store
+                    {primaryStoreCta.textLabel}
                   </a>
                   .
                 </p>

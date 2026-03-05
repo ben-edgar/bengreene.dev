@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 import { Header } from '@/components/Header';
 import { TiltCard } from '@/components/TiltCard';
@@ -15,11 +15,10 @@ import { GlowDivider } from '@/components/GlowDivider';
 import { getAssetPath } from '@/lib/basePath';
 import {
   DADTRACK_APP_STORE_URL,
-  DADTRACK_APP_STORE_URL_TRACKED,
   DADTRACK_GOOGLE_PLAY_URL,
-  DADTRACK_GOOGLE_PLAY_URL_TRACKED,
   SITE_CANONICAL_URL,
 } from '@/lib/constants';
+import { getTrackedStoreCtas, useDetectedStorePlatform } from '@/lib/storeLinks';
 
 export default function DadTrack() {
   const features = [
@@ -136,45 +135,8 @@ export default function DadTrack() {
 
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [platform, setPlatform] = useState<'ios' | 'android' | 'other' | null>(null);
-
-  useEffect(() => {
-    const userAgent = navigator.userAgent || navigator.vendor;
-    const isAndroid = /android/i.test(userAgent);
-    const isIOS = /iPad|iPhone|iPod/.test(userAgent)
-      || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-    const detectedPlatform = isAndroid ? 'android' : isIOS ? 'ios' : 'other';
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setPlatform(detectedPlatform);
-  }, []);
-
-  const storeCtas = platform === null
-    ? null
-    : platform === 'android'
-      ? [
-        {
-          key: 'android',
-          href: DADTRACK_GOOGLE_PLAY_URL_TRACKED,
-          label: '🤖 Get it on Google Play',
-        },
-        {
-          key: 'ios',
-          href: DADTRACK_APP_STORE_URL_TRACKED,
-          label: '🍎 Download on the App Store',
-        },
-      ]
-      : [
-        {
-          key: 'ios',
-          href: DADTRACK_APP_STORE_URL_TRACKED,
-          label: '🍎 Download on the App Store',
-        },
-        {
-          key: 'android',
-          href: DADTRACK_GOOGLE_PLAY_URL_TRACKED,
-          label: '🤖 Get it on Google Play',
-        },
-      ];
+  const platform = useDetectedStorePlatform();
+  const storeCtas = platform === null ? null : getTrackedStoreCtas(platform);
 
   const renderStoreCtas = (keyPrefix = '') => {
     if (!storeCtas) {
@@ -204,7 +166,7 @@ export default function DadTrack() {
         target="_blank"
         rel="noopener noreferrer"
       >
-        {cta.label}
+        {cta.buttonLabel}
       </Button>
     ));
   };

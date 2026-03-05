@@ -9,12 +9,12 @@ import HeroSection from '@/components/HeroSection';
 import MobileShowcase from '@/components/MobileShowcase';
 import { GlowDivider } from '@/components/GlowDivider';
 import { getAssetPath } from '@/lib/basePath';
-import {
-  DADTRACK_APP_STORE_URL_TRACKED,
-  DADTRACK_GOOGLE_PLAY_URL_TRACKED,
-} from '@/lib/constants';
+import { getTrackedStoreCtas, useDetectedStorePlatform } from '@/lib/storeLinks';
 
 export default function Home() {
+  const platform = useDetectedStorePlatform();
+  const storeCtas = getTrackedStoreCtas(platform ?? 'other');
+
   const screenshots = [
     {
       src: getAssetPath('/images/dadtrack/1_homescreen_with_tip.png'),
@@ -81,24 +81,24 @@ export default function Home() {
                   Learn More
                 </Button>
                 <Button
-                  href={DADTRACK_APP_STORE_URL_TRACKED}
+                  href={storeCtas[0].href}
                   variant="secondary"
                   size="lg"
                   mobileFullWidth
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  🍎 Download on the App Store
+                  {storeCtas[0].buttonLabel}
                 </Button>
                 <Button
-                  href={DADTRACK_GOOGLE_PLAY_URL_TRACKED}
+                  href={storeCtas[1].href}
                   variant="secondary"
                   size="lg"
                   mobileFullWidth
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  🤖 Get it on Google Play
+                  {storeCtas[1].buttonLabel}
                 </Button>
               </div>
             </FadeIn>
@@ -128,23 +128,23 @@ export default function Home() {
             <FadeIn delay={0.4}>
               <div className="flex w-full max-w-md mx-auto flex-col gap-4 pt-4 sm:max-w-none sm:flex-row sm:flex-wrap sm:justify-center">
                 <Button
-                  href={DADTRACK_APP_STORE_URL_TRACKED}
+                  href={storeCtas[0].href}
                   size="lg"
                   mobileFullWidth
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  🍎 Download on the App Store
+                  {storeCtas[0].buttonLabel}
                 </Button>
                 <Button
-                  href={DADTRACK_GOOGLE_PLAY_URL_TRACKED}
+                  href={storeCtas[1].href}
                   variant="secondary"
                   size="lg"
                   mobileFullWidth
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  🤖 Get it on Google Play
+                  {storeCtas[1].buttonLabel}
                 </Button>
                 <Button href="https://www.linkedin.com/in/ben-greene-dev/" variant="secondary" size="lg" mobileFullWidth target="_blank" rel="noopener noreferrer">
                   LinkedIn
