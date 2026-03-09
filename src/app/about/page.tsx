@@ -59,12 +59,34 @@ export default function About() {
             </FadeIn>
             <FadeIn delay={0.2}>
               <p className="text-xl text-slate-300 leading-relaxed max-w-2xl">
-                I&apos;m an engineering leader passionate about building effective teams, shipping great software, and mentoring engineers at all levels.
+                I&apos;m an engineering leader who likes building strong teams, shipping useful software, and staying close to the work. I focus on helping engineers grow, guiding product and technical decisions, and creating the conditions for teams to move quickly without losing quality.
               </p>
             </FadeIn>
             <FadeIn delay={0.4}>
               <p className="text-lg text-slate-300 leading-relaxed max-w-2xl">
-                Beyond work, I&apos;m a dad building DadTrack — an app to help other dads capture and reflect on the precious moments with their kids.
+                Beyond work, I&apos;m a dad building DadTrack — an app that lets me stay hands-on with product, UX, and AI-assisted development while creating something meaningful for other dads.
+              </p>
+            </FadeIn>
+          </div>
+        </section>
+
+        <GlowDivider className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8" />
+
+        <section className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="space-y-6">
+            <SlideUp>
+              <h2 className="text-3xl md:text-4xl font-bold text-white">
+                How I Lead and Build
+              </h2>
+            </SlideUp>
+            <FadeIn delay={0.2}>
+              <p className="text-lg text-slate-300 leading-relaxed">
+                The work I enjoy most sits at the intersection of people, product, and engineering. I like helping teams clarify ambiguous problems, turn rough ideas into solid designs, and keep a high bar through thoughtful code reviews and design feedback.
+              </p>
+            </FadeIn>
+            <FadeIn delay={0.4}>
+              <p className="text-lg text-slate-300 leading-relaxed">
+                I care a lot about mentorship and team health. I&apos;ve put this into practice through formal mentoring programs, day-to-day coaching, and creating spaces where engineers can learn from each other. Most recently, I&apos;ve focused heavily on helping teams use AI tools well: not as a shortcut around engineering judgment, but as a way to improve execution when paired with strong context, documentation, and review discipline.
               </p>
             </FadeIn>
           </div>
@@ -83,12 +105,7 @@ export default function About() {
               </SlideUp>
               <FadeIn delay={0.2}>
                 <p className="text-lg text-slate-300 leading-relaxed">
-                  Becoming a dad fundamentally changed how I see the world. The moments — a laugh, a milestone, a quiet cuddle — they&apos;re precious but fleeting. I built DadTrack to help dads like me capture these moments, not just to remember them, but to reflect on the journey and share it with friends and family.
-                </p>
-              </FadeIn>
-              <FadeIn delay={0.4}>
-                <p className="text-lg text-slate-300 leading-relaxed">
-                  It&apos;s a low-effort, high-impact app designed with the busy dad in mind. One daily journal entry, some photos, a mood tag, and over time you build a rich archive of memories. That&apos;s the magic.
+                  Becoming a dad fundamentally changed how I see the world. The moments — a laugh, a milestone, a quiet cuddle — they&apos;re precious but fleeting. I built DadTrack to help dads like me capture those moments, not just to remember them, but to reflect on the journey and share it with the people who matter.
                 </p>
               </FadeIn>
             </div>

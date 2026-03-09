@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Briefcase, Calendar, Users } from 'lucide-react';
+import { Briefcase, Calendar, Code2, Users } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 
@@ -33,13 +33,13 @@ const AnimatedTimeline: React.FC<TimelineProps> = ({
             role: 'Senior Engineering Manager',
             period: '2022 - Present',
             location: 'Remote',
-            description: 'Leading global teams building utility data platforms. Managing engineers from interns to senior staff, driving platform initiatives, and championing responsible AI driven development.',
+            description: 'I lead teams building our core utility data platform while balancing delivery, technical quality, and long-term platform thinking. My role spans team leadership, product collaboration, design doc review, and helping engineers turn ambiguous problems into shippable work.',
             achievements: [
-                'Directed global engineering teams',
-                'Drove platform-wide initiatives',
-                'Championed responsible AI driven development'
+                'Help teams adopt AI-driven development thoughtfully, including documentation and workflows that make agent-driven work more effective',
+                'Guide engineers from interns to senior staff through mentoring, feedback, and career growth',
+                'Partner closely with product and domain experts to shape roadmap, review product specs, and refine high-impact platform work'
             ],
-            technologies: ['AI-Driven Development', 'Cursor', 'dbt', 'Snowflake', 'Java', 'Spring Boot', 'AWS', 'Team Leader'],
+            technologies: ['AI-Driven Development', 'Cursor', 'Claude Code', 'dbt', 'Snowflake', 'Java', 'Spring Boot', 'AWS'],
             icon: <Users className="w-5 h-5" />,
             color: 'from-blue-500 to-cyan-500',
             dotFrom: '#3080ff',
@@ -49,19 +49,37 @@ const AnimatedTimeline: React.FC<TimelineProps> = ({
             id: 2,
             company: 'Shift',
             role: 'Engineering Manager',
-            period: '2020 - 2022',
+            period: '2019 - 2022',
             location: 'San Francisco, CA',
-            description: 'Managed consumer fulfillment teams, advised CTO on technical direction, and built a team culture of learning and growth.',
+            description: 'At Shift, I operated as both an engineering manager and a technical leader, helping teams deliver customer-facing product improvements while improving team process, architectural direction, and cross-functional execution.',
             achievements: [
-                'Managed consumer fulfillment engineering teams',
-                'Advised CTO on technical direction',
-                'Built a strong team culture of learning and growth'
+                'Worked closely with product, design, and leadership to scope and ship meaningful consumer experiences',
+                'Led through ambiguity, contributing directly when needed while keeping teams aligned and unblocked',
+                'Improved team practices across hiring, onboarding, delivery, and technical decision-making'
             ],
             technologies: ['React', 'Ruby on Rails', 'PostgreSQL', 'Go', 'Engineering Management'],
             icon: <Briefcase className="w-5 h-5" />,
             color: 'from-purple-500 to-pink-500',
             dotFrom: '#ac4bff',
             dotTo: '#f6339a',
+        },
+        {
+            id: 3,
+            company: 'Appian',
+            role: 'Software Engineer to Senior Software Engineer',
+            period: '2015 - 2019',
+            location: 'Reston, VA',
+            description: 'At Appian, I built a strong foundation in product engineering across backend systems and mobile-adjacent work, taking on increasingly complex projects and mentorship responsibilities as my scope grew.',
+            achievements: [
+                'Built foundational platform capabilities, ranging from custom web API frameworks to a highly available file system',
+                'Contributed across backend and mobile-focused initiatives, including features related to offline support and deep linking',
+                'Managed engineering interns from project definition through execution, providing both technical guidance and career mentorship'
+            ],
+            technologies: ['Java', 'Kotlin', 'Hibernate', 'GlusterFS', 'Bash', 'Android'],
+            icon: <Code2 className="w-5 h-5" />,
+            color: 'from-emerald-500 to-teal-500',
+            dotFrom: '#22c55e',
+            dotTo: '#14b8a6',
         }
     ]
 }) => {
@@ -79,7 +97,7 @@ const AnimatedTimeline: React.FC<TimelineProps> = ({
                         Experience
                     </h2>
                     <p className="text-slate-400 text-lg">
-                        Engineering Leadership & Team Building
+                        Engineering leadership, product judgment, and AI-native building
                     </p>
                 </motion.div>
 
@@ -155,6 +173,18 @@ const AnimatedTimeline: React.FC<TimelineProps> = ({
                                             <p className="text-slate-300 mb-6 leading-relaxed">
                                                 {exp.description}
                                             </p>
+
+                                            <ul className="mb-6 space-y-3">
+                                                {exp.achievements.map((achievement, i) => (
+                                                    <li
+                                                        key={i}
+                                                        className="flex items-start gap-3 text-slate-300"
+                                                    >
+                                                        <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-teal-400" />
+                                                        <span className="leading-relaxed">{achievement}</span>
+                                                    </li>
+                                                ))}
+                                            </ul>
 
                                             {/* Technologies */}
                                             <div>
