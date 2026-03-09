@@ -175,12 +175,15 @@ const AnimatedTimeline: React.FC<TimelineProps> = ({
                                             </p>
 
                                             <ul className="mb-6 space-y-3">
-                                                {exp.achievements.map((achievement, i) => (
+                                                {exp.achievements.map((achievement) => (
                                                     <li
-                                                        key={i}
+                                                        key={achievement}
                                                         className="flex items-start gap-3 text-slate-300"
                                                     >
-                                                        <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-teal-400" />
+                                                        <span
+                                                            className="mt-2 h-2 w-2 shrink-0 rounded-full"
+                                                            style={{ backgroundColor: exp.dotFrom }}
+                                                        />
                                                         <span className="leading-relaxed">{achievement}</span>
                                                     </li>
                                                 ))}
