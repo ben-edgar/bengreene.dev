@@ -64,7 +64,7 @@ export default function About() {
             </FadeIn>
             <FadeIn delay={0.4}>
               <p className="text-lg text-slate-300 leading-relaxed max-w-2xl">
-                Beyond work, I&apos;m a dad building DadTrack — an app that lets me stay hands-on with product, UX, and AI-assisted development while creating something meaningful for other dads.
+                Beyond work, I&apos;m a dad building DadTrack — an app that lets me stay hands-on with product, UX, and AI-driven development while creating something meaningful for other dads.
               </p>
             </FadeIn>
           </div>
@@ -106,6 +106,11 @@ export default function About() {
               <FadeIn delay={0.2}>
                 <p className="text-lg text-slate-300 leading-relaxed">
                   Becoming a dad fundamentally changed how I see the world. The moments — a laugh, a milestone, a quiet cuddle — they&apos;re precious but fleeting. I built DadTrack to help dads like me capture those moments, not just to remember them, but to reflect on the journey and share it with the people who matter.
+                </p>
+              </FadeIn>
+              <FadeIn delay={0.4}>
+                <p className="text-lg text-slate-300 leading-relaxed">
+                  It&apos;s a low-effort, high-impact app designed with the busy dad in mind. One daily journal entry, some photos, a mood tag, and over time you build a rich archive of memories. That&apos;s the magic.
                 </p>
               </FadeIn>
             </div>

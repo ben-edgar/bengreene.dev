@@ -4,7 +4,7 @@ import { describe, expect, it } from 'vitest';
 import About from './page';
 
 describe('About page', () => {
-  it('highlights how Ben leads and builds with mentorship and AI-assisted delivery', () => {
+  it('highlights how Ben leads and builds with mentorship and AI-driven delivery', () => {
     const markup = renderToStaticMarkup(<About />);
 
     expect(markup).toContain('How I Lead and Build');
