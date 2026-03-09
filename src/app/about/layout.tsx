@@ -4,14 +4,14 @@ import { SITE_CANONICAL_URL } from '@/lib/constants';
 export const metadata: Metadata = {
   title: 'About Ben Greene',
   description:
-    'Learn about Ben Greene, an engineering leader passionate about building effective teams, shipping software, and mentoring engineers.',
+    'Learn about Ben Greene, an engineering leader focused on mentorship, product thinking, strong engineering judgment, and AI-driven software development.',
   metadataBase: new URL(SITE_CANONICAL_URL),
   alternates: {
     canonical: '/about',
   },
   openGraph: {
     title: 'About Ben Greene',
-    description: 'Engineering leader and creator of DadTrack.',
+    description: 'Engineering leader blending mentorship, product thinking, and AI-driven software development.',
     type: 'website',
     url: '/about',
     images: [
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary',
     title: 'About Ben Greene',
-    description: 'Engineering leader and creator of DadTrack.',
+    description: 'Engineering leader blending mentorship, product thinking, and AI-driven software development.',
     images: ['/twitter-image.png'],
   },
 };

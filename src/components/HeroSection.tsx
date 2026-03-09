@@ -20,12 +20,6 @@ const HeroSection = () => {
 
             {/* Content */}
             <div className="relative z-10 max-w-5xl mx-auto text-center mt-20">
-                {/* Badge */}
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-teal-500/10 border border-teal-500/20 backdrop-blur-sm mb-8 animate-[fade-in_0.8s_ease-out_forwards]">
-                    <Sparkles className="w-4 h-4 text-teal-400" />
-                    <span className="text-sm font-medium text-slate-200">Engineering Leader & Builder</span>
-                </div>
-
                 {/* Title with gradient */}
                 <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-4 animate-[fade-in-up_0.8s_ease-out_forwards]">
                     <span className="text-slate-50">
