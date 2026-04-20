@@ -1,0 +1,78 @@
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+import { describe, expect, it } from 'vitest';
+
+const root = process.cwd();
+
+function readJsonFile(relativePath: string) {
+  return JSON.parse(readFileSync(join(root, relativePath), 'utf8'));
+}
+
+describe('invite association files', () => {
+  it('scopes iOS universal links to /invite for DadTrack and MomTrack', () => {
+    const aasa = readJsonFile('public/.well-known/apple-app-site-association');
+
+    expect(aasa).toEqual({
+      applinks: {
+        apps: [],
+        details: [
+          {
+            appID: '994YRHN9Q4.dev.bengreene.dadtrack',
+            paths: ['/invite', '/invite/*'],
+          },
+          {
+            appID: '994YRHN9Q4.dev.bengreene.momtrack',
+            paths: ['/invite', '/invite/*'],
+          },
+        ],
+      },
+    });
+  });
+
+  it('declares all Android release and debug packages with exact signing fingerprints', () => {
+    const assetlinks = readJsonFile('public/.well-known/assetlinks.json');
+
+    expect(assetlinks).toEqual([
+      {
+        relation: ['delegate_permission/common.handle_all_urls'],
+        target: {
+          namespace: 'android_app',
+          package_name: 'dev.bengreene.dadtrack',
+          sha256_cert_fingerprints: [
+            'C3:31:6D:3B:41:73:C9:B9:62:07:A0:A1:81:14:F1:21:CF:2B:C6:82:57:0F:79:20:CE:05:AE:F5:80:0F:50:83',
+          ],
+        },
+      },
+      {
+        relation: ['delegate_permission/common.handle_all_urls'],
+        target: {
+          namespace: 'android_app',
+          package_name: 'dev.bengreene.dadtrack.debug',
+          sha256_cert_fingerprints: [
+            '3C:4F:D9:63:CF:26:54:38:BE:59:26:5E:8D:81:51:4D:7F:1E:80:AB:C4:EE:F9:A5:BE:19:F9:31:86:CE:34:1A',
+          ],
+        },
+      },
+      {
+        relation: ['delegate_permission/common.handle_all_urls'],
+        target: {
+          namespace: 'android_app',
+          package_name: 'dev.bengreene.momtrack',
+          sha256_cert_fingerprints: [
+            'B6:A8:84:E3:C7:0C:BF:A6:02:66:44:B1:5E:4A:7A:F6:75:19:5D:D3:58:17:DB:AF:A8:84:8C:36:B2:37:8E:C4',
+          ],
+        },
+      },
+      {
+        relation: ['delegate_permission/common.handle_all_urls'],
+        target: {
+          namespace: 'android_app',
+          package_name: 'dev.bengreene.momtrack.debug',
+          sha256_cert_fingerprints: [
+            '3C:4F:D9:63:CF:26:54:38:BE:59:26:5E:8D:81:51:4D:7F:1E:80:AB:C4:EE:F9:A5:BE:19:F9:31:86:CE:34:1A',
+          ],
+        },
+      },
+    ]);
+  });
+});

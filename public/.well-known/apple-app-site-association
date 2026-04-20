@@ -1,0 +1,15 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "994YRHN9Q4.dev.bengreene.dadtrack",
+        "paths": ["/invite", "/invite/*"]
+      },
+      {
+        "appID": "994YRHN9Q4.dev.bengreene.momtrack",
+        "paths": ["/invite", "/invite/*"]
+      }
+    ]
+  }
+}
