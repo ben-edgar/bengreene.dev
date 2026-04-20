@@ -1,4 +1,4 @@
-import { getTrackedStoreCtas, type StorePlatform } from './storeLinks';
+import { getTrackedStoreCtas, type StorePlatform } from './storeCtas';
 
 export type InviteLinkParams = {
   familyId: string | null;
