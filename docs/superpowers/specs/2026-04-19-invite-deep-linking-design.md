@@ -1,0 +1,523 @@
+# Invite Fallback and Deep Linking Design
+
+**Date:** 2026-04-19  
+**Status:** Approved for implementation  
+**Primary repo:** `/Users/bengreene/workspace/bengreene.dev`  
+**Related app repo:** `/Users/bengreene/workspace/dad_track-2`
+
+---
+
+## 1. Overview
+
+DadTrack and MomTrack need invite links that work in three cases:
+
+1. the target app is already installed and should open directly via Universal Links / App Links
+2. the target app is not installed and the user should land on a web fallback page
+3. the user installs the app after landing on the web page and needs clear guidance to reopen the original invite link
+
+The shared invite URL remains on `bengreene.dev`:
+
+`https://bengreene.dev/invite?familyId=<familyId>&inviteToken=<inviteToken>&senderName=<senderName>`
+
+This repo owns the website side of that contract:
+
+- the `/invite` fallback page
+- `/.well-known/apple-app-site-association`
+- `/.well-known/assetlinks.json`
+
+The Flutter repo owns the native side:
+
+- app entitlements and manifest entries
+- incoming-link parsing and routing
+- invite acceptance flow inside DadTrack / MomTrack
+
+This design assumes a first attempt with **GitHub Pages only**. That is acceptable for v1, but Apple AASA header validation is a hard launch gate.
+
+---
+
+## 2. Goals
+
+- Support `bengreene.dev/invite` as the canonical invite URL for DadTrack and MomTrack.
+- Open installed iOS apps through Universal Links.
+- Open installed Android apps through App Links.
+- Show a useful fallback page when the app is not installed.
+- Prefer the visitor's current platform when ordering store CTAs.
+- Support MomTrack in the association files even though MomTrack does not yet have public store links.
+- Keep the implementation static-site compatible with Next.js `output: "export"` and GitHub Pages deployment.
+
+## 3. Non-Goals
+
+- Building a browser-based invite acceptance flow.
+- Adding MomTrack public store CTAs before MomTrack is publicly listed.
+- Adding analytics, attribution, or smart deferred deep linking beyond the existing invite URL parameters.
+- Expanding deep-link coverage beyond the invite flow in this phase.
+- Moving away from GitHub Pages before validation proves it is necessary.
+
+---
+
+## 4. Current Constraints and Verified Inputs
+
+### 4.1 Website repo
+
+This repo is a static Next.js 16 App Router site with `output: "export"` and a GitHub Pages Actions deployment that uploads the generated `out/` directory.
+
+Relevant confirmed behavior:
+
+- `public/` assets are copied into `out/`
+- `public/.nojekyll` is copied into `out/.nojekyll`
+- Pages deployment is driven by `.github/workflows/deploy.yml`
+- The current build succeeds locally with `pnpm build`
+
+### 4.2 Native app identifiers
+
+From `/Users/bengreene/workspace/dad_track-2`:
+
+- Apple Team ID: `994YRHN9Q4`
+- iOS DadTrack bundle ID: `dev.bengreene.dadtrack`
+- iOS MomTrack bundle ID: `dev.bengreene.momtrack`
+- Android DadTrack package ID: `dev.bengreene.dadtrack`
+- Android DadTrack debug package ID: `dev.bengreene.dadtrack.debug`
+- Android MomTrack package ID: `dev.bengreene.momtrack`
+- Android MomTrack debug package ID: `dev.bengreene.momtrack.debug`
+
+For iOS v1, only the release bundle IDs will be listed in AASA. If testing later proves that DadTrack debug installs on device or simulator require a distinct bundle ID, the AASA file can be expanded in a follow-up change.
+
+### 4.3 App-side linking state
+
+The Flutter repo already contains:
+
+- iOS associated domain entitlements for `applinks:bengreene.dev`
+- Android intent filter for `https://bengreene.dev/invite`
+- `app_links` as the deep-link plugin
+
+This design therefore focuses on the site contract and deployment validation, not app-side entitlement wiring.
+
+---
+
+## 5. Platform Requirements
+
+### 5.1 iOS Universal Links
+
+iOS requires:
+
+- an HTTPS-served `apple-app-site-association` file
+- no redirect
+- app identifiers in `TeamID.BundleID` form
+- path scoping for the URLs the apps may handle
+
+The file may be hosted at either:
+
+- `https://bengreene.dev/apple-app-site-association`
+- `https://bengreene.dev/.well-known/apple-app-site-association`
+
+This design standardizes on `/.well-known/apple-app-site-association`.
+
+### 5.2 Android App Links
+
+Android requires:
+
+- `https://bengreene.dev/.well-known/assetlinks.json`
+- `Content-Type: application/json`
+- no redirect
+- one or more statements that bind the site to Android packages and signing certificates
+
+Android explicitly supports multiple associated apps and supports separate entries for debug and release variants.
+
+### 5.3 Flutter deep-link handler
+
+Because the app uses `package:app_links`, Flutter's default deep-link handler should remain disabled in the Flutter repo. This is an app-side dependency, but it is part of the verified end-to-end contract for the invite flow.
+
+---
+
+## 6. Website Contract
+
+### 6.1 Canonical URL
+
+Invite links generated by the app must use:
+
+`https://bengreene.dev/invite?familyId=<familyId>&inviteToken=<inviteToken>&senderName=<senderName>`
+
+Parameter meanings:
+
+- `familyId`: family document identifier
+- `inviteToken`: single-use invite token
+- `senderName`: sender display name used only for user-facing copy
+
+### 6.2 Parameter handling rules
+
+The web page:
+
+- may read `familyId`, `inviteToken`, and `senderName` from the query string
+- must never render `familyId` or `inviteToken` visibly on the page
+- must never log `familyId` or `inviteToken` to the console
+- may use `senderName` in visible copy
+
+### 6.3 Path scope
+
+Only the invite route should be associated with the apps.
+
+Association scope:
+
+- `/invite`
+- `/invite/*`
+
+The rest of `bengreene.dev` should continue opening in the browser.
+
+---
+
+## 7. Fallback Page UX
+
+### 7.1 Route
+
+Create a dedicated route:
+
+- `src/app/invite/page.tsx`
+
+This route is statically exported and renders the invite fallback experience.
+
+### 7.2 Page purpose
+
+The fallback page exists for the browser case only:
+
+- app not installed
+- link opened on desktop
+- link opened in an environment where Universal Links / App Links do not claim the URL
+
+The page does **not** accept the invite itself. It explains what is happening, offers app install CTAs, and tells the user how to continue.
+
+### 7.3 Copy requirements
+
+The page should:
+
+- explain that the user was invited to join a family group in DadTrack / MomTrack
+- personalize the message with `senderName` when present
+- explain that DadTrack is available now
+- explain that MomTrack support is coming soon
+- explain that after installing DadTrack, the user should reopen the original invite link from Messages, email, or wherever it was shared
+
+Suggested content structure:
+
+1. headline
+2. short explanation
+3. primary install CTA
+4. secondary install CTA
+5. note about MomTrack support coming soon
+6. brief “what to do next” instructions
+
+### 7.4 CTA behavior
+
+The page shows both DadTrack store CTAs, but orders them based on the detected platform:
+
+- iOS: App Store first, Google Play second
+- Android: Google Play first, App Store second
+- desktop or unknown: App Store first, Google Play second
+
+CTA URLs should use the existing tracked DadTrack store links already defined in this repo.
+
+### 7.5 Invalid or incomplete links
+
+If `familyId` or `inviteToken` is missing, the page should render an error-tolerant recovery state rather than a broken invite screen.
+
+Recovery state requirements:
+
+- explain that the invite link appears incomplete
+- still offer both DadTrack store CTAs
+- instruct the user to reopen the full original invite link
+- avoid showing raw query values or technical error text
+
+### 7.6 Metadata and indexing
+
+The `/invite` route should have dedicated metadata:
+
+- title tuned for invite links
+- short invite-specific description
+- `robots` set to `noindex, nofollow`
+
+These pages are transactional and should not become indexed landing pages.
+
+---
+
+## 8. Repo File Map
+
+Recommended implementation structure:
+
+- `src/app/invite/page.tsx`
+- `src/components/invite/InviteFallbackPage.tsx`
+- `src/lib/inviteLinks.ts`
+- `src/lib/inviteLinks.test.ts`
+- `public/.well-known/apple-app-site-association`
+- `public/.well-known/assetlinks.json`
+- optional file-shape tests for the two association files
+
+Responsibilities:
+
+- `page.tsx`: route metadata and shell
+- `InviteFallbackPage.tsx`: UI and client-only platform detection
+- `inviteLinks.ts`: query parsing, state derivation, CTA ordering, and copy helpers
+- `.well-known/*`: production association artifacts deployed with the static site
+
+Use `public/.well-known/` rather than route handlers. This repo is static export only, and route handlers do not remove the header-control risk on GitHub Pages.
+
+---
+
+## 9. Apple App Site Association Design
+
+### 9.1 File path
+
+- `public/.well-known/apple-app-site-association`
+
+### 9.2 Format
+
+Use the broad, older-compatible structure rather than a more expressive `components`-only structure:
+
+```json
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "994YRHN9Q4.dev.bengreene.dadtrack",
+        "paths": ["/invite", "/invite/*"]
+      },
+      {
+        "appID": "994YRHN9Q4.dev.bengreene.momtrack",
+        "paths": ["/invite", "/invite/*"]
+      }
+    ]
+  }
+}
+```
+
+Reasons for this choice:
+
+- simpler to audit
+- compatible with older path-based matching expectations
+- enough for the current invite-only scope
+- avoids unnecessary complexity before real-device testing
+
+### 9.3 iOS scope decision
+
+For v1, include only:
+
+- `994YRHN9Q4.dev.bengreene.dadtrack`
+- `994YRHN9Q4.dev.bengreene.momtrack`
+
+Do not include a DadTrack debug iOS bundle until testing proves it is required. The spec intentionally keeps the initial AASA surface narrow.
+
+---
+
+## 10. Android Asset Links Design
+
+### 10.1 File path
+
+- `public/.well-known/assetlinks.json`
+
+### 10.2 Packages to support
+
+The file must include separate statements for:
+
+- `dev.bengreene.dadtrack`
+- `dev.bengreene.dadtrack.debug`
+- `dev.bengreene.momtrack`
+- `dev.bengreene.momtrack.debug`
+
+### 10.3 Fingerprint requirements
+
+Each Android package statement must contain the exact SHA-256 fingerprint(s) of the signing certificate used by builds installed on devices.
+
+Required fingerprint sources:
+
+- release package IDs:
+  - use the Play App Signing fingerprint if release builds are Play-signed for testers/users
+  - otherwise use the release keystore fingerprint actually present on device
+- debug package IDs:
+  - use the debug keystore fingerprint for the local debug builds being tested
+
+The checked-in file must never ship with placeholder fingerprints.
+
+### 10.4 Statement shape
+
+Each statement should follow this pattern:
+
+```json
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "dev.bengreene.dadtrack",
+      "sha256_cert_fingerprints": [
+        "12:34:56:78:90:AB:CD:EF:12:34:56:78:90:AB:CD:EF:12:34:56:78:90:AB:CD:EF:12:34:56:78:90:AB:CD:EF"
+      ]
+    }
+  }
+]
+```
+
+If one package can be encountered with multiple valid signing certs on device, include all applicable fingerprints in the same statement array for that package.
+
+### 10.5 Optional Android 15+ dynamic rules
+
+Do **not** add Dynamic App Links server-side rules in v1.
+
+Reason:
+
+- the manifest path scope already targets `/invite`
+- this phase needs reliability more than additional rule complexity
+- Dynamic App Links can be layered in later if path-level routing expands
+
+---
+
+## 11. GitHub Pages Deployment Strategy
+
+### 11.1 Chosen strategy
+
+Use GitHub Pages only for v1:
+
+- `/invite` page in this repo
+- AASA in this repo
+- `assetlinks.json` in this repo
+
+### 11.2 Why this is acceptable
+
+- the repo already deploys static artifacts via GitHub Actions
+- `public/` files are copied into `out/`
+- `.nojekyll` is already preserved
+- `assetlinks.json` is a normal JSON file and is a good fit for Pages
+
+### 11.3 Known risk
+
+GitHub Pages does not provide custom header control for extensionless files. That creates a real risk that:
+
+- `/.well-known/apple-app-site-association` could be served with the wrong MIME type
+
+The site is still worth attempting on Pages first because the implementation cost is low, but **AASA response validation is a ship blocker**.
+
+### 11.4 Fallback hosting plan
+
+If production validation shows the AASA file is not served correctly, keep `/invite` on GitHub Pages and move only the two association files behind a host or edge layer that guarantees:
+
+- `200 OK`
+- HTTPS
+- no redirect
+- `Content-Type: application/json`
+
+That fallback is intentionally narrow so the main site does not need to move.
+
+---
+
+## 12. Testing and Verification
+
+### 12.1 Repo-level tests
+
+Add unit coverage for:
+
+- parsing invite query params
+- deriving fallback state when required params are missing
+- CTA ordering by platform
+- MomTrack-coming-soon copy state
+
+Add file-shape validation for:
+
+- `apple-app-site-association` parses as JSON
+- `assetlinks.json` parses as JSON
+- expected iOS `appID` values are present
+- expected Android package names are present
+- AASA path scope is limited to `/invite`
+
+### 12.2 Build verification
+
+Before deployment, run:
+
+```bash
+pnpm build
+```
+
+The exported artifact must contain:
+
+- `out/invite.html`
+- `out/.well-known/apple-app-site-association`
+- `out/.well-known/assetlinks.json`
+
+### 12.3 Production response verification
+
+After deployment, run:
+
+```bash
+curl -I https://bengreene.dev/.well-known/apple-app-site-association
+curl -I https://bengreene.dev/.well-known/assetlinks.json
+```
+
+Required results:
+
+- `200 OK`
+- no `301` or `302`
+- JSON content type
+
+### 12.4 Device verification
+
+#### iOS
+
+- DadTrack installed: invite opens DadTrack
+- MomTrack installed: invite opens MomTrack
+- no app installed: Safari shows the `/invite` fallback page
+
+#### Android
+
+- DadTrack release installed: invite opens DadTrack
+- DadTrack debug installed: invite opens DadTrack debug
+- MomTrack release installed: invite opens MomTrack
+- MomTrack debug installed: invite opens MomTrack debug
+- no app installed: browser shows the `/invite` fallback page
+
+### 12.5 Flutter validation
+
+Run the Flutter DevTools deep-link validator against `/Users/bengreene/workspace/dad_track-2` and confirm the native repo and website configuration validate together.
+
+Because the Flutter app uses `app_links`, verify that the default Flutter deep-link handler remains disabled in the app repo.
+
+---
+
+## 13. Launch Criteria
+
+This work is ready to ship only when all of the following are true:
+
+- `/invite` renders correctly in browser fallback cases
+- AASA file is reachable at `/.well-known/apple-app-site-association`
+- `assetlinks.json` is reachable at `/.well-known/assetlinks.json`
+- both files return `200` with no redirect
+- both files return JSON content types
+- iOS device testing confirms Universal Links work for DadTrack and MomTrack
+- Android device testing confirms App Links work for release and debug packages
+
+If the AASA MIME type fails on GitHub Pages, the feature is **not** ready to ship from Pages-only hosting.
+
+---
+
+## 14. Implementation Notes for the Paired Flutter Repo
+
+These items are out of scope for this repo, but this website spec depends on them:
+
+- Invite generation must continue using `familyId`, `inviteToken`, and `senderName` query params.
+- The app must resume the invite flow after sign-in when opened from a deep link.
+- DadTrack / MomTrack should not rely on website behavior for invite acceptance logic.
+- Since `app_links` is in use, Flutter's built-in deep-link handler should remain disabled.
+
+---
+
+## 15. Sources
+
+- Apple associated domains: `https://developer.apple.com/documentation/Xcode/supporting-associated-domains`
+- Apple universal links guide: `https://developer.apple.com/library/archive/documentation/General/Conceptual/AppSearch/UniversalLinks.html`
+- Android website associations and App Links: `https://developer.android.com/training/app-links/configure-assetlinks`
+- Android prerequisites note on multiple app versions: `https://developer.android.com/identity/credential-manager/prerequisites`
+- Android App Links troubleshooting and verification:
+  - `https://developer.android.com/training/app-links/troubleshoot`
+  - `https://developer.android.com/training/app-links/verify-applinks`
+- Flutter deep-link flag change: `https://docs.flutter.dev/release/breaking-changes/deep-links-flag-change`
+- Flutter deep-link validator: `https://docs.flutter.dev/tools/devtools/deep-links`
+- Next.js static export docs: `https://nextjs.org/docs/app/building-your-application/deploying/static-exports`
+- GitHub Pages overview and `.nojekyll` docs:
+  - `https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages`
+  - `https://docs.github.com/pages/setting-up-a-github-pages-site-with-jekyll/creating-a-github-pages-site-with-jekyll`
+- GitHub community discussion on serving `.well-known` from Pages: `https://github.com/orgs/community/discussions/45034`
