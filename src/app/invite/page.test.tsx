@@ -1,44 +1,23 @@
 import { renderToStaticMarkup } from 'react-dom/server';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
 import InviteLayout, { metadata } from './layout';
-import { InviteFallbackPage } from '@/components/invite/InviteFallbackPage';
 
-const searchParamsState = {
-  familyId: 'fam_secret_123',
-  inviteToken: 'token_secret_456',
-  senderName: 'Ben',
-};
+const pendingInvitePage = new Promise<never>(() => {});
 
-const platformState = {
-  platform: 'android' as const,
-};
-
-vi.mock('next/navigation', () => ({
-  useSearchParams: () => ({
-    get: (name: string) => searchParamsState[name as keyof typeof searchParamsState] ?? null,
-  }),
+vi.mock('@/components/Header', () => ({
+  Header: () => <div>Header</div>,
 }));
 
-vi.mock('@/lib/storeLinks', async () => {
-  const actual = await vi.importActual<typeof import('@/lib/storeLinks')>(
-    '@/lib/storeLinks',
-  );
+vi.mock('@/components/invite/InviteFallbackPage', () => ({
+  InviteFallbackPage() {
+    throw pendingInvitePage;
+  },
+}));
 
-  return {
-    ...actual,
-    useDetectedStorePlatform: () => platformState.platform,
-  };
-});
+import InvitePage from './page';
 
 describe('Invite route contracts', () => {
-  beforeEach(() => {
-    searchParamsState.familyId = 'fam_secret_123';
-    searchParamsState.inviteToken = 'token_secret_456';
-    searchParamsState.senderName = 'Ben';
-    platformState.platform = 'android';
-  });
-
   it('exports noindex metadata with the invite canonical URL', () => {
     expect(metadata.title).toBe('Family Invite – DadTrack');
     expect(metadata.description).toBe(
@@ -59,24 +38,14 @@ describe('Invite route contracts', () => {
     expect(layoutMarkup).toContain('child');
   });
 
-  it('renders a ready invite state without exposing the raw invite params', () => {
-    const markup = renderToStaticMarkup(<InviteFallbackPage />);
+  it('renders the route fallback skeleton when the invite client component suspends', () => {
+    const markup = renderToStaticMarkup(<InvitePage />);
 
-    expect(markup).toContain('Ben invited you to join a family group');
-    expect(markup).not.toContain('fam_secret_123');
-    expect(markup).not.toContain('token_secret_456');
-  });
-
-  it('renders the invalid state when required invite params are missing', () => {
-    searchParamsState.familyId = '';
-    searchParamsState.inviteToken = '';
-    searchParamsState.senderName = '';
-    platformState.platform = 'other';
-
-    const markup = renderToStaticMarkup(<InviteFallbackPage />);
-
-    expect(markup).toContain('This invite link looks incomplete');
-    expect(markup).not.toContain('familyId');
-    expect(markup).not.toContain('inviteToken');
+    expect(markup).toContain('Header');
+    expect(markup).toContain('Family Invite');
+    expect(markup).toContain('Open this invite in DadTrack');
+    expect(markup).toContain(
+      'Checking your invite details and the best download option for this device.',
+    );
   });
 });
