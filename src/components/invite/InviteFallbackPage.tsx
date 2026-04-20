@@ -11,9 +11,10 @@ import { useDetectedStorePlatform } from '@/lib/storeLinks';
 
 export function InviteFallbackPage() {
   const searchParams = useSearchParams();
-  const platform = useDetectedStorePlatform() ?? 'other';
+  const platform = useDetectedStorePlatform();
   const inviteParams = parseInviteSearchParams(searchParams);
-  const model = buildInvitePageModel(inviteParams, platform);
+  const model = buildInvitePageModel(inviteParams, platform ?? 'other');
+  const isResolvingPlatform = platform === null;
 
   return (
     <section className="mx-auto flex w-full max-w-3xl flex-1 items-center px-4 py-16 sm:px-6 lg:px-8">
@@ -32,20 +33,28 @@ export function InviteFallbackPage() {
             </p>
           </div>
 
-          <div className="flex w-full max-w-md flex-col gap-4 sm:max-w-none sm:flex-row sm:flex-wrap">
-            {model.ctas.map((cta) => (
-              <Button
-                key={cta.key}
-                href={cta.href}
-                mobileFullWidth
-                rel="noopener noreferrer"
-                size="lg"
-                target="_blank"
-              >
-                {cta.buttonLabel}
-              </Button>
-            ))}
-          </div>
+          {isResolvingPlatform ? (
+            <div className="flex w-full max-w-md flex-col gap-4 sm:max-w-none sm:flex-row sm:flex-wrap">
+              <div className="w-full rounded-xl border border-dashed border-white/15 bg-white/5 px-5 py-4 text-sm text-slate-300 sm:w-auto">
+                Checking the best download option for this device...
+              </div>
+            </div>
+          ) : (
+            <div className="flex w-full max-w-md flex-col gap-4 sm:max-w-none sm:flex-row sm:flex-wrap">
+              {model.ctas.map((cta) => (
+                <Button
+                  key={cta.key}
+                  href={cta.href}
+                  mobileFullWidth
+                  rel="noopener noreferrer"
+                  size="lg"
+                  target="_blank"
+                >
+                  {cta.buttonLabel}
+                </Button>
+              ))}
+            </div>
+          )}
 
           <div className="space-y-3 rounded-2xl border border-white/10 bg-black/20 p-5">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-400">

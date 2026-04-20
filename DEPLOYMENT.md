@@ -68,7 +68,7 @@ pnpm start  # Serves from http://localhost:3000/bengreene.dev/
 Whenever you change `src/app/invite/*` or `public/.well-known/*`, run:
 
 ```bash
-pnpm exec vitest run src/app/invite/page.test.tsx src/lib/inviteLinks.test.ts src/lib/inviteAssociationFiles.test.ts
+pnpm exec vitest run src/app/invite/page.test.tsx src/components/invite/InviteFallbackPage.test.tsx src/lib/inviteLinks.test.ts src/lib/inviteAssociationFiles.test.ts
 pnpm build
 find out/.well-known -maxdepth 2 -type f | sort
 ```
