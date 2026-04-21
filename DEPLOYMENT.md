@@ -63,6 +63,31 @@ NEXT_PUBLIC_BASE_PATH=/bengreene.dev pnpm build
 pnpm start  # Serves from http://localhost:3000/bengreene.dev/
 ```
 
+## Invite Deep Link Verification
+
+Whenever you change `src/app/invite/*` or `public/.well-known/*`, run:
+
+```bash
+pnpm exec vitest run src/app/invite/page.test.tsx src/components/invite/InviteFallbackPage.test.tsx src/lib/inviteLinks.test.ts src/lib/inviteAssociationFiles.test.ts
+pnpm build
+find out/.well-known -maxdepth 2 -type f | sort
+```
+
+Before shipping to production, verify the deployed responses:
+
+```bash
+curl -I https://bengreene.dev/.well-known/apple-app-site-association
+curl -I https://bengreene.dev/.well-known/assetlinks.json
+```
+
+Required production result:
+
+- `200 OK`
+- no redirect
+- JSON content type
+
+If the AASA file is not returned with a JSON-compatible content type from GitHub Pages, keep `/invite` on Pages and move only the association files to a host that allows header control.
+
 ## Implementation Details
 
 ### Files Modified
