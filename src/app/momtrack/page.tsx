@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Header } from '@/components/Header';
 import { TiltCard } from '@/components/TiltCard';
 import { Button } from '@/components/Button';
@@ -288,10 +289,9 @@ export default function MomTrack() {
             </FadeIn>
             <FadeIn delay={0.6}>
               <p className="text-sm text-slate-500">
-                Have feedback?{' '}
-                <a href="/feedback?app=momtrack" className={`${theme.accentText} hover:underline`}>
-                  Share your thoughts
-                </a>
+                <Link href="/feedback?app=momtrack" className={`${theme.accentText} hover:underline`}>
+                  Have feedback?
+                </Link>
               </p>
             </FadeIn>
           </div>

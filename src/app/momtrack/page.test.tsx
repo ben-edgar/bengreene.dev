@@ -8,6 +8,22 @@ vi.mock('next/image', () => ({
   ),
 }));
 
+vi.mock('next/link', () => ({
+  default: ({
+    href,
+    children,
+    ...props
+  }: React.ComponentProps<'a'> & { href: string | { toString(): string } }) => (
+    <a
+      data-next-link="true"
+      href={typeof href === 'string' ? href : String(href)}
+      {...props}
+    >
+      {children}
+    </a>
+  ),
+}));
+
 vi.mock('framer-motion', () => {
   const motion = new Proxy(
     {},
@@ -103,6 +119,7 @@ describe('MomTrack product route', () => {
     expect(markup).toContain('Why MomTrack Is Different');
     expect(markup).toContain('Mom-Focused');
     expect(markup).toContain('/feedback?app=momtrack');
+    expect(markup).toContain('data-next-link="true"');
     expect(markup).toContain('md:col-span-2 md:mx-auto md:w-[calc(50%-0.75rem)]');
     expect(markup).toContain('SoftwareApplication');
     expect(markup).toContain('MomTrack');
