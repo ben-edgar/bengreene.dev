@@ -5,14 +5,8 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Github, Linkedin, Menu } from 'lucide-react';
+import { navLinks } from '@/lib/navigation';
 import { MobileMenu } from './MobileMenu';
-
-const navLinks = [
-  { href: '/', label: 'Home' },
-  { href: '/about', label: 'About' },
-  { href: '/dadtrack', label: 'DadTrack' },
-  { href: '/feedback', label: 'Feedback' },
-];
 
 export function Header() {
   const pathname = usePathname();

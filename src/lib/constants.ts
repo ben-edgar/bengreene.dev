@@ -8,6 +8,8 @@ export const DADTRACK_APP_STORE_URL =
 export const DADTRACK_GOOGLE_PLAY_URL =
   'https://play.google.com/store/apps/details?id=dev.bengreene.dadtrack';
 
+export const MOMTRACK_TESTFLIGHT_URL = 'https://testflight.apple.com/join/nnmhT9Sw';
+
 export const SITE_CANONICAL_URL = 'https://bengreene.dev';
 
 const WEBSITE_UTM_QUERY =

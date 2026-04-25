@@ -1,12 +1,6 @@
 import Link from 'next/link';
 import { Github, Linkedin } from 'lucide-react';
-
-const navLinks = [
-    { href: '/', label: 'Home' },
-    { href: '/about', label: 'About' },
-    { href: '/dadtrack', label: 'DadTrack' },
-    { href: '/feedback', label: 'Feedback' },
-];
+import { navLinks } from '@/lib/navigation';
 
 export function SiteFooter() {
     const currentYear = new Date().getFullYear();
