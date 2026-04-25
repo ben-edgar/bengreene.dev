@@ -3,7 +3,11 @@ import { describe, expect, it } from 'vitest';
 import {
   DADTRACK_FEATURES,
   DADTRACK_HOME_SHOWCASE_SCREENSHOTS,
+  DADTRACK_KEY_POINTS,
+  DADTRACK_PAGE_THEME,
+  MOMTRACK_BETA_CTA,
   MOMTRACK_FEATURES,
+  MOMTRACK_KEY_POINTS,
   MOMTRACK_PAGE_THEME,
   PRODUCT_ROADMAP,
   getOddFinalGridItemClass,
@@ -38,9 +42,16 @@ describe('product content', () => {
 
   it('uses seven MomTrack features with MomTrack asset paths', () => {
     expect(MOMTRACK_FEATURES).toHaveLength(7);
-    expect(MOMTRACK_FEATURES[0].image).toBe('/images/momtrack/01-home-feed.png');
+    expect(MOMTRACK_FEATURES.map((feature) => feature.image)).toEqual([
+      '/images/momtrack/01-home-feed.png',
+      '/images/momtrack/02-monthly-recap.png',
+      '/images/momtrack/03-journal-entry-detail.png',
+      '/images/momtrack/04-search.png',
+      '/images/momtrack/05-streak.png',
+      '/images/momtrack/06-cloud-pending.png',
+      '/images/momtrack/07-cloud-all-synced.png',
+    ]);
     expect(MOMTRACK_FEATURES[6].title).toBe('Restore & Sync');
-    expect(MOMTRACK_FEATURES[6].image).toBe('/images/momtrack/07-cloud-all-synced.png');
   });
 
   it('defines the three DadTrack home showcase screenshots', () => {
@@ -53,8 +64,38 @@ describe('product content', () => {
 
   it('keeps roadmap content shared for both product pages', () => {
     expect(PRODUCT_ROADMAP).toHaveLength(4);
-    expect(PRODUCT_ROADMAP[0].milestone).toBe('Milestone Tracker');
+    expect(PRODUCT_ROADMAP.map((section) => section.milestone)).toEqual([
+      'Milestone Tracker',
+      'Child Information Hub',
+      'Memory Highlights',
+      'Family Sharing',
+    ]);
     expect(PRODUCT_ROADMAP[3].items).toContain('Selective entry sharing');
+  });
+
+  it('defines DadTrack key points with the updated data-control copy', () => {
+    expect(DADTRACK_KEY_POINTS).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          title: 'Your Data, Your Control',
+          description: expect.stringContaining('Optional cloud backup and sync keeps your memories safe'),
+        }),
+      ]),
+    );
+  });
+
+  it('defines MomTrack key points with mom-focused and data-control positioning', () => {
+    expect(MOMTRACK_KEY_POINTS).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          title: 'Mom-Focused',
+        }),
+        expect.objectContaining({
+          title: 'Your Data, Your Control',
+          description: expect.stringContaining('Optional cloud backup and sync keeps your memories safe'),
+        }),
+      ]),
+    );
   });
 
   it('centers the final odd card only when a two-column feature grid has an odd item count', () => {
@@ -71,6 +112,24 @@ describe('product content', () => {
       secondaryGlow: 'bg-red-700/20',
       backgroundPrimaryGlow: 'bg-rose-500/5',
       backgroundSecondaryGlow: 'bg-red-700/5',
+    });
+  });
+
+  it('defines literal Tailwind classes for the DadTrack showcase theme', () => {
+    expect(DADTRACK_PAGE_THEME.showcaseThemeClasses).toEqual({
+      text: 'text-teal-400',
+      indicatorActive: 'bg-gradient-to-r from-teal-400 to-blue-500',
+      primaryGlow: 'bg-teal-500/20',
+      secondaryGlow: 'bg-purple-500/20',
+      backgroundPrimaryGlow: 'bg-teal-500/5',
+      backgroundSecondaryGlow: 'bg-purple-500/5',
+    });
+  });
+
+  it('defines the MomTrack beta CTA using the TestFlight URL', () => {
+    expect(MOMTRACK_BETA_CTA).toEqual({
+      label: 'Join the Beta on TestFlight',
+      href: MOMTRACK_TESTFLIGHT_URL,
     });
   });
 });
