@@ -63,6 +63,8 @@ describe('MobileShowcase', () => {
     expect(markup).toContain('bg-gradient-to-r from-teal-400 to-blue-500');
     expect(markup).toContain('bg-teal-500/20');
     expect(markup).toContain('bg-purple-500/20');
+    expect(markup).toContain('bg-teal-500/5');
+    expect(markup).toContain('bg-purple-500/5');
   });
 
   it('renders a custom heading and literal MomTrack theme classes', () => {
