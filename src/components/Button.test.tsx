@@ -24,4 +24,16 @@ describe('Button', () => {
 
     expect(element.props.className).toContain('w-full sm:w-auto');
   });
+
+  it('uses MomTrack colors when the button tone is momtrack', () => {
+    const element = Button({
+      children: 'MomTrack CTA',
+      href: 'https://example.com',
+      tone: 'momtrack',
+    });
+
+    expect(element.props.className).toContain('from-[#e8746e]');
+    expect(element.props.className).toContain('to-[#9e2b3c]');
+    expect(element.props.className).not.toContain('bg-primary-600');
+  });
 });

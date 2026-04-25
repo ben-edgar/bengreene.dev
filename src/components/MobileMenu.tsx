@@ -4,18 +4,12 @@ import Link from 'next/link';
 import { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import { Github, Linkedin, X } from 'lucide-react';
+import { navLinks } from '@/lib/navigation';
 
 interface MobileMenuProps {
   isOpen: boolean;
   onClose: () => void;
 }
-
-const navLinks = [
-  { href: '/', label: 'Home' },
-  { href: '/about', label: 'About' },
-  { href: '/dadtrack', label: 'DadTrack' },
-  { href: '/feedback', label: 'Feedback' },
-];
 
 export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
   const pathname = usePathname();

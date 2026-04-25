@@ -4,6 +4,7 @@ import Link from 'next/link';
 interface ButtonProps {
   children: ReactNode;
   variant?: 'primary' | 'secondary';
+  tone?: 'dadtrack' | 'momtrack';
   size?: 'sm' | 'md' | 'lg';
   fullWidth?: boolean;
   mobileFullWidth?: boolean;
@@ -19,6 +20,7 @@ interface ButtonProps {
 export function Button({
   children,
   variant = 'primary',
+  tone = 'dadtrack',
   size = 'md',
   fullWidth = false,
   mobileFullWidth = false,
@@ -33,8 +35,14 @@ export function Button({
   const baseStyles = 'font-semibold rounded-xl transition-all duration-200 inline-flex items-center justify-center cursor-pointer active:scale-95';
 
   const variantStyles = {
-    primary: 'bg-primary-600 hover:bg-primary-700 !text-white border-2 border-primary-700 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none',
-    secondary: 'border-2 border-primary-400/70 bg-white/5 text-primary-300 hover:border-primary-300 hover:bg-white/10 hover:text-primary-200 shadow-sm hover:shadow-[0_18px_40px_rgba(20,184,166,0.12)] backdrop-blur-sm disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none',
+    dadtrack: {
+      primary: 'bg-primary-600 hover:bg-primary-700 !text-white border-2 border-primary-700 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none',
+      secondary: 'border-2 border-primary-400/70 bg-white/5 text-primary-300 hover:border-primary-300 hover:bg-white/10 hover:text-primary-200 shadow-sm hover:shadow-[0_18px_40px_rgba(20,184,166,0.12)] backdrop-blur-sm disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none',
+    },
+    momtrack: {
+      primary: 'bg-gradient-to-r from-[#e8746e] via-[#c4566a] to-[#9e2b3c] hover:from-[#f08a84] hover:via-[#d76578] hover:to-[#b8374b] !text-white border-2 border-[#c4566a] shadow-[0_0_20px_rgba(232,116,110,0.28)] hover:shadow-[0_0_30px_rgba(232,116,110,0.42)] disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none',
+      secondary: 'border-2 border-[#e8746e]/60 bg-white/5 text-[#f08a84] hover:border-[#f08a84] hover:bg-[#e8746e]/10 hover:text-[#ffd1cd] shadow-sm hover:shadow-[0_18px_40px_rgba(232,116,110,0.12)] backdrop-blur-sm disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none',
+    },
   };
 
   const sizeStyles = {
@@ -45,7 +53,7 @@ export function Button({
 
   const widthStyle = fullWidth ? 'w-full' : mobileFullWidth ? 'w-full sm:w-auto' : '';
 
-  const combinedClassName = `${baseStyles} ${variantStyles[variant]} ${sizeStyles[size]} ${widthStyle} ${className}`;
+  const combinedClassName = `${baseStyles} ${variantStyles[tone][variant]} ${sizeStyles[size]} ${widthStyle} ${className}`;
 
   if (href) {
     // Check if it's an internal link (starts with /) or external link
