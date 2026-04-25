@@ -14,7 +14,6 @@ import {
   MOMTRACK_BETA_CTA,
 } from '@/lib/productContent';
 import {
-  getPrimaryTrackedStoreCta,
   getTrackedStoreCtas,
   useDetectedStorePlatform,
 } from '@/lib/storeLinks';
@@ -22,7 +21,6 @@ import {
 export default function Home() {
   const platform = useDetectedStorePlatform();
   const storePlatform = platform ?? 'other';
-  const primaryStoreCta = getPrimaryTrackedStoreCta(storePlatform);
   const storeCtas = getTrackedStoreCtas(storePlatform);
   const screenshots = DADTRACK_HOME_SHOWCASE_SCREENSHOTS.map((screenshot) => ({
     ...screenshot,
@@ -87,16 +85,19 @@ export default function Home() {
                     <Button href="/dadtrack" size="lg" mobileFullWidth>
                       Learn More
                     </Button>
-                    <Button
-                      href={primaryStoreCta.href}
-                      variant="secondary"
-                      size="lg"
-                      mobileFullWidth
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {primaryStoreCta.buttonLabel}
-                    </Button>
+                    {storeCtas.map((storeCta) => (
+                      <Button
+                        key={storeCta.key}
+                        href={storeCta.href}
+                        variant="secondary"
+                        size="lg"
+                        mobileFullWidth
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {storeCta.buttonLabel}
+                      </Button>
+                    ))}
                   </div>
                 </div>
               </article>
@@ -129,10 +130,10 @@ export default function Home() {
                     <Button
                       href={MOMTRACK_BETA_CTA.href}
                       size="lg"
+                      tone="momtrack"
                       mobileFullWidth
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="border-rose-700 bg-rose-600 hover:bg-rose-700"
                     >
                       Join the Beta
                     </Button>
@@ -140,8 +141,8 @@ export default function Home() {
                       href="/momtrack"
                       variant="secondary"
                       size="lg"
+                      tone="momtrack"
                       mobileFullWidth
-                      className="border-rose-300/60 text-rose-200 hover:border-rose-200 hover:text-rose-100 hover:shadow-[0_18px_40px_rgba(244,63,94,0.12)]"
                     >
                       Learn More
                     </Button>

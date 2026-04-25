@@ -119,6 +119,8 @@ describe('MomTrack product route', () => {
     expect(markup).toContain('https://testflight.apple.com/join/nnmhT9Sw');
     expect(markup).toContain('/images/momtrack/01-home-feed.png');
     expect(markup).toContain('/images/momtrack/07-cloud-all-synced.png');
+    expect(markup).toContain('type="button"');
+    expect(markup).toContain('aria-label="Open AI-Powered Daily Tips screenshot"');
     expect(markup).toContain('Why MomTrack Is Different');
     expect(markup).toContain('Mom-Focused');
     expect(markup).toContain('/feedback?app=momtrack');

@@ -156,8 +156,10 @@ export default function MomTrack() {
               {features.map((feature, index) => (
                 <StaggerItem key={feature.title} className={getOddFinalGridItemClass(index, features.length)}>
                   <TiltCard intensity={8}>
-                    <div
-                      className={`group rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 ${theme.accentHoverBorder} transition-all duration-300 h-full overflow-hidden cursor-zoom-in`}
+                    <button
+                      type="button"
+                      aria-label={`Open ${feature.title} screenshot`}
+                      className={`group h-full w-full cursor-zoom-in overflow-hidden rounded-2xl border border-white/10 bg-white/5 text-left backdrop-blur-xl transition-all duration-300 ${theme.accentHoverBorder} focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e8746e]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950`}
                       onClick={() => openLightbox(index)}
                     >
                       {/* Screenshot Image */}
@@ -190,7 +192,7 @@ export default function MomTrack() {
                           {feature.description}
                         </p>
                       </div>
-                    </div>
+                    </button>
                   </TiltCard>
                 </StaggerItem>
               ))}

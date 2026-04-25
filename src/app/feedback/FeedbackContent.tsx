@@ -16,7 +16,9 @@ import {
 
 export default function FeedbackContent() {
   const searchParams = useSearchParams();
-  const [app, setApp] = useState<FeedbackApp>('dadtrack');
+  const [app, setApp] = useState<FeedbackApp>(() =>
+    parseFeedbackAppParam(searchParams.get('app')),
+  );
   const [formData, setFormData] = useState({
     name: '',
     email: '',
