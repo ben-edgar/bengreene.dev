@@ -9,32 +9,25 @@ import HeroSection from '@/components/HeroSection';
 import MobileShowcase from '@/components/MobileShowcase';
 import { GlowDivider } from '@/components/GlowDivider';
 import { getAssetPath } from '@/lib/basePath';
-import { getTrackedStoreCtas, useDetectedStorePlatform } from '@/lib/storeLinks';
+import {
+  DADTRACK_HOME_SHOWCASE_SCREENSHOTS,
+  MOMTRACK_BETA_CTA,
+} from '@/lib/productContent';
+import {
+  getPrimaryTrackedStoreCta,
+  getTrackedStoreCtas,
+  useDetectedStorePlatform,
+} from '@/lib/storeLinks';
 
 export default function Home() {
   const platform = useDetectedStorePlatform();
-  const storeCtas = getTrackedStoreCtas(platform ?? 'other');
-
-  const screenshots = [
-    {
-      src: getAssetPath('/images/dadtrack/1_homescreen_with_tip.png'),
-      alt: 'DadTrack Home Timeline with AI Tip',
-      title: 'AI-Powered Daily Tips',
-      description: 'Get personalized parenting tips powered by AI, right in your timeline',
-    },
-    {
-      src: getAssetPath('/images/dadtrack/2_monthly_recap.png'),
-      alt: 'DadTrack Monthly Recap',
-      title: 'Monthly AI Recaps',
-      description: 'Beautiful narrative summaries of your journaling journey each month',
-    },
-    {
-      src: getAssetPath('/images/dadtrack/3_magazine_mode.png'),
-      alt: 'DadTrack Magazine Mode',
-      title: 'Immersive Magazine Mode',
-      description: 'Relive your moments with full-screen photos and dramatic typography',
-    },
-  ];
+  const storePlatform = platform ?? 'other';
+  const primaryStoreCta = getPrimaryTrackedStoreCta(storePlatform);
+  const storeCtas = getTrackedStoreCtas(storePlatform);
+  const screenshots = DADTRACK_HOME_SHOWCASE_SCREENSHOTS.map((screenshot) => ({
+    ...screenshot,
+    src: getAssetPath(screenshot.src),
+  }));
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -50,57 +43,111 @@ export default function Home() {
 
         <GlowDivider className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4" />
 
-        {/* DadTrack Introduction */}
+        {/* Current Projects */}
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div className="max-w-3xl mx-auto text-center space-y-6">
+          <div className="mx-auto max-w-3xl text-center">
             <SlideUp>
               <h2 className="text-3xl md:text-4xl font-bold text-white">
-                Current Project: DadTrack
+                Current Projects
               </h2>
             </SlideUp>
             <FadeIn delay={0.2}>
-              <p className="text-lg text-slate-300 leading-relaxed">
-                As an engineering leader and dad, I built DadTrack from a simple insight:
-                parenting is one of the most meaningful journeys we take, yet the moments slip away too quickly.
-                DadTrack helps dads capture the small, everyday moments—the moods, the memories, the milestones—
-                so you can reflect on them, share them with family, and never lose sight of what matters most.
+              <p className="mt-6 text-lg text-slate-300 leading-relaxed">
+                I&apos;m building focused journaling tools for parents who want to capture
+                everyday memories without turning reflection into another chore.
               </p>
             </FadeIn>
+          </div>
+
+          <div className="mt-10 grid gap-6 lg:grid-cols-2">
             <FadeIn delay={0.3}>
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-900/50 text-green-300 rounded-full text-sm font-semibold">
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-                </span>
-                Now Available on iOS and Android!
-              </div>
+              <article className="h-full rounded-2xl border border-teal-400/25 bg-gradient-to-br from-teal-950/70 via-slate-900 to-blue-950/50 p-6 shadow-2xl shadow-teal-950/20 sm:p-8">
+                <div className="flex h-full flex-col gap-6">
+                  <div className="space-y-4">
+                    <div className="inline-flex items-center gap-2 rounded-full border border-teal-300/25 bg-teal-400/10 px-4 py-2 text-sm font-semibold text-teal-200">
+                      <span className="relative flex h-2 w-2">
+                        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-teal-300 opacity-75"></span>
+                        <span className="relative inline-flex h-2 w-2 rounded-full bg-teal-300"></span>
+                      </span>
+                      Live on iOS &amp; Android
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-bold text-white sm:text-3xl">
+                        DadTrack
+                      </h3>
+                      <p className="mt-3 text-base leading-relaxed text-slate-300">
+                        A dad-focused parenting journal for capturing moods, memories,
+                        milestones, photos, daily tips, monthly recaps, and cloud-backed
+                        moments that are easy to revisit.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="mt-auto flex w-full flex-col gap-3 pt-2 sm:flex-row sm:flex-wrap">
+                    <Button href="/dadtrack" size="lg" mobileFullWidth>
+                      Learn More
+                    </Button>
+                    <Button
+                      href={primaryStoreCta.href}
+                      variant="secondary"
+                      size="lg"
+                      mobileFullWidth
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {primaryStoreCta.buttonLabel}
+                    </Button>
+                  </div>
+                </div>
+              </article>
             </FadeIn>
+
             <FadeIn delay={0.4}>
-              <div className="flex w-full max-w-md mx-auto flex-col gap-4 pt-4 sm:max-w-none sm:flex-row sm:flex-wrap sm:justify-center">
-                <Button href="/dadtrack" size="lg" mobileFullWidth>
-                  Learn More
-                </Button>
-                <Button
-                  href={storeCtas[0].href}
-                  variant="secondary"
-                  size="lg"
-                  mobileFullWidth
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {storeCtas[0].buttonLabel}
-                </Button>
-                <Button
-                  href={storeCtas[1].href}
-                  variant="secondary"
-                  size="lg"
-                  mobileFullWidth
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {storeCtas[1].buttonLabel}
-                </Button>
-              </div>
+              <article className="h-full rounded-2xl border border-rose-300/25 bg-gradient-to-br from-rose-950/70 via-slate-900 to-red-950/50 p-6 shadow-2xl shadow-rose-950/20 sm:p-8">
+                <div className="flex h-full flex-col gap-6">
+                  <div className="space-y-4">
+                    <div className="inline-flex items-center gap-2 rounded-full border border-rose-300/25 bg-rose-400/10 px-4 py-2 text-sm font-semibold text-rose-200">
+                      <span className="relative flex h-2 w-2">
+                        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-rose-300 opacity-75"></span>
+                        <span className="relative inline-flex h-2 w-2 rounded-full bg-rose-300"></span>
+                      </span>
+                      Now in Beta
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-bold text-white sm:text-3xl">
+                        MomTrack
+                      </h3>
+                      <p className="mt-3 text-base leading-relaxed text-slate-300">
+                        A mom-focused companion app with the same memory-keeping
+                        foundation, tuned for mothers and currently available through
+                        TestFlight while the beta expands.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="mt-auto flex w-full flex-col gap-3 pt-2 sm:flex-row sm:flex-wrap">
+                    <Button
+                      href={MOMTRACK_BETA_CTA.href}
+                      size="lg"
+                      mobileFullWidth
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="border-rose-700 bg-rose-600 hover:bg-rose-700"
+                    >
+                      Join the Beta
+                    </Button>
+                    <Button
+                      href="/momtrack"
+                      variant="secondary"
+                      size="lg"
+                      mobileFullWidth
+                      className="border-rose-300/60 text-rose-200 hover:border-rose-200 hover:text-rose-100 hover:shadow-[0_18px_40px_rgba(244,63,94,0.12)]"
+                    >
+                      Learn More
+                    </Button>
+                  </div>
+                </div>
+              </article>
             </FadeIn>
           </div>
         </section>
