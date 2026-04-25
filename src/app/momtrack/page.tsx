@@ -110,7 +110,7 @@ export default function MomTrack() {
                 </p>
               </FadeIn>
               <FadeIn delay={0.3}>
-                <div className="inline-flex items-center gap-2 px-4 py-2 bg-amber-900/50 text-amber-200 rounded-full text-sm font-semibold">
+                <div className="inline-flex items-center gap-2 px-4 py-2 bg-amber-900/40 text-amber-300 rounded-full text-sm font-semibold">
                   <span className="relative flex h-2 w-2">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-300 opacity-75"></span>
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-yellow-400"></span>

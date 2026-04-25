@@ -50,14 +50,34 @@ vi.mock('@/components/Header', () => ({
 
 import MomTrackLayout, { metadata } from './layout';
 import MomTrack from './page';
+import { SITE_CANONICAL_URL } from '@/lib/constants';
+
+const metadataDescription =
+  'MomTrack is the mom-focused journaling app for capturing memories, moods, and milestones. Now in beta on iOS.';
 
 describe('MomTrack product route', () => {
   it('defines MomTrack metadata and renders layout children', () => {
     expect(metadata.title).toBe('MomTrack — Mom Journaling App');
-    expect(metadata.description).toBe(
-      'MomTrack is the mom-focused journaling app for capturing memories, moods, and milestones. Now in beta on iOS.',
-    );
+    expect(metadata.description).toBe(metadataDescription);
+    expect(metadata.metadataBase?.toString()).toBe('https://bengreene.dev/');
     expect(metadata.alternates?.canonical).toBe('/momtrack');
+    expect(metadata.openGraph?.title).toBe('MomTrack — Mom Journaling App');
+    expect(metadata.openGraph?.description).toBe(metadataDescription);
+    expect(metadata.openGraph?.type).toBe('website');
+    expect(metadata.openGraph?.url).toBe('/momtrack');
+    expect(metadata.openGraph?.images).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          url: '/opengraph-image.png',
+        }),
+      ]),
+    );
+    expect(metadata.twitter?.card).toBe('summary');
+    expect(metadata.twitter?.title).toBe('MomTrack — Mom Journaling App');
+    expect(metadata.twitter?.description).toBe(metadataDescription);
+    expect(metadata.twitter?.images).toEqual(
+      expect.arrayContaining(['/twitter-image.png']),
+    );
 
     expect(
       renderToStaticMarkup(
@@ -74,6 +94,8 @@ describe('MomTrack product route', () => {
     expect(markup).toContain('The Mom Journaling App');
     expect(markup).toContain('Now in Beta');
     expect(markup).toContain('iOS TestFlight');
+    expect(markup).toContain('bg-amber-900/40');
+    expect(markup).toContain('text-amber-300');
     expect(markup).toContain('Join the Beta on TestFlight');
     expect(markup).toContain('https://testflight.apple.com/join/nnmhT9Sw');
     expect(markup).toContain('/images/momtrack/01-home-feed.png');
@@ -82,5 +104,14 @@ describe('MomTrack product route', () => {
     expect(markup).toContain('Mom-Focused');
     expect(markup).toContain('/feedback?app=momtrack');
     expect(markup).toContain('md:col-span-2 md:mx-auto md:w-[calc(50%-0.75rem)]');
+    expect(markup).toContain('SoftwareApplication');
+    expect(markup).toContain('MomTrack');
+    expect(markup).toContain('iOS');
+    expect(markup).toSatisfy((renderedMarkup: string) =>
+      renderedMarkup.includes(`${SITE_CANONICAL_URL}/momtrack`) ||
+      renderedMarkup.includes(`${SITE_CANONICAL_URL}\\/momtrack`),
+    );
+    expect(markup).not.toContain('Download on the App Store');
+    expect(markup).not.toContain('Get it on Google Play');
   });
 });
