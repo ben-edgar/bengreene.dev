@@ -18,101 +18,18 @@ import {
   DADTRACK_GOOGLE_PLAY_URL,
   SITE_CANONICAL_URL,
 } from '@/lib/constants';
+import {
+  DADTRACK_FEATURES,
+  DADTRACK_KEY_POINTS,
+  PRODUCT_ROADMAP,
+  getOddFinalGridItemClass,
+} from '@/lib/productContent';
 import { getTrackedStoreCtas, useDetectedStorePlatform } from '@/lib/storeLinks';
 
 export default function DadTrack() {
-  const features = [
-    {
-      title: 'AI-Powered Daily Tips',
-      description:
-        'Get personalized, age-appropriate parenting tips powered by AI. Tips appear at the top of your timeline each day—dismiss or save your favorites for later.',
-      image: getAssetPath('/images/dadtrack/1_homescreen_with_tip.png'),
-      icon: '🤖',
-    },
-    {
-      title: 'Monthly AI Recaps',
-      description:
-        'Each month, DadTrack generates a beautiful narrative summary of your journaling journey—complete with photo highlights and references to your entries.',
-      image: getAssetPath('/images/dadtrack/2_monthly_recap.png'),
-      icon: '📖',
-    },
-    {
-      title: 'Magazine Mode',
-      description:
-        'Relive memories in an immersive, full-screen experience with large photos, dramatic typography, and smooth hero animations.',
-      image: getAssetPath('/images/dadtrack/3_magazine_mode.png'),
-      icon: '✨',
-    },
-    {
-      title: 'Flexible View Modes',
-      description:
-        'Choose how you browse your memories. Basic mode offers a clean, focused reading experience, while Magazine mode delivers immersive full-screen photos with dramatic typography.',
-      image: getAssetPath('/images/dadtrack/4_regular_view.png'),
-      icon: '📱',
-    },
-    {
-      title: 'Journaling Streaks',
-      description:
-        'Build a consistent journaling habit with streak tracking. Hit milestones and celebrate with confetti animations and motivational messages.',
-      image: getAssetPath('/images/dadtrack/5_streak_celebration.png'),
-      icon: '🔥',
-    },
-    {
-      title: 'Tip History & Favorites',
-      description:
-        'Never lose a great tip again. Star your favorites and search through your tip history with edge scrolling for quick navigation.',
-      image: getAssetPath('/images/dadtrack/6_tip_history.png'),
-      icon: '⭐',
-    },
-    {
-      title: 'Advanced Search',
-      description:
-        'Find any memory instantly. Filter by text, date range, mood tags, children, or photo presence. The powerful search helps you relive any moment.',
-      image: getAssetPath('/images/dadtrack/7_search.png'),
-      icon: '🔍',
-    },
-    {
-      title: 'Custom Mood Tags',
-      description:
-        'Create and manage custom mood tags to personalize your journal entries. Track emotional patterns over time with your own vocabulary.',
-      image: getAssetPath('/images/dadtrack/manage_mood_screen.png'),
-      icon: '😊',
-    },
-  ];
-
-  const keyPoints = [
-    {
-      title: 'Dad-Focused',
-      description: 'Built for dads, by a dad. Speaks in your voice and emphasizes bonding and memory-keeping.',
-    },
-    {
-      title: 'Low Effort, High Impact',
-      description: 'Snap a photo, dictate with voice, jot a feeling. Over time, build a rich memory archive effortlessly.',
-    },
-    {
-      title: 'Your Data, Your Control',
-      description: 'Automatic nightly backups, cross-device migration, and complete data export. Your memories are always safe.',
-    },
-  ];
-
-  const roadmap = [
-    {
-      milestone: 'Milestone Tracker',
-      items: ['Weekly milestones for first 3 months', 'Monthly milestones up to age 5', 'Achievement tracking (rolling, walking, first words)'],
-    },
-    {
-      milestone: 'Child Information Hub',
-      items: ["Doctor's office and doctor name", 'Insurance card information', 'Emergency contacts and allergies'],
-    },
-    {
-      milestone: 'Memory Highlights',
-      items: ['Monthly "look back" collages', 'Yearly memory books', 'Photo frequency tracking'],
-    },
-    {
-      milestone: 'Family Sharing',
-      items: ['Invite partner or grandparents', 'Shared timeline access', 'Selective entry sharing'],
-    },
-  ];
+  const features = DADTRACK_FEATURES;
+  const keyPoints = DADTRACK_KEY_POINTS;
+  const roadmap = PRODUCT_ROADMAP;
 
   const softwareApplicationSchema = {
     '@context': 'https://schema.org',
@@ -238,7 +155,7 @@ export default function DadTrack() {
               <FadeIn delay={0.4}>
                 <p className="text-lg text-slate-300 max-w-3xl mx-auto leading-relaxed">
                   The dad journaling app that helps you capture moments, moods, and memories with AI-powered insights.
-                  Voice journaling, daily tips, monthly recaps, and streak celebrations—all designed to make memory-keeping effortless.
+                  Voice journaling, daily tips, monthly recaps, cloud backup, and streak celebrations—all designed to make memory-keeping effortless.
                 </p>
               </FadeIn>
               <FadeIn delay={0.5}>
@@ -262,7 +179,7 @@ export default function DadTrack() {
             </SlideUp>
             <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-6" staggerDelay={0.1}>
               {features.map((feature, index) => (
-                <StaggerItem key={index}>
+                <StaggerItem key={feature.title} className={getOddFinalGridItemClass(index, features.length)}>
                   <TiltCard intensity={8}>
                     <div
                       className="group rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 hover:border-white/20 transition-all duration-300 h-full overflow-hidden cursor-zoom-in"
@@ -274,7 +191,7 @@ export default function DadTrack() {
                         style={{ height: '320px' }}
                       >
                         <Image
-                          src={feature.image}
+                          src={getAssetPath(feature.image)}
                           alt={feature.title}
                           fill
                           className="object-contain p-3 transition-transform duration-500 group-hover:scale-105"
@@ -403,7 +320,7 @@ export default function DadTrack() {
       {/* Image Lightbox */}
       <ImageLightbox
         images={features.map(f => ({
-          src: f.image,
+          src: getAssetPath(f.image),
           alt: f.title,
           title: f.title,
           description: f.description,
