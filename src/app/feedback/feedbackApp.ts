@@ -15,6 +15,7 @@ export type FeedbackCopy = {
   subtitle: string;
   body: string;
   submitButtonClass: string;
+  submittingButtonClass: string;
   activePillClass: string;
   inactivePillClass: string;
 };
@@ -25,6 +26,7 @@ export const feedbackCopyByApp: Record<FeedbackApp, FeedbackCopy> = {
     body: 'Your thoughts and ideas shape DadTrack. Whether it is a feature request, bug report, or general feedback, we want to hear from you.',
     submitButtonClass:
       'bg-gradient-to-r from-teal-600 to-blue-600 hover:from-teal-500 hover:to-blue-500 shadow-[0_0_20px_rgba(20,184,166,0.3)] hover:shadow-[0_0_30px_rgba(20,184,166,0.5)]',
+    submittingButtonClass: 'cursor-not-allowed bg-teal-700 opacity-50',
     activePillClass:
       'bg-gradient-to-r from-teal-600 to-blue-600 text-white shadow-[0_0_18px_rgba(20,184,166,0.35)]',
     inactivePillClass:
@@ -35,6 +37,7 @@ export const feedbackCopyByApp: Record<FeedbackApp, FeedbackCopy> = {
     body: 'MomTrack is in beta — your feedback directly shapes what we build.',
     submitButtonClass:
       'bg-gradient-to-r from-[#e8746e] via-[#c4566a] to-[#9e2b3c] hover:from-[#f08a84] hover:via-[#d76578] hover:to-[#b8374b] shadow-[0_0_20px_rgba(232,116,110,0.3)] hover:shadow-[0_0_30px_rgba(232,116,110,0.45)]',
+    submittingButtonClass: 'cursor-not-allowed bg-[#9e2b3c] opacity-50',
     activePillClass:
       'bg-gradient-to-r from-[#e8746e] via-[#c4566a] to-[#9e2b3c] text-white shadow-[0_0_18px_rgba(232,116,110,0.35)]',
     inactivePillClass:

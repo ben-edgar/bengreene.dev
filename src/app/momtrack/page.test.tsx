@@ -113,6 +113,9 @@ describe('MomTrack product route', () => {
     expect(markup).toContain('bg-amber-900/40');
     expect(markup).toContain('text-amber-300');
     expect(markup).toContain('Join the Beta on TestFlight');
+    expect(markup).toContain('from-[#e8746e]');
+    expect(markup).toContain('to-[#9e2b3c]');
+    expect(markup).not.toContain('bg-primary-600');
     expect(markup).toContain('https://testflight.apple.com/join/nnmhT9Sw');
     expect(markup).toContain('/images/momtrack/01-home-feed.png');
     expect(markup).toContain('/images/momtrack/07-cloud-all-synced.png');

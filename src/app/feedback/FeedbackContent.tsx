@@ -307,7 +307,7 @@ export default function FeedbackContent() {
                   disabled={isSubmitting}
                   className={`group relative w-full overflow-hidden rounded-xl px-6 py-4 font-semibold text-white transition-all duration-300 ${
                     isSubmitting
-                      ? 'cursor-not-allowed bg-teal-700 opacity-50'
+                      ? copy.submittingButtonClass
                       : copy.submitButtonClass
                   }`}
                 >

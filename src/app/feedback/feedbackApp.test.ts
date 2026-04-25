@@ -26,6 +26,12 @@ describe('feedback app helpers', () => {
     expect(feedbackCopyByApp.momtrack.submitButtonClass).toContain(
       'from-[#e8746e]',
     );
+    expect(feedbackCopyByApp.momtrack.submittingButtonClass).toContain(
+      'bg-[#9e2b3c]',
+    );
+    expect(feedbackCopyByApp.momtrack.submittingButtonClass).not.toContain(
+      'bg-teal-700',
+    );
   });
 
   it('builds a typed feedback submission payload with app context', () => {

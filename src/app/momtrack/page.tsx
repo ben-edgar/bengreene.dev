@@ -129,6 +129,7 @@ export default function MomTrack() {
                   <Button
                     href={MOMTRACK_BETA_CTA.href}
                     size="lg"
+                    tone="momtrack"
                     mobileFullWidth
                     target="_blank"
                     rel="noopener noreferrer"
@@ -279,6 +280,7 @@ export default function MomTrack() {
                 <Button
                   href={MOMTRACK_BETA_CTA.href}
                   size="lg"
+                  tone="momtrack"
                   mobileFullWidth
                   target="_blank"
                   rel="noopener noreferrer"
