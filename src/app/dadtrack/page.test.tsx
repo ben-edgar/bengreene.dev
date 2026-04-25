@@ -12,6 +12,18 @@ vi.mock('next/image', () => ({
   ),
 }));
 
+vi.mock('next/link', () => ({
+  default: ({
+    children,
+    href,
+    ...props
+  }: React.ComponentProps<'a'> & { href: string }) => (
+    <a data-next-link="true" href={href} {...props}>
+      {children}
+    </a>
+  ),
+}));
+
 vi.mock('framer-motion', () => {
   const motion = new Proxy(
     {},
@@ -78,6 +90,8 @@ describe('DadTrack page', () => {
     expect(markup).toContain('/images/dadtrack/07-cloud-all-synced.png');
     expect(markup).toContain('Optional cloud backup and sync keeps your memories safe');
     expect(markup).toContain('md:col-span-2 md:mx-auto md:w-[calc(50%-0.75rem)]');
+    expect(markup).toContain('data-next-link="true"');
+    expect(markup).toContain('href="/feedback"');
 
     expect(markup).not.toContain('Magazine Mode');
     expect(markup).not.toContain('Flexible View Modes');

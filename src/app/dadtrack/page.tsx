@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Header } from '@/components/Header';
 import { TiltCard } from '@/components/TiltCard';
 import { Button } from '@/components/Button';
@@ -308,9 +309,9 @@ export default function DadTrack() {
             <FadeIn delay={0.6}>
               <p className="text-sm text-slate-500">
                 Have feedback or ideas?{' '}
-                <a href="/feedback" className="text-teal-400 hover:underline">
+                <Link href="/feedback" className="text-teal-400 hover:underline">
                   Share your thoughts
-                </a>
+                </Link>
               </p>
             </FadeIn>
           </div>
