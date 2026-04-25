@@ -12,20 +12,46 @@ interface Screenshot {
     description: string;
 }
 
+export interface MobileShowcaseThemeClasses {
+    text?: string;
+    indicatorActive?: string;
+    primaryGlow?: string;
+    secondaryGlow?: string;
+    backgroundPrimaryGlow?: string;
+    backgroundSecondaryGlow?: string;
+}
+
 interface MobileShowcaseProps {
     screenshots: Screenshot[];
     deviceColor?: string;
     backgroundColor?: string;
+    heading?: string;
+    themeClasses?: MobileShowcaseThemeClasses;
 }
+
+const DEFAULT_THEME_CLASSES: Required<MobileShowcaseThemeClasses> = {
+    text: "text-teal-400",
+    indicatorActive: "bg-gradient-to-r from-teal-400 to-blue-500",
+    primaryGlow: "bg-teal-500/20",
+    secondaryGlow: "bg-purple-500/20",
+    backgroundPrimaryGlow: "bg-teal-500/5",
+    backgroundSecondaryGlow: "bg-purple-500/5",
+};
 
 const MobileShowcase: React.FC<MobileShowcaseProps> = ({
     screenshots,
     deviceColor = "#0f172a",
     backgroundColor = "bg-slate-950",
+    heading = "DadTrack in Action",
+    themeClasses,
 }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isDesktopInteractive, setIsDesktopInteractive] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
+    const resolvedThemeClasses = {
+        ...DEFAULT_THEME_CLASSES,
+        ...themeClasses,
+    };
 
     const mouseX = useMotionValue(0);
     const mouseY = useMotionValue(0);
@@ -97,7 +123,7 @@ const MobileShowcase: React.FC<MobileShowcaseProps> = ({
                             transition={{ delay: 0.2 }}
                         >
                             <h2 className="text-4xl md:text-5xl font-bold text-slate-50 mb-4">
-                                DadTrack in Action
+                                {heading}
                             </h2>
                         </motion.div>
 
@@ -109,7 +135,7 @@ const MobileShowcase: React.FC<MobileShowcaseProps> = ({
                                 exit={{ opacity: 0, y: -20 }}
                                 transition={{ duration: 0.5 }}
                             >
-                                <h3 className="text-2xl font-semibold text-teal-400 mb-2">
+                                <h3 className={`text-2xl font-semibold ${resolvedThemeClasses.text} mb-2`}>
                                     {currentScreenshot.title}
                                 </h3>
                                 <p className="text-lg text-slate-400 max-w-md">
@@ -139,7 +165,7 @@ const MobileShowcase: React.FC<MobileShowcaseProps> = ({
                                         key={index}
                                         onClick={() => setCurrentIndex(index)}
                                         className={`h-2.5 rounded-full transition-all duration-300 ${index === currentIndex
-                                            ? "w-10 bg-gradient-to-r from-teal-400 to-blue-500"
+                                            ? `w-10 ${resolvedThemeClasses.indicatorActive}`
                                             : "w-2.5 bg-slate-700 hover:bg-slate-500"
                                             }`}
                                         aria-label={`Go to screenshot ${index + 1}`}
@@ -232,13 +258,13 @@ const MobileShowcase: React.FC<MobileShowcaseProps> = ({
                             <motion.div
                                 animate={{ y: [0, -20, 0] }}
                                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                                className="absolute -top-10 -right-10 w-32 h-32 bg-teal-500/20 rounded-full blur-2xl"
+                                className={`absolute -top-10 -right-10 w-32 h-32 ${resolvedThemeClasses.primaryGlow} rounded-full blur-2xl`}
                                 style={{ transform: "translateZ(50px)" }}
                             />
                             <motion.div
                                 animate={{ y: [0, 20, 0] }}
                                 transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                                className="absolute -bottom-10 -left-10 w-40 h-40 bg-purple-500/20 rounded-full blur-2xl"
+                                className={`absolute -bottom-10 -left-10 w-40 h-40 ${resolvedThemeClasses.secondaryGlow} rounded-full blur-2xl`}
                                 style={{ transform: "translateZ(50px)" }}
                             />
                         </motion.div>
@@ -252,7 +278,7 @@ const MobileShowcase: React.FC<MobileShowcaseProps> = ({
                             className="lg:hidden w-full max-w-sm px-4"
                         >
                             <div className="p-4 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 text-center space-y-2">
-                                <h3 className="text-lg font-semibold text-teal-400">
+                                <h3 className={`text-lg font-semibold ${resolvedThemeClasses.text}`}>
                                     {currentScreenshot.title}
                                 </h3>
                                 <p className="text-sm text-slate-400 leading-relaxed">
@@ -275,7 +301,7 @@ const MobileShowcase: React.FC<MobileShowcaseProps> = ({
                                             key={index}
                                             onClick={() => setCurrentIndex(index)}
                                             className={`h-2 rounded-full transition-all duration-300 ${index === currentIndex
-                                                ? "w-8 bg-gradient-to-r from-teal-400 to-blue-500"
+                                                ? `w-8 ${resolvedThemeClasses.indicatorActive}`
                                                 : "w-2 bg-slate-700 hover:bg-slate-500"
                                                 }`}
                                             aria-label={`Go to screenshot ${index + 1}`}
@@ -295,8 +321,8 @@ const MobileShowcase: React.FC<MobileShowcaseProps> = ({
                 </div>
 
                 {/* Background Decorations */}
-                <div className="absolute top-1/4 left-0 w-96 h-96 bg-teal-500/5 rounded-full blur-3xl -z-10 pointer-events-none" />
-                <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl -z-10 pointer-events-none" />
+                <div className={`absolute top-1/4 left-0 w-96 h-96 ${resolvedThemeClasses.backgroundPrimaryGlow} rounded-full blur-3xl -z-10 pointer-events-none`} />
+                <div className={`absolute bottom-1/4 right-0 w-96 h-96 ${resolvedThemeClasses.backgroundSecondaryGlow} rounded-full blur-3xl -z-10 pointer-events-none`} />
             </div>
         </div>
     );
