@@ -72,7 +72,7 @@ describe('invite links', () => {
       'After installing DadTrack, reopen the original invite link from the message or email where it was shared to continue inside the app.',
     );
     expect(model.momTrackNote).toBe(
-      'MomTrack support is coming soon. The deep-link association files already support MomTrack installs when that app is ready.',
+      'MomTrack support is still in development but coming soon! If you have a MomTrack beta test invite link, please use it to install MomTrack and then open the link again.',
     );
     expect(model.ctas.map(({ key }) => key)).toEqual(['android', 'ios']);
   });
