@@ -34,7 +34,7 @@ export const feedbackCopyByApp: Record<FeedbackApp, FeedbackCopy> = {
   },
   momtrack: {
     subtitle: 'Help us shape MomTrack',
-    body: 'MomTrack is in beta — your feedback directly shapes what we build.',
+    body: 'MomTrack is now live on iOS. Your feedback directly shapes what we build next.',
     submitButtonClass:
       'bg-gradient-to-r from-[#e8746e] via-[#c4566a] to-[#9e2b3c] hover:from-[#f08a84] hover:via-[#d76578] hover:to-[#b8374b] shadow-[0_0_20px_rgba(232,116,110,0.3)] hover:shadow-[0_0_30px_rgba(232,116,110,0.45)]',
     submittingButtonClass: 'cursor-not-allowed bg-[#9e2b3c] opacity-50',

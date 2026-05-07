@@ -97,6 +97,7 @@ vi.mock('@/lib/storeLinks', async () => {
 });
 
 import Home from './page';
+import { MOMTRACK_APP_STORE_URL } from '@/lib/constants';
 
 describe('Home page', () => {
   beforeEach(() => {
@@ -108,14 +109,17 @@ describe('Home page', () => {
 
     expect(markup).toContain('Current Projects');
     expect(markup).toContain('Live on iOS &amp; Android');
-    expect(markup).toContain('Now in Beta');
+    expect(markup).toContain('Live on iOS');
     expect(markup).toContain('Learn More');
-    expect(markup).toContain('Join the Beta');
+    expect(markup).toContain('Download MomTrack');
     expect(markup).toContain('from-[#e8746e]');
     expect(markup).toContain('border-[#e8746e]/60');
     expect(markup).not.toContain('bg-rose-600');
     expect(markup).not.toContain('border-rose-300/60');
-    expect(markup).toContain('https://testflight.apple.com/join/nnmhT9Sw');
+    expect(markup).toContain(MOMTRACK_APP_STORE_URL);
+    expect(markup).not.toContain('TestFlight');
+    expect(markup).not.toContain('Now in Beta');
+    expect(markup).not.toContain('Join the Beta');
     expect(markup).toContain('Download on the App Store');
     expect(markup).toContain('/images/dadtrack/01-home-feed.png');
     expect(markup).toContain('/images/dadtrack/02-monthly-recap.png');

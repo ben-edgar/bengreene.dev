@@ -1,4 +1,4 @@
-import { MOMTRACK_TESTFLIGHT_URL } from './constants';
+import { MOMTRACK_APP_STORE_URL } from './constants';
 
 export type ProductFeature = {
   title: string;
@@ -266,7 +266,7 @@ export function getOddFinalGridItemClass(index: number, total: number): string {
     : '';
 }
 
-export const MOMTRACK_BETA_CTA = {
-  label: 'Join the Beta on TestFlight',
-  href: MOMTRACK_TESTFLIGHT_URL,
+export const MOMTRACK_DOWNLOAD_CTA = {
+  label: 'Download MomTrack on the App Store',
+  href: MOMTRACK_APP_STORE_URL,
 };

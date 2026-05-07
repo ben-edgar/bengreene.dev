@@ -5,18 +5,20 @@ import {
   DADTRACK_HOME_SHOWCASE_SCREENSHOTS,
   DADTRACK_KEY_POINTS,
   DADTRACK_PAGE_THEME,
-  MOMTRACK_BETA_CTA,
   MOMTRACK_FEATURES,
   MOMTRACK_KEY_POINTS,
   MOMTRACK_PAGE_THEME,
   PRODUCT_ROADMAP,
   getOddFinalGridItemClass,
 } from './productContent';
-import { MOMTRACK_TESTFLIGHT_URL } from './constants';
+import * as constants from './constants';
+import * as productContent from './productContent';
 
 describe('product content', () => {
-  it('defines the MomTrack TestFlight URL', () => {
-    expect(MOMTRACK_TESTFLIGHT_URL).toBe('https://testflight.apple.com/join/nnmhT9Sw');
+  it('defines the MomTrack App Store URL', () => {
+    expect(constants.MOMTRACK_APP_STORE_URL).toBe(
+      'https://apps.apple.com/us/app/momtrack-parenting-journal/id6758920295',
+    );
   });
 
   it('uses seven DadTrack features with the cloud backup screenshots', () => {
@@ -126,10 +128,10 @@ describe('product content', () => {
     });
   });
 
-  it('defines the MomTrack beta CTA using the TestFlight URL', () => {
-    expect(MOMTRACK_BETA_CTA).toEqual({
-      label: 'Join the Beta on TestFlight',
-      href: MOMTRACK_TESTFLIGHT_URL,
+  it('defines the MomTrack download CTA using the App Store URL', () => {
+    expect(productContent.MOMTRACK_DOWNLOAD_CTA).toEqual({
+      label: 'Download MomTrack on the App Store',
+      href: constants.MOMTRACK_APP_STORE_URL,
     });
   });
 });

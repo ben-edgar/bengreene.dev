@@ -4,7 +4,7 @@ import { SITE_CANONICAL_URL } from '@/lib/constants';
 export const metadata: Metadata = {
   title: 'MomTrack — Mom Journaling App',
   description:
-    'MomTrack is the mom-focused journaling app for capturing memories, moods, and milestones. Now in beta on iOS.',
+    'MomTrack is the mom-focused journaling app for capturing memories, moods, and milestones. Now available to download on the App Store.',
   metadataBase: new URL(SITE_CANONICAL_URL),
   alternates: {
     canonical: '/momtrack',
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'MomTrack — Mom Journaling App',
     description:
-      'MomTrack is the mom-focused journaling app for capturing memories, moods, and milestones. Now in beta on iOS.',
+      'MomTrack is the mom-focused journaling app for capturing memories, moods, and milestones. Now available to download on the App Store.',
     type: 'website',
     url: '/momtrack',
     images: [
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     card: 'summary',
     title: 'MomTrack — Mom Journaling App',
     description:
-      'MomTrack is the mom-focused journaling app for capturing memories, moods, and milestones. Now in beta on iOS.',
+      'MomTrack is the mom-focused journaling app for capturing memories, moods, and milestones. Now available to download on the App Store.',
     images: ['/twitter-image.png'],
   },
 };
