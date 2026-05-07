@@ -23,6 +23,10 @@ describe('feedback app helpers', () => {
       'Help us build the best dad journaling app',
     );
     expect(feedbackCopyByApp.momtrack.subtitle).toBe('Help us shape MomTrack');
+    expect(feedbackCopyByApp.momtrack.body).toContain(
+      'MomTrack is now live',
+    );
+    expect(feedbackCopyByApp.momtrack.body).not.toContain('beta');
     expect(feedbackCopyByApp.momtrack.submitButtonClass).toContain(
       'from-[#e8746e]',
     );

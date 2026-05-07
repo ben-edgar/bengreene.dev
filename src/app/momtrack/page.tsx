@@ -15,11 +15,11 @@ import { ParallaxContent } from '@/components/animations/Parallax';
 import { GlowDivider } from '@/components/GlowDivider';
 import { getAssetPath } from '@/lib/basePath';
 import {
-  MOMTRACK_TESTFLIGHT_URL,
+  MOMTRACK_APP_STORE_URL,
   SITE_CANONICAL_URL,
 } from '@/lib/constants';
 import {
-  MOMTRACK_BETA_CTA,
+  MOMTRACK_DOWNLOAD_CTA,
   MOMTRACK_FEATURES,
   MOMTRACK_KEY_POINTS,
   MOMTRACK_PAGE_THEME,
@@ -40,7 +40,7 @@ export default function MomTrack() {
     applicationCategory: 'LifestyleApplication',
     operatingSystem: 'iOS',
     description:
-      'A mom-focused journaling app for capturing memories, moods, and milestones. Now in beta on iOS.',
+      'A mom-focused journaling app for capturing memories, moods, and milestones. Now available to download on the App Store.',
     url: `${SITE_CANONICAL_URL}/momtrack`,
     image: `${SITE_CANONICAL_URL}/opengraph-image.png`,
     offers: {
@@ -48,8 +48,8 @@ export default function MomTrack() {
       price: '0',
       priceCurrency: 'USD',
     },
-    sameAs: [MOMTRACK_TESTFLIGHT_URL],
-    downloadUrl: MOMTRACK_TESTFLIGHT_URL,
+    sameAs: [MOMTRACK_APP_STORE_URL],
+    downloadUrl: MOMTRACK_APP_STORE_URL,
   };
 
   const [lightboxOpen, setLightboxOpen] = useState(false);
@@ -111,30 +111,30 @@ export default function MomTrack() {
                 </p>
               </FadeIn>
               <FadeIn delay={0.3}>
-                <div className="inline-flex items-center gap-2 px-4 py-2 bg-amber-900/40 text-amber-300 rounded-full text-sm font-semibold">
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-rose-300/25 bg-rose-400/10 text-rose-200 text-sm font-semibold">
                   <span className="relative flex h-2 w-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-300 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-yellow-400"></span>
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-300 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-rose-300"></span>
                   </span>
-                  Now in Beta — iOS TestFlight
+                  Now Available on iOS
                 </div>
               </FadeIn>
               <FadeIn delay={0.4}>
                 <p className="text-lg text-slate-300 max-w-3xl mx-auto leading-relaxed">
-                  The mom journaling app that helps you preserve precious moments through photos, mood tracking, and daily reflections. Built by a dad for his wife, and for moms everywhere.
+                  The mom journaling app that helps you preserve precious moments through photos, mood tracking, and daily reflections. Download it now from the App Store.
                 </p>
               </FadeIn>
               <FadeIn delay={0.5}>
                 <div className="flex w-full max-w-md mx-auto flex-col gap-4 pt-4 sm:max-w-none sm:flex-row sm:flex-wrap sm:justify-center">
                   <Button
-                    href={MOMTRACK_BETA_CTA.href}
+                    href={MOMTRACK_DOWNLOAD_CTA.href}
                     size="lg"
                     tone="momtrack"
                     mobileFullWidth
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    {MOMTRACK_BETA_CTA.label}
+                    {MOMTRACK_DOWNLOAD_CTA.label}
                   </Button>
                 </div>
               </FadeIn>
@@ -269,25 +269,25 @@ export default function MomTrack() {
           <div className="text-center space-y-8">
             <SlideUp>
               <h2 className="text-3xl md:text-4xl font-bold text-white">
-                Join the MomTrack Beta
+                Download MomTrack
               </h2>
             </SlideUp>
             <FadeIn delay={0.2}>
               <p className="text-lg text-slate-300">
-                MomTrack is currently in beta testing on iOS. Join via TestFlight and help shape the app.
+                MomTrack is now live on iOS. Download it from the App Store and start capturing memories today.
               </p>
             </FadeIn>
             <FadeIn delay={0.4}>
               <div className="flex w-full max-w-md mx-auto flex-col gap-4 sm:max-w-none sm:flex-row sm:flex-wrap sm:justify-center">
                 <Button
-                  href={MOMTRACK_BETA_CTA.href}
+                  href={MOMTRACK_DOWNLOAD_CTA.href}
                   size="lg"
                   tone="momtrack"
                   mobileFullWidth
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  {MOMTRACK_BETA_CTA.label}
+                  {MOMTRACK_DOWNLOAD_CTA.label}
                 </Button>
               </div>
             </FadeIn>

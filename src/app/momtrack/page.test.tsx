@@ -66,10 +66,10 @@ vi.mock('@/components/Header', () => ({
 
 import MomTrackLayout, { metadata } from './layout';
 import MomTrack from './page';
-import { SITE_CANONICAL_URL } from '@/lib/constants';
+import { MOMTRACK_APP_STORE_URL, SITE_CANONICAL_URL } from '@/lib/constants';
 
 const metadataDescription =
-  'MomTrack is the mom-focused journaling app for capturing memories, moods, and milestones. Now in beta on iOS.';
+  'MomTrack is the mom-focused journaling app for capturing memories, moods, and milestones. Now available to download on the App Store.';
 
 describe('MomTrack product route', () => {
   it('defines MomTrack metadata and renders layout children', () => {
@@ -104,19 +104,18 @@ describe('MomTrack product route', () => {
     ).toContain('MomTrack child content');
   });
 
-  it('renders the MomTrack beta product story and screenshots', () => {
+  it('renders the MomTrack live product story and screenshots', () => {
     const markup = renderToStaticMarkup(<MomTrack />);
 
     expect(markup).toContain('The Mom Journaling App');
-    expect(markup).toContain('Now in Beta');
-    expect(markup).toContain('iOS TestFlight');
-    expect(markup).toContain('bg-amber-900/40');
-    expect(markup).toContain('text-amber-300');
-    expect(markup).toContain('Join the Beta on TestFlight');
+    expect(markup).toContain('Now Available');
+    expect(markup).toContain('Download MomTrack on the App Store');
     expect(markup).toContain('from-[#e8746e]');
     expect(markup).toContain('to-[#9e2b3c]');
     expect(markup).not.toContain('bg-primary-600');
-    expect(markup).toContain('https://testflight.apple.com/join/nnmhT9Sw');
+    expect(markup).toContain(MOMTRACK_APP_STORE_URL);
+    expect(markup).not.toContain('TestFlight');
+    expect(markup).not.toContain('beta testing');
     expect(markup).toContain('/images/momtrack/01-home-feed.png');
     expect(markup).toContain('/images/momtrack/07-cloud-all-synced.png');
     expect(markup).toContain('type="button"');
@@ -133,7 +132,6 @@ describe('MomTrack product route', () => {
       renderedMarkup.includes(`${SITE_CANONICAL_URL}/momtrack`) ||
       renderedMarkup.includes(`${SITE_CANONICAL_URL}\\/momtrack`),
     );
-    expect(markup).not.toContain('Download on the App Store');
     expect(markup).not.toContain('Get it on Google Play');
   });
 });

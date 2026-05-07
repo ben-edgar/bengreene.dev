@@ -11,7 +11,7 @@ import { GlowDivider } from '@/components/GlowDivider';
 import { getAssetPath } from '@/lib/basePath';
 import {
   DADTRACK_HOME_SHOWCASE_SCREENSHOTS,
-  MOMTRACK_BETA_CTA,
+  MOMTRACK_DOWNLOAD_CTA,
 } from '@/lib/productContent';
 import {
   getTrackedStoreCtas,
@@ -112,7 +112,7 @@ export default function Home() {
                         <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-rose-300 opacity-75"></span>
                         <span className="relative inline-flex h-2 w-2 rounded-full bg-rose-300"></span>
                       </span>
-                      Now in Beta
+                      Live on iOS
                     </div>
                     <div>
                       <h3 className="text-2xl font-bold text-white sm:text-3xl">
@@ -120,22 +120,22 @@ export default function Home() {
                       </h3>
                       <p className="mt-3 text-base leading-relaxed text-slate-300">
                         A mom-focused companion app with the same memory-keeping
-                        foundation, tuned for mothers and currently available through
-                        TestFlight while the beta expands.
+                        foundation, tuned for mothers and now available to download
+                        on the App Store.
                       </p>
                     </div>
                   </div>
 
                   <div className="mt-auto flex w-full flex-col gap-3 pt-2 sm:flex-row sm:flex-wrap">
                     <Button
-                      href={MOMTRACK_BETA_CTA.href}
+                      href={MOMTRACK_DOWNLOAD_CTA.href}
                       size="lg"
                       tone="momtrack"
                       mobileFullWidth
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      Join the Beta
+                      Download MomTrack
                     </Button>
                     <Button
                       href="/momtrack"
