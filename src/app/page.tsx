@@ -2,7 +2,7 @@
 
 import { Header } from '@/components/Header';
 import { Button } from '@/components/Button';
-import { fireConfetti } from '@/lib/confetti';
+import { CONFETTI_NAVIGATION_DELAY_MS, fireConfetti } from '@/lib/confetti';
 import { FadeIn } from '@/components/animations/FadeIn';
 import { SlideUp } from '@/components/animations/SlideUp';
 import AnimatedTimeline from '@/components/AnimatedTimeline';
@@ -96,6 +96,7 @@ export default function Home() {
                         mobileFullWidth
                         target="_blank"
                         rel="noopener noreferrer"
+                        externalNavigationDelayMs={CONFETTI_NAVIGATION_DELAY_MS}
                         onClick={() => fireConfetti('dadtrack')}
                       >
                         {storeCta.buttonLabel}
@@ -137,6 +138,7 @@ export default function Home() {
                       mobileFullWidth
                       target="_blank"
                       rel="noopener noreferrer"
+                      externalNavigationDelayMs={CONFETTI_NAVIGATION_DELAY_MS}
                       onClick={() => fireConfetti('momtrack')}
                     >
                       Download MomTrack
@@ -185,6 +187,7 @@ export default function Home() {
                   mobileFullWidth
                   target="_blank"
                   rel="noopener noreferrer"
+                  externalNavigationDelayMs={CONFETTI_NAVIGATION_DELAY_MS}
                   onClick={() => fireConfetti('dadtrack')}
                 >
                   {storeCtas[0].buttonLabel}
@@ -196,6 +199,7 @@ export default function Home() {
                   mobileFullWidth
                   target="_blank"
                   rel="noopener noreferrer"
+                  externalNavigationDelayMs={CONFETTI_NAVIGATION_DELAY_MS}
                   onClick={() => fireConfetti('dadtrack')}
                 >
                   {storeCtas[1].buttonLabel}

@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import type { MouseEvent, ReactNode } from 'react';
 import Link from 'next/link';
 
 interface ButtonProps {
@@ -9,10 +9,11 @@ interface ButtonProps {
   fullWidth?: boolean;
   mobileFullWidth?: boolean;
   type?: 'button' | 'submit' | 'reset';
-  onClick?: () => void;
+  onClick?: (event: MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => void;
   href?: string;
   target?: string;
   rel?: string;
+  externalNavigationDelayMs?: number;
   disabled?: boolean;
   className?: string;
 }
@@ -29,6 +30,7 @@ export function Button({
   href,
   target,
   rel,
+  externalNavigationDelayMs,
   disabled = false,
   className = '',
 }: ButtonProps) {
@@ -54,6 +56,17 @@ export function Button({
   const widthStyle = fullWidth ? 'w-full' : mobileFullWidth ? 'w-full sm:w-auto' : '';
 
   const combinedClassName = `${baseStyles} ${variantStyles[tone][variant]} ${sizeStyles[size]} ${widthStyle} ${className}`;
+  const relWindowFeatures = rel
+    ?.split(/\s+/)
+    .filter((value) => value === 'noopener' || value === 'noreferrer')
+    .join(',');
+
+  const isModifiedClick = (event: MouseEvent<HTMLAnchorElement>) =>
+    event.button !== 0 ||
+    event.metaKey ||
+    event.ctrlKey ||
+    event.shiftKey ||
+    event.altKey;
 
   if (href) {
     // Check if it's an internal link (starts with /) or external link
@@ -71,13 +84,36 @@ export function Button({
       );
     }
 
+    const handleExternalLinkClick = (event: MouseEvent<HTMLAnchorElement>) => {
+      onClick?.(event);
+
+      if (
+        externalNavigationDelayMs === undefined ||
+        event.defaultPrevented ||
+        isModifiedClick(event)
+      ) {
+        return;
+      }
+
+      event.preventDefault();
+
+      window.setTimeout(() => {
+        if (target === '_blank') {
+          window.open(href, target, relWindowFeatures);
+          return;
+        }
+
+        window.location.assign(href);
+      }, externalNavigationDelayMs);
+    };
+
     // Use regular anchor for external links
     return (
       <a
         href={href}
         target={target}
         rel={rel}
-        onClick={onClick}
+        onClick={handleExternalLinkClick}
         className={combinedClassName}
       >
         {children}

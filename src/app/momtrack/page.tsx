@@ -14,7 +14,7 @@ import { StaggerItem } from '@/components/animations/StaggerItem';
 import { ParallaxContent } from '@/components/animations/Parallax';
 import { GlowDivider } from '@/components/GlowDivider';
 import { getAssetPath } from '@/lib/basePath';
-import { fireConfetti } from '@/lib/confetti';
+import { CONFETTI_NAVIGATION_DELAY_MS, fireConfetti } from '@/lib/confetti';
 import {
   MOMTRACK_APP_STORE_URL,
   SITE_CANONICAL_URL,
@@ -134,6 +134,7 @@ export default function MomTrack() {
                     mobileFullWidth
                     target="_blank"
                     rel="noopener noreferrer"
+                    externalNavigationDelayMs={CONFETTI_NAVIGATION_DELAY_MS}
                     onClick={() => fireConfetti('momtrack')}
                   >
                     {MOMTRACK_DOWNLOAD_CTA.label}
@@ -293,6 +294,7 @@ export default function MomTrack() {
                   mobileFullWidth
                   target="_blank"
                   rel="noopener noreferrer"
+                  externalNavigationDelayMs={CONFETTI_NAVIGATION_DELAY_MS}
                   onClick={() => fireConfetti('momtrack')}
                 >
                   {MOMTRACK_DOWNLOAD_CTA.label}

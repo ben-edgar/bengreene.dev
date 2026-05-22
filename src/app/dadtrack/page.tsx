@@ -26,7 +26,7 @@ import {
   getOddFinalGridItemClass,
 } from '@/lib/productContent';
 import { getTrackedStoreCtas, useDetectedStorePlatform } from '@/lib/storeLinks';
-import { fireConfetti } from '@/lib/confetti';
+import { CONFETTI_NAVIGATION_DELAY_MS, fireConfetti } from '@/lib/confetti';
 
 export default function DadTrack() {
   const features = DADTRACK_FEATURES;
@@ -84,6 +84,7 @@ export default function DadTrack() {
         mobileFullWidth
         target="_blank"
         rel="noopener noreferrer"
+        externalNavigationDelayMs={CONFETTI_NAVIGATION_DELAY_MS}
         onClick={() => fireConfetti('dadtrack')}
       >
         {cta.buttonLabel}
