@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -28,6 +28,8 @@ export function ImageLightbox({
 }: ImageLightboxProps) {
   const currentImage = images[currentIndex];
   const hasMultipleImages = images.length > 1;
+  const [collapsedForIndex, setCollapsedForIndex] = useState<number | null>(null);
+  const descriptionCollapsed = collapsedForIndex === currentIndex;
 
   useEffect(() => {
     if (!isOpen) return;
@@ -68,7 +70,7 @@ export function ImageLightbox({
           {/* Close Button */}
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 z-50 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
+            className="absolute top-4 right-4 z-50 p-2 rounded-full bg-black/55 hover:bg-black/75 text-white shadow-lg ring-1 ring-white/15 transition-colors"
             aria-label="Close lightbox"
           >
             <svg
@@ -98,7 +100,7 @@ export function ImageLightbox({
                 e.stopPropagation();
                 onPrevious();
               }}
-              className="absolute left-4 top-1/2 -translate-y-1/2 z-50 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all hover:scale-110"
+              className="absolute left-4 top-1/2 -translate-y-1/2 z-50 p-3 rounded-full bg-black/55 hover:bg-black/75 text-white shadow-lg ring-1 ring-white/15 transition-all hover:scale-110"
               aria-label="Previous image"
             >
               <svg
@@ -122,7 +124,7 @@ export function ImageLightbox({
                 e.stopPropagation();
                 onNext();
               }}
-              className="absolute right-4 top-1/2 -translate-y-1/2 z-50 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all hover:scale-110"
+              className="absolute right-4 top-1/2 -translate-y-1/2 z-50 p-3 rounded-full bg-black/55 hover:bg-black/75 text-white shadow-lg ring-1 ring-white/15 transition-all hover:scale-110"
               aria-label="Next image"
             >
               <svg
@@ -162,15 +164,41 @@ export function ImageLightbox({
             {/* Image Info */}
             {(currentImage.title || currentImage.description) && (
               <div className="absolute bottom-4 left-4 right-4 bg-slate-900/90 backdrop-blur-sm rounded-xl p-6 text-white shadow-lg">
-                {currentImage.title && (
-                  <h3 className="text-2xl font-bold mb-2">
-                    {currentImage.title}
-                  </h3>
-                )}
+                <div className="flex items-center justify-between gap-2">
+                  {currentImage.title && (
+                    <h3 className="text-2xl font-bold">
+                      {currentImage.title}
+                    </h3>
+                  )}
+                  {currentImage.description && (
+                    <button
+                      className="md:hidden flex-shrink-0 p-1 rounded-lg text-white/60 hover:text-white transition-colors"
+                      aria-label={descriptionCollapsed ? 'Show description' : 'Hide description'}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setCollapsedForIndex(descriptionCollapsed ? null : currentIndex);
+                      }}
+                    >
+                      <svg
+                        className={`w-5 h-5 transition-transform duration-200 ${descriptionCollapsed ? 'rotate-180' : ''}`}
+                        fill="none"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </button>
+                  )}
+                </div>
                 {currentImage.description && (
-                  <p className="text-lg text-white/90">
-                    {currentImage.description}
-                  </p>
+                  <div className={`overflow-hidden transition-all duration-200 ${descriptionCollapsed ? 'max-h-0 mt-0 opacity-0' : 'max-h-48 mt-2 opacity-100'}`}>
+                    <p className="text-lg text-white/90">
+                      {currentImage.description}
+                    </p>
+                  </div>
                 )}
               </div>
             )}

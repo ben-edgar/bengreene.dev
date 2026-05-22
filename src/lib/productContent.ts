@@ -68,7 +68,7 @@ export const DADTRACK_FEATURES: ProductFeature[] = [
     icon: '📝',
   },
   {
-    title: 'Magazine / Scrapbook Mode',
+    title: 'Scrapbook Mode',
     description:
       'Flip any entry into a swipeable scrapbook-style polaroid layout made for reliving the moment. Full-screen, tap-to-navigate, and beautifully cinematic.',
     image: '/images/dadtrack/04-journal-entry-detail-magazine.png',
@@ -127,7 +127,7 @@ export const MOMTRACK_FEATURES: ProductFeature[] = [
     icon: '📝',
   },
   {
-    title: 'Magazine / Scrapbook Mode',
+    title: 'Scrapbook Mode',
     description:
       'Flip any entry into a swipeable scrapbook-style polaroid layout made for reliving the moment. Full-screen, tap-to-navigate, and beautifully cinematic.',
     image: '/images/momtrack/04-journal-entry-detail-magazine.png',
@@ -173,8 +173,8 @@ export const DADTRACK_HOME_SHOWCASE_SCREENSHOTS: ShowcaseScreenshot[] = [
   {
     src: '/images/dadtrack/04-journal-entry-detail-magazine.png',
     alt: 'DadTrack magazine scrapbook mode',
-    title: 'Magazine / Scrapbook Mode',
-    description: 'Flip any entry into a cinematic polaroid layout made for reliving the moment.',
+    title: 'Scrapbook Mode',
+    description: 'Flip any entry into a cinematic scrapbook polaroid layout made for reliving the moment.',
   },
   {
     src: '/images/dadtrack/02-monthly-recap.png',

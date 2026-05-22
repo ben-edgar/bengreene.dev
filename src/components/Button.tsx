@@ -77,6 +77,7 @@ export function Button({
         href={href}
         target={target}
         rel={rel}
+        onClick={onClick}
         className={combinedClassName}
       >
         {children}

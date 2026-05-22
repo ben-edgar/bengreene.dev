@@ -128,13 +128,13 @@ export default function MomTrack() {
               <FadeIn delay={0.5}>
                 <div className="flex w-full max-w-md mx-auto flex-col gap-4 pt-4 sm:max-w-none sm:flex-row sm:flex-wrap sm:justify-center">
                   <Button
-                    href={MOMTRACK_DOWNLOAD_CTA.href}
                     size="lg"
                     tone="momtrack"
                     mobileFullWidth
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => fireConfetti('momtrack')}
+                    onClick={() => {
+                      fireConfetti('momtrack');
+                      setTimeout(() => window.open(MOMTRACK_DOWNLOAD_CTA.href, '_blank', 'noopener,noreferrer'), 700);
+                    }}
                   >
                     {MOMTRACK_DOWNLOAD_CTA.label}
                   </Button>
@@ -158,40 +158,42 @@ export default function MomTrack() {
               {features.map((feature, index) => (
                 <StaggerItem key={feature.title} className={getOddFinalGridItemClass(index, features.length)}>
                   <div className={`relative ${index % 2 === 0 ? 'polaroid-even' : 'polaroid-odd'}`}>
-                    <div className="polaroid-tape absolute -top-2.5 left-1/2 -translate-x-1/2 w-12 h-5 rounded-sm rotate-1 z-10 hidden md:block" />
-                  <TiltCard intensity={8}>
+                    {/* Washi tape strip */}
+                    <div className="polaroid-tape absolute -top-3 left-1/2 -translate-x-1/2 rounded-sm z-10" />
+                  <TiltCard intensity={6}>
                     <button
                       type="button"
                       aria-label={`Open ${feature.title} screenshot`}
-                      className={`group h-full w-full cursor-zoom-in overflow-hidden rounded-2xl border border-white/10 bg-white/5 text-left backdrop-blur-xl transition-all duration-300 ${theme.accentHoverBorder} focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e8746e]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 ring-1 ring-white/5`}
+                      className={`group h-full w-full cursor-zoom-in overflow-hidden rounded-2xl border border-white/10 bg-slate-900/70 text-left backdrop-blur-sm transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e8746e]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950`}
                       onClick={() => openLightbox(index)}
                     >
-                      {/* Screenshot Image */}
-                      <div
-                        className="relative bg-slate-900/80 overflow-hidden"
-                        style={{ height: '320px' }}
-                      >
-                        <Image
-                          src={getAssetPath(feature.image)}
-                          alt={feature.title}
-                          fill
-                          className="object-contain p-3 transition-transform duration-500 group-hover:scale-105"
-                        />
+                      {/* Dark photo area — screenshot sits in a subtle framed mat */}
+                      <div className="relative bg-slate-900/90 overflow-hidden" style={{ height: '310px' }}>
+                        {/* Subtle white ring around screenshot — like a printed photo border */}
+                        <div className="absolute top-3 left-3 right-3 bottom-11">
+                          <div className="relative w-full h-full ring-1 ring-white/20 rounded-sm overflow-hidden">
+                            <Image
+                              src={getAssetPath(feature.image)}
+                              alt={feature.title}
+                              fill
+                              className="object-contain transition-transform duration-500 group-hover:scale-105"
+                            />
+                          </div>
+                        </div>
+                        {/* Dark caption strip — handwritten polaroid label feel */}
+                        <div className="absolute bottom-0 left-0 right-0 h-11 flex items-center gap-2 px-4 border-t border-white/[0.06]">
+                          <span className="text-lg leading-none">{feature.icon}</span>
+                          <span className="text-slate-300 text-sm font-semibold italic truncate">{feature.title}</span>
+                        </div>
                         {/* Hover hint */}
-                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors flex items-center justify-center pointer-events-none">
+                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors flex items-center justify-center pointer-events-none" style={{ bottom: '44px' }}>
                           <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-slate-900/90 px-4 py-2 rounded-full text-sm font-medium text-slate-200 border border-white/20">
                             🔍 Click to expand
                           </div>
                         </div>
                       </div>
-                      {/* Content */}
-                      <div className="p-5 space-y-2">
-                        <div className="flex items-center gap-3">
-                          <span className="text-2xl">{feature.icon}</span>
-                          <h3 className="text-lg font-bold text-white">
-                            {feature.title}
-                          </h3>
-                        </div>
+                      {/* Description */}
+                      <div className="p-5 border-t border-white/[0.06]">
                         <p className="text-sm text-slate-300 leading-relaxed">
                           {feature.description}
                         </p>
@@ -285,13 +287,13 @@ export default function MomTrack() {
             <FadeIn delay={0.4}>
               <div className="flex w-full max-w-md mx-auto flex-col gap-4 sm:max-w-none sm:flex-row sm:flex-wrap sm:justify-center">
                 <Button
-                  href={MOMTRACK_DOWNLOAD_CTA.href}
                   size="lg"
                   tone="momtrack"
                   mobileFullWidth
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => fireConfetti('momtrack')}
+                  onClick={() => {
+                    fireConfetti('momtrack');
+                    setTimeout(() => window.open(MOMTRACK_DOWNLOAD_CTA.href, '_blank', 'noopener,noreferrer'), 700);
+                  }}
                 >
                   {MOMTRACK_DOWNLOAD_CTA.label}
                 </Button>

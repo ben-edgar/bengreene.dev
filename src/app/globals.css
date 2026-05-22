@@ -133,26 +133,32 @@ a {
 
 /* Scrapbook polaroid card styling */
 .polaroid-tape {
-  background: rgba(255, 255, 255, 0.32);
-  backdrop-filter: blur(4px);
+  /* Washi-tape look: warm amber, semi-transparent */
+  background: rgba(255, 238, 170, 0.82);
+  width: 64px;
+  height: 26px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18);
+  transform: rotate(-1deg);
 }
 
 @media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
   .polaroid-even {
-    transform: rotate(-1.5deg);
-    transition: transform 0.25s ease;
+    transform: rotate(-3deg);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    filter: drop-shadow(0 16px 32px rgba(0, 0, 0, 0.55));
   }
 
   .polaroid-even:hover {
-    transform: rotate(0deg) scale(1.02);
+    transform: rotate(0deg) scale(1.03);
   }
 
   .polaroid-odd {
-    transform: rotate(1.5deg);
-    transition: transform 0.25s ease;
+    transform: rotate(3deg);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    filter: drop-shadow(0 16px 32px rgba(0, 0, 0, 0.55));
   }
 
   .polaroid-odd:hover {
-    transform: rotate(0deg) scale(1.02);
+    transform: rotate(0deg) scale(1.03);
   }
 }
