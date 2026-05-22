@@ -117,14 +117,15 @@ describe('MomTrack product route', () => {
     expect(markup).not.toContain('TestFlight');
     expect(markup).not.toContain('beta testing');
     expect(markup).toContain('/images/momtrack/01-home-feed.png');
-    expect(markup).toContain('/images/momtrack/07-cloud-all-synced.png');
+    expect(markup).toContain('/images/momtrack/04-journal-entry-detail-magazine.png');
+    expect(markup).toContain('/images/momtrack/08-cloud-all-synced.png');
     expect(markup).toContain('type="button"');
-    expect(markup).toContain('aria-label="Open AI-Powered Daily Tips screenshot"');
+    expect(markup).toContain('aria-label="Open Shared Family Timeline screenshot"');
     expect(markup).toContain('Why MomTrack Is Different');
     expect(markup).toContain('Mom-Focused');
     expect(markup).toContain('/feedback?app=momtrack');
     expect(markup).toContain('data-next-link="true"');
-    expect(markup).toContain('md:col-span-2 md:mx-auto md:w-[calc(50%-0.75rem)]');
+    expect(markup).not.toContain('md:col-span-2 md:mx-auto md:w-[calc(50%-0.75rem)]');
     expect(markup).toContain('SoftwareApplication');
     expect(markup).toContain('MomTrack');
     expect(markup).toContain('iOS');
@@ -133,5 +134,22 @@ describe('MomTrack product route', () => {
       renderedMarkup.includes(`${SITE_CANONICAL_URL}\\/momtrack`),
     );
     expect(markup).not.toContain('Get it on Google Play');
+  });
+
+  it('renders shrinkable truncated feature caption titles', () => {
+    const markup = renderToStaticMarkup(<MomTrack />);
+
+    expect(markup).toContain(
+      'class="min-w-0 truncate text-sm font-semibold italic text-slate-300"',
+    );
+  });
+
+  it('uses Tailwind classes for the screenshot hover overlay offset', () => {
+    const markup = renderToStaticMarkup(<MomTrack />);
+
+    expect(markup).toContain(
+      'class="absolute inset-x-0 top-0 bottom-11 bg-black/0 group-hover:bg-black/30 transition-colors flex items-center justify-center pointer-events-none"',
+    );
+    expect(markup).not.toContain('style="bottom:44px"');
   });
 });

@@ -47,104 +47,118 @@ export type ProductPageTheme = {
 
 export const DADTRACK_FEATURES: ProductFeature[] = [
   {
-    title: 'AI-Powered Daily Tips',
+    title: 'Shared Family Timeline',
     description:
-      'Get personalized, age-appropriate parenting tips powered by AI. Tips appear at the top of your timeline each day, ready to save or dismiss.',
+      'Link with your partner to see each other\'s entries in one threaded family timeline, with per-entry privacy controls. Your AI tip of the day lives right at the top, and a Compact/Comfortable/Showcase density toggle lets you view it your way.',
     image: '/images/dadtrack/01-home-feed.png',
-    icon: '🤖',
+    icon: '🤝',
   },
   {
     title: 'Monthly AI Recaps',
     description:
-      'Each month, DadTrack generates a narrative summary of your journaling journey with photo highlights and references to your entries.',
+      'Each month, DadTrack generates an editorial, photo-forward narrative summary of your journaling journey — with live stats, mood-of-the-month, a tappable calendar, and shareable recap cards. Synced across all your devices.',
     image: '/images/dadtrack/02-monthly-recap.png',
     icon: '📖',
   },
   {
-    title: 'Journal Entry Detail',
+    title: 'Editorial Journal Entries',
     description:
-      'Open a memory to revisit the photo, notes, mood, and context that made that moment worth saving.',
+      'Open any memory in a clean editorial layout — photo carousel, mood chip, age, and a Time Travel panel that resurfaces entries from a month, three months, or a year ago right inside the detail view.',
     image: '/images/dadtrack/03-journal-entry-detail.png',
     icon: '📝',
+  },
+  {
+    title: 'Scrapbook Mode',
+    description:
+      'Flip any entry into a swipeable scrapbook-style polaroid layout made for reliving the moment. Full-screen, tap-to-navigate, and beautifully cinematic.',
+    image: '/images/dadtrack/04-journal-entry-detail-magazine.png',
+    icon: '🖼️',
   },
   {
     title: 'Advanced Search',
     description:
       'Find any memory instantly by searching text, date ranges, mood tags, children, or photo-backed entries.',
-    image: '/images/dadtrack/04-search.png',
+    image: '/images/dadtrack/05-search.png',
     icon: '🔍',
   },
   {
-    title: 'Journaling Streaks',
+    title: 'Streaks & Celebrations',
     description:
-      'Build a consistent memory-keeping habit with streak tracking, milestone moments, and celebration states.',
-    image: '/images/dadtrack/05-streak.png',
+      'Build a consistent memory-keeping habit with per-child and family streak tracking. Hit milestones at 1, 7, 30, 100+ days and watch the confetti fly.',
+    image: '/images/dadtrack/06-streak.png',
     icon: '🔥',
   },
   {
     title: 'Cloud Backup & Sync',
     description:
-      'Optional cloud backup protects your memories and gives you a clear view of pending backup progress.',
-    image: '/images/dadtrack/06-cloud-pending.png',
+      'Optional cloud backup protects your memories and gives you a clear view of pending sync progress — so you always know your moments are safe.',
+    image: '/images/dadtrack/07-cloud-pending.png',
     icon: '☁️',
   },
   {
-    title: 'Restore & Sync',
+    title: 'Restore & Free Up Space',
     description:
-      'Restore everything on a new device, sync across devices, free up local photo storage, and export a complete backup anytime.',
-    image: '/images/dadtrack/07-cloud-all-synced.png',
+      'Restore everything on a new device, sync across devices, save full-res photos to your library, and export a complete backup anytime.',
+    image: '/images/dadtrack/08-cloud-all-synced.png',
     icon: '✅',
   },
 ];
 
 export const MOMTRACK_FEATURES: ProductFeature[] = [
   {
-    title: 'AI-Powered Daily Tips',
+    title: 'Shared Family Timeline',
     description:
-      'Get personalized, age-appropriate parenting tips powered by AI. Tips appear at the top of your timeline each day, ready to save or dismiss.',
+      'Link with your partner to see each other\'s entries in one threaded family timeline, with per-entry privacy controls. Your AI tip of the day lives right at the top, and a Compact/Comfortable/Showcase density toggle lets you view it your way.',
     image: '/images/momtrack/01-home-feed.png',
-    icon: '🤖',
+    icon: '🤝',
   },
   {
     title: 'Monthly AI Recaps',
     description:
-      'Each month, MomTrack generates a narrative summary of your journaling journey with photo highlights and references to your entries.',
+      'Each month, MomTrack generates an editorial, photo-forward narrative summary of your journaling journey — with live stats, mood-of-the-month, a tappable calendar, and shareable recap cards. Synced across all your devices.',
     image: '/images/momtrack/02-monthly-recap.png',
     icon: '📖',
   },
   {
-    title: 'Journal Entry Detail',
+    title: 'Editorial Journal Entries',
     description:
-      'Open a memory to revisit the photo, notes, mood, and context that made that moment worth saving.',
+      'Open any memory in a clean editorial layout — photo carousel, mood chip, age, and a Time Travel panel that resurfaces entries from a month, three months, or a year ago right inside the detail view.',
     image: '/images/momtrack/03-journal-entry-detail.png',
     icon: '📝',
+  },
+  {
+    title: 'Scrapbook Mode',
+    description:
+      'Flip any entry into a swipeable scrapbook-style polaroid layout made for reliving the moment. Full-screen, tap-to-navigate, and beautifully cinematic.',
+    image: '/images/momtrack/04-journal-entry-detail-magazine.png',
+    icon: '🖼️',
   },
   {
     title: 'Advanced Search',
     description:
       'Find any memory instantly by searching text, date ranges, mood tags, children, or photo-backed entries.',
-    image: '/images/momtrack/04-search.png',
+    image: '/images/momtrack/05-search.png',
     icon: '🔍',
   },
   {
-    title: 'Journaling Streaks',
+    title: 'Streaks & Celebrations',
     description:
-      'Build a consistent memory-keeping habit with streak tracking, milestone moments, and celebration states.',
-    image: '/images/momtrack/05-streak.png',
+      'Build a consistent memory-keeping habit with per-child and family streak tracking. Hit milestones at 1, 7, 30, 100+ days and watch the confetti fly.',
+    image: '/images/momtrack/06-streak.png',
     icon: '🔥',
   },
   {
     title: 'Cloud Backup & Sync',
     description:
-      'Optional cloud backup protects your memories and gives you a clear view of pending backup progress.',
-    image: '/images/momtrack/06-cloud-pending.png',
+      'Optional cloud backup protects your memories and gives you a clear view of pending sync progress — so you always know your moments are safe.',
+    image: '/images/momtrack/07-cloud-pending.png',
     icon: '☁️',
   },
   {
-    title: 'Restore & Sync',
+    title: 'Restore & Free Up Space',
     description:
-      'Restore everything on a new device, sync across devices, free up local photo storage, and export a complete backup anytime.',
-    image: '/images/momtrack/07-cloud-all-synced.png',
+      'Restore everything on a new device, sync across devices, save full-res photos to your library, and export a complete backup anytime.',
+    image: '/images/momtrack/08-cloud-all-synced.png',
     icon: '✅',
   },
 ];
@@ -152,21 +166,21 @@ export const MOMTRACK_FEATURES: ProductFeature[] = [
 export const DADTRACK_HOME_SHOWCASE_SCREENSHOTS: ShowcaseScreenshot[] = [
   {
     src: '/images/dadtrack/01-home-feed.png',
-    alt: 'DadTrack home feed with AI tip',
-    title: 'AI-Powered Daily Tips',
-    description: 'Get personalized parenting tips powered by AI, right in your timeline.',
+    alt: 'DadTrack shared family timeline',
+    title: 'Shared Family Timeline',
+    description: 'Journal together — link with your partner for a shared family view with per-entry privacy.',
+  },
+  {
+    src: '/images/dadtrack/04-journal-entry-detail-magazine.png',
+    alt: 'DadTrack magazine scrapbook mode',
+    title: 'Scrapbook Mode',
+    description: 'Flip any entry into a cinematic scrapbook polaroid layout made for reliving the moment.',
   },
   {
     src: '/images/dadtrack/02-monthly-recap.png',
-    alt: 'DadTrack monthly recap',
+    alt: 'DadTrack monthly AI recap',
     title: 'Monthly AI Recaps',
-    description: 'Beautiful narrative summaries of your journaling journey each month.',
-  },
-  {
-    src: '/images/dadtrack/07-cloud-all-synced.png',
-    alt: 'DadTrack cloud backup all synced',
-    title: 'Cloud Backup & Sync',
-    description: 'Keep memories backed up, restorable, and synced across devices.',
+    description: 'Beautiful editorial summaries of your journaling journey, shareable and synced across devices.',
   },
 ];
 
@@ -180,9 +194,9 @@ export const DADTRACK_KEY_POINTS: ProductKeyPoint[] = [
     description: 'Snap a photo, dictate with voice, jot a feeling. Over time, build a rich memory archive effortlessly.',
   },
   {
-    title: 'Your Data, Your Control',
+    title: 'Private by Default',
     description:
-      'Optional cloud backup and sync keeps your memories safe. Restore everything on a new device, free up local photo storage, and export a complete backup anytime.',
+      'Local-first with no ads, no tracking, and AI that only ever sees your text — never your photos. Optional cloud sync and partner sharing when you want them.',
   },
 ];
 
@@ -197,9 +211,9 @@ export const MOMTRACK_KEY_POINTS: ProductKeyPoint[] = [
     description: 'Snap a photo, dictate with voice, jot a feeling. Over time, build a rich memory archive effortlessly.',
   },
   {
-    title: 'Your Data, Your Control',
+    title: 'Private by Default',
     description:
-      'Optional cloud backup and sync keeps your memories safe. Restore everything on a new device, free up local photo storage, and export a complete backup anytime.',
+      'Local-first with no ads, no tracking, and AI that only ever sees your text — never your photos. Optional cloud sync and partner sharing when you want them.',
   },
 ];
 
@@ -214,11 +228,11 @@ export const PRODUCT_ROADMAP: ProductRoadmapSection[] = [
   },
   {
     milestone: 'Memory Highlights',
-    items: ['Monthly "look back" collages', 'Yearly memory books', 'Photo frequency tracking'],
+    items: ['"On This Day" daily memory resurfacing', 'Year-in-review collages', 'Memory-book PDF export'],
   },
   {
-    milestone: 'Family Sharing',
-    items: ['Invite partner or grandparents', 'Shared timeline access', 'Selective entry sharing'],
+    milestone: 'Home-Screen Widget & Quick Capture',
+    items: ['Home-screen widget for a daily memory peek', 'Quick entry mode for one-tap journaling', 'Smart journal prompts to spark reflection'],
   },
 ];
 

@@ -2,6 +2,7 @@
 
 import { Header } from '@/components/Header';
 import { Button } from '@/components/Button';
+import { CONFETTI_NAVIGATION_DELAY_MS, fireConfetti } from '@/lib/confetti';
 import { FadeIn } from '@/components/animations/FadeIn';
 import { SlideUp } from '@/components/animations/SlideUp';
 import AnimatedTimeline from '@/components/AnimatedTimeline';
@@ -74,9 +75,10 @@ export default function Home() {
                         DadTrack
                       </h3>
                       <p className="mt-3 text-base leading-relaxed text-slate-300">
-                        A dad-focused parenting journal for capturing moods, memories,
-                        milestones, photos, daily tips, monthly recaps, and cloud-backed
-                        moments that are easy to revisit.
+                        A dad-focused parenting journal with a shared family timeline,
+                        partner sharing, voice journaling, AI tips, monthly recaps,
+                        magazine-mode entries, and cloud-backed memories that are easy
+                        to revisit.
                       </p>
                     </div>
                   </div>
@@ -94,6 +96,8 @@ export default function Home() {
                         mobileFullWidth
                         target="_blank"
                         rel="noopener noreferrer"
+                        externalNavigationDelayMs={CONFETTI_NAVIGATION_DELAY_MS}
+                        onClick={() => fireConfetti('dadtrack')}
                       >
                         {storeCta.buttonLabel}
                       </Button>
@@ -119,9 +123,9 @@ export default function Home() {
                         MomTrack
                       </h3>
                       <p className="mt-3 text-base leading-relaxed text-slate-300">
-                        A mom-focused companion app with the same memory-keeping
-                        foundation, tuned for mothers and now available to download
-                        on the App Store.
+                        A mom-focused companion with the same shared family timeline,
+                        partner sharing, voice journaling, AI tips, and memory-keeping
+                        foundation — now available to download on the App Store.
                       </p>
                     </div>
                   </div>
@@ -134,6 +138,8 @@ export default function Home() {
                       mobileFullWidth
                       target="_blank"
                       rel="noopener noreferrer"
+                      externalNavigationDelayMs={CONFETTI_NAVIGATION_DELAY_MS}
+                      onClick={() => fireConfetti('momtrack')}
                     >
                       Download MomTrack
                     </Button>
@@ -181,6 +187,8 @@ export default function Home() {
                   mobileFullWidth
                   target="_blank"
                   rel="noopener noreferrer"
+                  externalNavigationDelayMs={CONFETTI_NAVIGATION_DELAY_MS}
+                  onClick={() => fireConfetti('dadtrack')}
                 >
                   {storeCtas[0].buttonLabel}
                 </Button>
@@ -191,6 +199,8 @@ export default function Home() {
                   mobileFullWidth
                   target="_blank"
                   rel="noopener noreferrer"
+                  externalNavigationDelayMs={CONFETTI_NAVIGATION_DELAY_MS}
+                  onClick={() => fireConfetti('dadtrack')}
                 >
                   {storeCtas[1].buttonLabel}
                 </Button>

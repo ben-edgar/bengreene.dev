@@ -21,46 +21,49 @@ describe('product content', () => {
     );
   });
 
-  it('uses seven DadTrack features with the cloud backup screenshots', () => {
+  it('uses eight DadTrack features with the refreshed v59 screenshots', () => {
     expect(DADTRACK_FEATURES.map((feature) => feature.title)).toEqual([
-      'AI-Powered Daily Tips',
+      'Shared Family Timeline',
       'Monthly AI Recaps',
-      'Journal Entry Detail',
+      'Editorial Journal Entries',
+      'Scrapbook Mode',
       'Advanced Search',
-      'Journaling Streaks',
+      'Streaks & Celebrations',
       'Cloud Backup & Sync',
-      'Restore & Sync',
+      'Restore & Free Up Space',
     ]);
     expect(DADTRACK_FEATURES.map((feature) => feature.image)).toEqual([
       '/images/dadtrack/01-home-feed.png',
       '/images/dadtrack/02-monthly-recap.png',
       '/images/dadtrack/03-journal-entry-detail.png',
-      '/images/dadtrack/04-search.png',
-      '/images/dadtrack/05-streak.png',
-      '/images/dadtrack/06-cloud-pending.png',
-      '/images/dadtrack/07-cloud-all-synced.png',
+      '/images/dadtrack/04-journal-entry-detail-magazine.png',
+      '/images/dadtrack/05-search.png',
+      '/images/dadtrack/06-streak.png',
+      '/images/dadtrack/07-cloud-pending.png',
+      '/images/dadtrack/08-cloud-all-synced.png',
     ]);
   });
 
-  it('uses seven MomTrack features with MomTrack asset paths', () => {
-    expect(MOMTRACK_FEATURES).toHaveLength(7);
+  it('uses eight MomTrack features with MomTrack asset paths', () => {
+    expect(MOMTRACK_FEATURES).toHaveLength(8);
     expect(MOMTRACK_FEATURES.map((feature) => feature.image)).toEqual([
       '/images/momtrack/01-home-feed.png',
       '/images/momtrack/02-monthly-recap.png',
       '/images/momtrack/03-journal-entry-detail.png',
-      '/images/momtrack/04-search.png',
-      '/images/momtrack/05-streak.png',
-      '/images/momtrack/06-cloud-pending.png',
-      '/images/momtrack/07-cloud-all-synced.png',
+      '/images/momtrack/04-journal-entry-detail-magazine.png',
+      '/images/momtrack/05-search.png',
+      '/images/momtrack/06-streak.png',
+      '/images/momtrack/07-cloud-pending.png',
+      '/images/momtrack/08-cloud-all-synced.png',
     ]);
-    expect(MOMTRACK_FEATURES[6].title).toBe('Restore & Sync');
+    expect(MOMTRACK_FEATURES[7].title).toBe('Restore & Free Up Space');
   });
 
   it('defines the three DadTrack home showcase screenshots', () => {
     expect(DADTRACK_HOME_SHOWCASE_SCREENSHOTS.map((screenshot) => screenshot.src)).toEqual([
       '/images/dadtrack/01-home-feed.png',
+      '/images/dadtrack/04-journal-entry-detail-magazine.png',
       '/images/dadtrack/02-monthly-recap.png',
-      '/images/dadtrack/07-cloud-all-synced.png',
     ]);
   });
 
@@ -70,31 +73,31 @@ describe('product content', () => {
       'Milestone Tracker',
       'Child Information Hub',
       'Memory Highlights',
-      'Family Sharing',
+      'Home-Screen Widget & Quick Capture',
     ]);
-    expect(PRODUCT_ROADMAP[3].items).toContain('Selective entry sharing');
+    expect(PRODUCT_ROADMAP[3].items).toContain('Quick entry mode for one-tap journaling');
   });
 
-  it('defines DadTrack key points with the updated data-control copy', () => {
+  it('defines DadTrack key points with the private-by-default copy', () => {
     expect(DADTRACK_KEY_POINTS).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
-          title: 'Your Data, Your Control',
-          description: expect.stringContaining('Optional cloud backup and sync keeps your memories safe'),
+          title: 'Private by Default',
+          description: expect.stringContaining('Local-first with no ads, no tracking'),
         }),
       ]),
     );
   });
 
-  it('defines MomTrack key points with mom-focused and data-control positioning', () => {
+  it('defines MomTrack key points with mom-focused and private-by-default positioning', () => {
     expect(MOMTRACK_KEY_POINTS).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
           title: 'Mom-Focused',
         }),
         expect.objectContaining({
-          title: 'Your Data, Your Control',
-          description: expect.stringContaining('Optional cloud backup and sync keeps your memories safe'),
+          title: 'Private by Default',
+          description: expect.stringContaining('AI that only ever sees your text'),
         }),
       ]),
     );
@@ -103,6 +106,7 @@ describe('product content', () => {
   it('centers the final odd card only when a two-column feature grid has an odd item count', () => {
     expect(getOddFinalGridItemClass(6, 7)).toBe('md:col-span-2 md:mx-auto md:w-[calc(50%-0.75rem)]');
     expect(getOddFinalGridItemClass(5, 7)).toBe('');
+    expect(getOddFinalGridItemClass(7, 8)).toBe('');
     expect(getOddFinalGridItemClass(5, 6)).toBe('');
   });
 

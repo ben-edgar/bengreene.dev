@@ -16,8 +16,8 @@ const geistMono = Geist_Mono({
 
 
 export const metadata: Metadata = {
-  title: "Ben Greene – DadTrack App & Portfolio",
-  description: "Ben Greene's portfolio and DadTrack, a dad-focused journaling app now available on iOS and Android.",
+  title: "Ben Greene – DadTrack & MomTrack App Portfolio",
+  description: "Ben Greene's portfolio and the ParentTrack apps: DadTrack (iOS & Android) and MomTrack (iOS) — journaling apps for parents who want to capture everyday memories.",
   metadataBase: new URL(SITE_CANONICAL_URL),
   alternates: {
     canonical: "/",
@@ -31,8 +31,8 @@ export const metadata: Metadata = {
     shortcut: ["/favicon.ico"],
   },
   openGraph: {
-    title: "Ben Greene – DadTrack App & Portfolio",
-    description: "Ben Greene's portfolio and DadTrack, a dad-focused journaling app now available on iOS and Android.",
+    title: "Ben Greene – DadTrack & MomTrack App Portfolio",
+    description: "Ben Greene's portfolio and the ParentTrack apps: DadTrack (iOS & Android) and MomTrack (iOS) — journaling apps for parents who want to capture everyday memories.",
     type: "website",
     url: "/",
     images: [
@@ -46,8 +46,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary",
-    title: "Ben Greene – DadTrack App & Portfolio",
-    description: "DadTrack is now available on iOS and Android.",
+    title: "Ben Greene – DadTrack & MomTrack",
+    description: "DadTrack (iOS & Android) and MomTrack (iOS) — journaling apps for parents, built by a dad.",
     images: ["/twitter-image.png"],
   },
 };
