@@ -26,6 +26,7 @@ import {
   getOddFinalGridItemClass,
 } from '@/lib/productContent';
 import { getTrackedStoreCtas, useDetectedStorePlatform } from '@/lib/storeLinks';
+import { fireConfetti } from '@/lib/confetti';
 
 export default function DadTrack() {
   const features = DADTRACK_FEATURES;
@@ -83,6 +84,7 @@ export default function DadTrack() {
         mobileFullWidth
         target="_blank"
         rel="noopener noreferrer"
+        onClick={() => fireConfetti('dadtrack')}
       >
         {cta.buttonLabel}
       </Button>
@@ -178,12 +180,14 @@ export default function DadTrack() {
                 What&apos;s Included
               </h2>
             </SlideUp>
-            <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-6" staggerDelay={0.1}>
+            <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-6 md:pt-4" staggerDelay={0.1}>
               {features.map((feature, index) => (
                 <StaggerItem key={feature.title} className={getOddFinalGridItemClass(index, features.length)}>
+                  <div className={`relative ${index % 2 === 0 ? 'polaroid-even' : 'polaroid-odd'}`}>
+                    <div className="polaroid-tape absolute -top-2.5 left-1/2 -translate-x-1/2 w-12 h-5 rounded-sm rotate-1 z-10 hidden md:block" />
                   <TiltCard intensity={8}>
                     <div
-                      className="group rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 hover:border-white/20 transition-all duration-300 h-full overflow-hidden cursor-zoom-in"
+                      className="group rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 hover:border-white/20 transition-all duration-300 h-full overflow-hidden cursor-zoom-in ring-1 ring-white/5"
                       onClick={() => openLightbox(index)}
                     >
                       {/* Screenshot Image */}
@@ -218,6 +222,7 @@ export default function DadTrack() {
                       </div>
                     </div>
                   </TiltCard>
+                  </div>
                 </StaggerItem>
               ))}
             </StaggerContainer>

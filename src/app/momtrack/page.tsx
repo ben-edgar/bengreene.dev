@@ -14,6 +14,7 @@ import { StaggerItem } from '@/components/animations/StaggerItem';
 import { ParallaxContent } from '@/components/animations/Parallax';
 import { GlowDivider } from '@/components/GlowDivider';
 import { getAssetPath } from '@/lib/basePath';
+import { fireConfetti } from '@/lib/confetti';
 import {
   MOMTRACK_APP_STORE_URL,
   SITE_CANONICAL_URL,
@@ -133,6 +134,7 @@ export default function MomTrack() {
                     mobileFullWidth
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => fireConfetti('momtrack')}
                   >
                     {MOMTRACK_DOWNLOAD_CTA.label}
                   </Button>
@@ -152,14 +154,16 @@ export default function MomTrack() {
                 What&apos;s Included
               </h2>
             </SlideUp>
-            <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-6" staggerDelay={0.1}>
+            <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-6 md:pt-4" staggerDelay={0.1}>
               {features.map((feature, index) => (
                 <StaggerItem key={feature.title} className={getOddFinalGridItemClass(index, features.length)}>
+                  <div className={`relative ${index % 2 === 0 ? 'polaroid-even' : 'polaroid-odd'}`}>
+                    <div className="polaroid-tape absolute -top-2.5 left-1/2 -translate-x-1/2 w-12 h-5 rounded-sm rotate-1 z-10 hidden md:block" />
                   <TiltCard intensity={8}>
                     <button
                       type="button"
                       aria-label={`Open ${feature.title} screenshot`}
-                      className={`group h-full w-full cursor-zoom-in overflow-hidden rounded-2xl border border-white/10 bg-white/5 text-left backdrop-blur-xl transition-all duration-300 ${theme.accentHoverBorder} focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e8746e]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950`}
+                      className={`group h-full w-full cursor-zoom-in overflow-hidden rounded-2xl border border-white/10 bg-white/5 text-left backdrop-blur-xl transition-all duration-300 ${theme.accentHoverBorder} focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e8746e]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 ring-1 ring-white/5`}
                       onClick={() => openLightbox(index)}
                     >
                       {/* Screenshot Image */}
@@ -194,6 +198,7 @@ export default function MomTrack() {
                       </div>
                     </button>
                   </TiltCard>
+                  </div>
                 </StaggerItem>
               ))}
             </StaggerContainer>
@@ -286,6 +291,7 @@ export default function MomTrack() {
                   mobileFullWidth
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => fireConfetti('momtrack')}
                 >
                   {MOMTRACK_DOWNLOAD_CTA.label}
                 </Button>

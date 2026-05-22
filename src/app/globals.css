@@ -130,3 +130,29 @@ a {
     background-position: 100% 50%;
   }
 }
+
+/* Scrapbook polaroid card styling */
+.polaroid-tape {
+  background: rgba(255, 255, 255, 0.32);
+  backdrop-filter: blur(4px);
+}
+
+@media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+  .polaroid-even {
+    transform: rotate(-1.5deg);
+    transition: transform 0.25s ease;
+  }
+
+  .polaroid-even:hover {
+    transform: rotate(0deg) scale(1.02);
+  }
+
+  .polaroid-odd {
+    transform: rotate(1.5deg);
+    transition: transform 0.25s ease;
+  }
+
+  .polaroid-odd:hover {
+    transform: rotate(0deg) scale(1.02);
+  }
+}
