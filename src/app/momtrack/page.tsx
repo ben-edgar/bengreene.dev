@@ -183,10 +183,10 @@ export default function MomTrack() {
                         {/* Dark caption strip — handwritten polaroid label feel */}
                         <div className="absolute bottom-0 left-0 right-0 h-11 flex items-center gap-2 px-4 border-t border-white/[0.06]">
                           <span className="text-lg leading-none">{feature.icon}</span>
-                          <span className="text-slate-300 text-sm font-semibold italic truncate">{feature.title}</span>
+                          <span className="min-w-0 truncate text-sm font-semibold italic text-slate-300">{feature.title}</span>
                         </div>
                         {/* Hover hint */}
-                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors flex items-center justify-center pointer-events-none" style={{ bottom: '44px' }}>
+                        <div className="absolute inset-x-0 top-0 bottom-11 bg-black/0 group-hover:bg-black/30 transition-colors flex items-center justify-center pointer-events-none">
                           <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-slate-900/90 px-4 py-2 rounded-full text-sm font-medium text-slate-200 border border-white/20">
                             🔍 Click to expand
                           </div>

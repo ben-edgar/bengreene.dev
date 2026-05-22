@@ -135,4 +135,21 @@ describe('MomTrack product route', () => {
     );
     expect(markup).not.toContain('Get it on Google Play');
   });
+
+  it('renders shrinkable truncated feature caption titles', () => {
+    const markup = renderToStaticMarkup(<MomTrack />);
+
+    expect(markup).toContain(
+      'class="min-w-0 truncate text-sm font-semibold italic text-slate-300"',
+    );
+  });
+
+  it('uses Tailwind classes for the screenshot hover overlay offset', () => {
+    const markup = renderToStaticMarkup(<MomTrack />);
+
+    expect(markup).toContain(
+      'class="absolute inset-x-0 top-0 bottom-11 bg-black/0 group-hover:bg-black/30 transition-colors flex items-center justify-center pointer-events-none"',
+    );
+    expect(markup).not.toContain('style="bottom:44px"');
+  });
 });

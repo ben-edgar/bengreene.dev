@@ -187,8 +187,10 @@ export default function DadTrack() {
                     {/* Washi tape strip */}
                     <div className="polaroid-tape absolute -top-3 left-1/2 -translate-x-1/2 rounded-sm z-10" />
                   <TiltCard intensity={6}>
-                    <div
-                      className="group rounded-2xl overflow-hidden cursor-zoom-in border border-white/10 bg-slate-900/70 backdrop-blur-sm"
+                    <button
+                      type="button"
+                      aria-label={`Open ${feature.title} screenshot`}
+                      className="group h-full w-full cursor-zoom-in overflow-hidden rounded-2xl border border-white/10 bg-slate-900/70 text-left backdrop-blur-sm transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-400/70 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
                       onClick={() => openLightbox(index)}
                     >
                       {/* Dark photo area — screenshot sits in a subtle framed mat */}
@@ -207,10 +209,10 @@ export default function DadTrack() {
                         {/* Dark caption strip — handwritten polaroid label feel */}
                         <div className="absolute bottom-0 left-0 right-0 h-11 flex items-center gap-2 px-4 border-t border-white/[0.06]">
                           <span className="text-lg leading-none">{feature.icon}</span>
-                          <span className="text-slate-300 text-sm font-semibold italic truncate">{feature.title}</span>
+                          <span className="min-w-0 truncate text-sm font-semibold italic text-slate-300">{feature.title}</span>
                         </div>
                         {/* Hover hint */}
-                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors flex items-center justify-center pointer-events-none" style={{ bottom: '44px' }}>
+                        <div className="absolute inset-x-0 top-0 bottom-11 bg-black/0 group-hover:bg-black/30 transition-colors flex items-center justify-center pointer-events-none">
                           <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-slate-900/90 px-4 py-2 rounded-full text-sm font-medium text-slate-200 border border-white/20">
                             🔍 Click to expand
                           </div>
@@ -222,7 +224,7 @@ export default function DadTrack() {
                           {feature.description}
                         </p>
                       </div>
-                    </div>
+                    </button>
                   </TiltCard>
                   </div>
                 </StaggerItem>

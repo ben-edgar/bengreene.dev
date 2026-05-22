@@ -100,4 +100,31 @@ describe('DadTrack page', () => {
     expect(markup).not.toContain('1_homescreen_with_tip.png');
     expect(markup).not.toContain('manage_mood_screen.png');
   });
+
+  it('renders accessible full-size screenshot feature cards', () => {
+    const markup = renderToStaticMarkup(<DadTrack />);
+
+    expect(markup).toContain('type="button"');
+    expect(markup).toContain('aria-label="Open Shared Family Timeline screenshot"');
+    expect(markup).toContain(
+      'class="group h-full w-full cursor-zoom-in overflow-hidden rounded-2xl border border-white/10 bg-slate-900/70 text-left backdrop-blur-sm transition-all duration-300',
+    );
+  });
+
+  it('renders shrinkable truncated feature caption titles', () => {
+    const markup = renderToStaticMarkup(<DadTrack />);
+
+    expect(markup).toContain(
+      'class="min-w-0 truncate text-sm font-semibold italic text-slate-300"',
+    );
+  });
+
+  it('uses Tailwind classes for the screenshot hover overlay offset', () => {
+    const markup = renderToStaticMarkup(<DadTrack />);
+
+    expect(markup).toContain(
+      'class="absolute inset-x-0 top-0 bottom-11 bg-black/0 group-hover:bg-black/30 transition-colors flex items-center justify-center pointer-events-none"',
+    );
+    expect(markup).not.toContain('style="bottom:44px"');
+  });
 });
