@@ -90,13 +90,13 @@ export default function Home() {
                     {storeCtas.map((storeCta) => (
                       <Button
                         key={storeCta.key}
+                        href={storeCta.href}
                         variant="secondary"
                         size="lg"
                         mobileFullWidth
-                        onClick={() => {
-                          fireConfetti('dadtrack');
-                          setTimeout(() => window.open(storeCta.href, '_blank', 'noopener,noreferrer'), 700);
-                        }}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => fireConfetti('dadtrack')}
                       >
                         {storeCta.buttonLabel}
                       </Button>
@@ -131,13 +131,13 @@ export default function Home() {
 
                   <div className="mt-auto flex w-full flex-col gap-3 pt-2 sm:flex-row sm:flex-wrap">
                     <Button
+                      href={MOMTRACK_DOWNLOAD_CTA.href}
                       size="lg"
                       tone="momtrack"
                       mobileFullWidth
-                      onClick={() => {
-                        fireConfetti('momtrack');
-                        setTimeout(() => window.open(MOMTRACK_DOWNLOAD_CTA.href, '_blank', 'noopener,noreferrer'), 700);
-                      }}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => fireConfetti('momtrack')}
                     >
                       Download MomTrack
                     </Button>
@@ -180,23 +180,23 @@ export default function Home() {
             <FadeIn delay={0.4}>
               <div className="flex w-full max-w-md mx-auto flex-col gap-4 pt-4 sm:max-w-none sm:flex-row sm:flex-wrap sm:justify-center">
                 <Button
+                  href={storeCtas[0].href}
                   size="lg"
                   mobileFullWidth
-                  onClick={() => {
-                    fireConfetti('dadtrack');
-                    setTimeout(() => window.open(storeCtas[0].href, '_blank', 'noopener,noreferrer'), 700);
-                  }}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => fireConfetti('dadtrack')}
                 >
                   {storeCtas[0].buttonLabel}
                 </Button>
                 <Button
+                  href={storeCtas[1].href}
                   variant="secondary"
                   size="lg"
                   mobileFullWidth
-                  onClick={() => {
-                    fireConfetti('dadtrack');
-                    setTimeout(() => window.open(storeCtas[1].href, '_blank', 'noopener,noreferrer'), 700);
-                  }}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => fireConfetti('dadtrack')}
                 >
                   {storeCtas[1].buttonLabel}
                 </Button>

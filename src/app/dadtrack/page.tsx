@@ -78,13 +78,13 @@ export default function DadTrack() {
     return storeCtas.map((cta, index) => (
       <Button
         key={`${keyPrefix}${cta.key}`}
+        href={cta.href}
         variant={index === 0 ? undefined : 'secondary'}
         size="lg"
         mobileFullWidth
-        onClick={() => {
-          fireConfetti('dadtrack');
-          setTimeout(() => window.open(cta.href, '_blank', 'noopener,noreferrer'), 700);
-        }}
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={() => fireConfetti('dadtrack')}
       >
         {cta.buttonLabel}
       </Button>

@@ -85,15 +85,15 @@ describe('DadTrack page', () => {
       'Voice journaling, daily tips, monthly recaps, cloud backup, and streak celebrations',
     );
     expect(markup).toContain('Cloud Backup &amp; Sync');
-    expect(markup).toContain('Restore &amp; Sync');
-    expect(markup).toContain('/images/dadtrack/06-cloud-pending.png');
-    expect(markup).toContain('/images/dadtrack/07-cloud-all-synced.png');
-    expect(markup).toContain('Optional cloud backup and sync keeps your memories safe');
-    expect(markup).toContain('md:col-span-2 md:mx-auto md:w-[calc(50%-0.75rem)]');
+    expect(markup).toContain('Restore &amp; Free Up Space');
+    expect(markup).toContain('/images/dadtrack/04-journal-entry-detail-magazine.png');
+    expect(markup).toContain('/images/dadtrack/07-cloud-pending.png');
+    expect(markup).toContain('/images/dadtrack/08-cloud-all-synced.png');
+    expect(markup).toContain('Local-first with no ads, no tracking');
+    expect(markup).not.toContain('md:col-span-2 md:mx-auto md:w-[calc(50%-0.75rem)]');
     expect(markup).toContain('data-next-link="true"');
     expect(markup).toContain('href="/feedback"');
 
-    expect(markup).not.toContain('Magazine Mode');
     expect(markup).not.toContain('Flexible View Modes');
     expect(markup).not.toContain('Tip History &amp; Favorites');
     expect(markup).not.toContain('Custom Mood Tags');

@@ -128,13 +128,13 @@ export default function MomTrack() {
               <FadeIn delay={0.5}>
                 <div className="flex w-full max-w-md mx-auto flex-col gap-4 pt-4 sm:max-w-none sm:flex-row sm:flex-wrap sm:justify-center">
                   <Button
+                    href={MOMTRACK_DOWNLOAD_CTA.href}
                     size="lg"
                     tone="momtrack"
                     mobileFullWidth
-                    onClick={() => {
-                      fireConfetti('momtrack');
-                      setTimeout(() => window.open(MOMTRACK_DOWNLOAD_CTA.href, '_blank', 'noopener,noreferrer'), 700);
-                    }}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => fireConfetti('momtrack')}
                   >
                     {MOMTRACK_DOWNLOAD_CTA.label}
                   </Button>
@@ -287,13 +287,13 @@ export default function MomTrack() {
             <FadeIn delay={0.4}>
               <div className="flex w-full max-w-md mx-auto flex-col gap-4 sm:max-w-none sm:flex-row sm:flex-wrap sm:justify-center">
                 <Button
+                  href={MOMTRACK_DOWNLOAD_CTA.href}
                   size="lg"
                   tone="momtrack"
                   mobileFullWidth
-                  onClick={() => {
-                    fireConfetti('momtrack');
-                    setTimeout(() => window.open(MOMTRACK_DOWNLOAD_CTA.href, '_blank', 'noopener,noreferrer'), 700);
-                  }}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => fireConfetti('momtrack')}
                 >
                   {MOMTRACK_DOWNLOAD_CTA.label}
                 </Button>
