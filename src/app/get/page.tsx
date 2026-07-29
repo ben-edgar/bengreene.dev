@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
+import { ANALYTICS_SETTLE_TIMEOUT_MS, trackGetRedirect } from '@/lib/analyticsEvents';
 import { parseCampaignParams } from '@/lib/campaignLinks';
 import { resolveGetDestination, type GetDestination } from '@/lib/getRedirect';
 import { useDetectedStorePlatform } from '@/lib/storeLinks';
@@ -37,13 +38,37 @@ export default function Get() {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setDestination(resolved);
 
-    // Give the analytics beacon a moment to fire before navigating away. `replace` keeps
-    // /get out of history so the back button returns to the referring site, not here.
-    const timer = window.setTimeout(() => {
-      window.location.replace(resolved.href);
-    }, 150);
+    let navigated = false;
 
-    return () => window.clearTimeout(timer);
+    // `replace` keeps /get out of history, so the back button returns to the referring
+    // site rather than bouncing through here.
+    const go = () => {
+      if (navigated) {
+        return;
+      }
+
+      navigated = true;
+      window.location.replace(resolved.href);
+    };
+
+    // Redirect as soon as the analytics hit has been sent. The outer timer is the
+    // backstop for the case gtag's own event_timeout cannot cover: if gtag.js is blocked
+    // or never loads, the queued event is never processed and no callback ever fires.
+    const fallback = window.setTimeout(go, ANALYTICS_SETTLE_TIMEOUT_MS);
+
+    trackGetRedirect(
+      {
+        campaign: parseCampaignParams(window.location.search),
+        destination: resolved.href,
+        platform,
+      },
+      go,
+    );
+
+    return () => {
+      navigated = true;
+      window.clearTimeout(fallback);
+    };
   }, [platform]);
 
   return (
