@@ -1,7 +1,7 @@
 import {
   DADTRACK_APP_STORE_URL_TRACKED,
   DADTRACK_GOOGLE_PLAY_URL_TRACKED,
-} from './constants';
+} from './campaignLinks';
 
 export type StorePlatform = 'ios' | 'android' | 'other';
 

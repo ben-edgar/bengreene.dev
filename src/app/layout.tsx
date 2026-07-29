@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { SITE_CANONICAL_URL } from "@/lib/constants";
 import "./globals.css";
+import { Analytics } from "@/components/Analytics";
 import { SiteFooter } from "@/components/SiteFooter";
 
 const geistSans = Geist({
@@ -64,6 +65,7 @@ export default function RootLayout({
       >
         {children}
         <SiteFooter />
+        <Analytics />
       </body>
     </html>
   );
