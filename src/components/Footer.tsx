@@ -2,7 +2,7 @@ import Link from 'next/link';
 import {
   DADTRACK_APP_STORE_URL_TRACKED,
   DADTRACK_GOOGLE_PLAY_URL_TRACKED,
-} from '@/lib/constants';
+} from '@/lib/campaignLinks';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();

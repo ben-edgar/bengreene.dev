@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { SITE_CANONICAL_URL } from "@/lib/constants";
 import "./globals.css";
+import { Analytics } from "@/components/Analytics";
 import { SiteFooter } from "@/components/SiteFooter";
 
 const geistSans = Geist({
@@ -62,6 +63,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-slate-950 text-slate-50`}
       >
+        {/* Before page content on purpose: effects fire in tree order, and /get needs
+            window.gtag to exist by the time its own effect runs. */}
+        <Analytics />
         {children}
         <SiteFooter />
       </body>

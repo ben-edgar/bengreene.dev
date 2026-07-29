@@ -30,6 +30,13 @@ export function SiteFooter() {
                 <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-white/5">
                     <p className="text-sm text-slate-500">
                         © {currentYear} Ben Greene. All rights reserved.
+                        {' · '}
+                        <Link
+                            href="/privacy"
+                            className="hover:text-slate-300 transition-colors duration-200"
+                        >
+                            Privacy
+                        </Link>
                     </p>
                     <div className="flex items-center gap-1">
                         <a
