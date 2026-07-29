@@ -44,7 +44,12 @@ jobs:
             echo "manager=pnpm" >> $GITHUB_OUTPUT
             echo "command=install" >> $GITHUB_OUTPUT
             echo "runner=pnpm" >> $GITHUB_OUTPUT
-            npm install -g pnpm
+            # Pinned to the major this project is developed and tested against.
+            # Left unpinned, this floats to the newest pnpm major: pnpm 11 turned
+            # "dependency build script not explicitly approved" into a hard error
+            # (ERR_PNPM_IGNORED_BUILDS), breaking this deploy with no change to our own
+            # dependencies. Bump this deliberately, with a green run, not by drift.
+            npm install -g pnpm@10
             exit 0
           elif [ -f "${{ github.workspace }}/package.json" ]; then
             echo "manager=npm" >> $GITHUB_OUTPUT
