@@ -46,6 +46,21 @@ describe('buildPlayUrl', () => {
   it('uses ? when the base url has no query string', () => {
     expect(buildPlayUrl('https://example.com/app')).toContain('/app?referrer=');
   });
+
+  it('encodes values so a crafted utm_content cannot inject extra referrer keys', () => {
+    // ?utm_content=a%26utm_medium%3Dcpc decodes to "a&utm_medium=cpc". Without per-value
+    // encoding that becomes a second utm_medium once Play decodes the referrer — the URL
+    // still looks fine, so the corruption only shows up as a wrong Play report.
+    const url = buildPlayUrl('https://play.google.com/store/apps/details?id=x', {
+      source: 'threads',
+      content: 'a&utm_medium=cpc',
+    });
+    const referrer = new URL(url).searchParams.get('referrer') ?? '';
+    const parsed = new URLSearchParams(referrer);
+
+    expect(parsed.getAll('utm_medium')).toEqual(['website']);
+    expect(parsed.get('utm_content')).toBe('a&utm_medium=cpc');
+  });
 });
 
 describe('buildAppStoreUrl', () => {
@@ -69,6 +84,16 @@ describe('buildAppStoreUrl', () => {
     });
 
     expect(url).toContain('ct=threads-bio-w32-mon-th-01');
+  });
+
+  it('falls back to the default source when sanitizing empties the token', () => {
+    // An empty ct is worse than a generic one: the install lands with no campaign at all,
+    // indistinguishable from organic, and it cannot be backfilled.
+    for (const source of ['!!!', '日本語', '---']) {
+      const token = new URL(buildDadTrackAppStoreUrl({ source })).searchParams.get('ct');
+
+      expect(token).toBe('bengreene-dev');
+    }
   });
 
   it('caps the campaign token length', () => {

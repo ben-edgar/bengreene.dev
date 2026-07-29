@@ -41,8 +41,9 @@ export default function Privacy() {
                 used. Google Analytics sets cookies to tell repeat visits apart.
               </p>
               <p>
-                Google Signals is turned off, so your activity here is not joined to your
-                Google account, used to build an advertising profile, or tracked across
+                Google Signals and ad personalization are both switched off in this
+                site&rsquo;s analytics configuration, so your activity here is not joined to
+                your Google account, used to build an advertising profile, or tracked across
                 devices. This site runs no advertising and shares no data with ad networks.
               </p>
               <p className="text-slate-400">
@@ -78,7 +79,14 @@ export default function Privacy() {
                 sold, shared, or added to any marketing list beyond that.
               </p>
               <p className="text-slate-400">
-                Want your submission deleted? Email me and it&rsquo;s gone.
+                Want your submission deleted? Ask through the{' '}
+                <Link
+                  className="text-teal-400 underline underline-offset-4 hover:text-teal-300"
+                  href="/feedback"
+                >
+                  feedback form
+                </Link>{' '}
+                and it&rsquo;s gone.
               </p>
             </section>
 

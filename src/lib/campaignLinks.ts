@@ -48,6 +48,16 @@ function sanitizeCampaignToken(value: string): string {
     .replace(/^-+|-+$/g, '');
 }
 
+/**
+ * Sanitizing can empty a token entirely — `'!!!'` and any non-Latin script both reduce to
+ * `''`. An empty `ct` is worse than a generic one: the install still lands in App
+ * Analytics but with no campaign at all, indistinguishable from organic, and attribution
+ * cannot be backfilled. Fall back to the default source rather than emitting nothing.
+ */
+function campaignTokenOrDefault(value: string): string {
+  return sanitizeCampaignToken(value) || sanitizeCampaignToken(DEFAULT_CAMPAIGN.source);
+}
+
 function withDefaults(params: CampaignParams): Required<Omit<CampaignParams, 'content'>> & Pick<CampaignParams, 'content'> {
   return {
     source: params.source?.trim() || DEFAULT_CAMPAIGN.source,
@@ -71,7 +81,13 @@ export function buildUtmQuery(params: CampaignParams = {}): string {
     pairs.push(['utm_content', content]);
   }
 
-  return pairs.map(([key, value]) => `${key}=${value}`).join('&');
+  // Encode each value, not just the joined result. An inbound `utm_content` containing an
+  // encoded `&` would otherwise inject extra keys into the referrer once Play decodes it —
+  // the outer URL stays well-formed, so the corruption is invisible until the Play report
+  // is wrong.
+  return pairs
+    .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
+    .join('&');
 }
 
 /**
@@ -94,7 +110,7 @@ export function buildPlayUrl(baseUrl: string, params: CampaignParams = {}): stri
  */
 export function buildAppStoreUrl(baseUrl: string, params: CampaignParams = {}): string {
   const { content, source } = withDefaults(params);
-  const token = sanitizeCampaignToken(content ? `${source}-${content}` : source);
+  const token = campaignTokenOrDefault(content ? `${source}-${content}` : source);
   const separator = baseUrl.includes('?') ? '&' : '?';
 
   return `${baseUrl}${separator}ct=${encodeURIComponent(token)}&mt=8`;

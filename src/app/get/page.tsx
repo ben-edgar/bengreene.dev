@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 import { ANALYTICS_SETTLE_TIMEOUT_MS, trackGetRedirect } from '@/lib/analyticsEvents';
+import { basePath } from '@/lib/basePath';
 import { parseCampaignParams } from '@/lib/campaignLinks';
 import { resolveGetDestination, type GetDestination } from '@/lib/getRedirect';
 import { useDetectedStorePlatform } from '@/lib/storeLinks';
@@ -30,10 +31,8 @@ export default function Get() {
       return;
     }
 
-    const resolved = resolveGetDestination(
-      platform,
-      parseCampaignParams(window.location.search),
-    );
+    const campaign = parseCampaignParams(window.location.search);
+    const resolved = resolveGetDestination(platform, campaign);
 
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setDestination(resolved);
@@ -48,7 +47,13 @@ export default function Get() {
       }
 
       navigated = true;
-      window.location.replace(resolved.href);
+
+      // Store links are absolute. The desktop fallback is app-relative, so it needs the
+      // basePath prefix that <Link> would have applied — otherwise a subdirectory
+      // deployment (see DEPLOYMENT.md) 404s every desktop visitor arriving from a bio.
+      window.location.replace(
+        resolved.isStore ? resolved.href : `${basePath}${resolved.href}`,
+      );
     };
 
     // Redirect as soon as the analytics hit has been sent. The outer timer is the
@@ -57,11 +62,7 @@ export default function Get() {
     const fallback = window.setTimeout(go, ANALYTICS_SETTLE_TIMEOUT_MS);
 
     trackGetRedirect(
-      {
-        campaign: parseCampaignParams(window.location.search),
-        destination: resolved.href,
-        platform,
-      },
+      { campaign, destination: resolved.href, platform },
       go,
     );
 

@@ -63,9 +63,11 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-slate-950 text-slate-50`}
       >
+        {/* Before page content on purpose: effects fire in tree order, and /get needs
+            window.gtag to exist by the time its own effect runs. */}
+        <Analytics />
         {children}
         <SiteFooter />
-        <Analytics />
       </body>
     </html>
   );
