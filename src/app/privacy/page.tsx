@@ -73,9 +73,9 @@ export default function Privacy() {
               <h2 className="text-xl font-semibold text-white">Forms</h2>
               <p>
                 If you submit the waitlist or feedback form, the name, email address, and
-                message you enter are saved to a private Google Sheet that only I can read. I
-                use them to reply to you and to send occasional updates about the apps. They
-                are not sold, shared, or added to any marketing list beyond that.
+                message you enter are stored privately and read only by me. I use them to
+                reply to you and to send occasional updates about the apps. They are not
+                sold, shared, or added to any marketing list beyond that.
               </p>
               <p className="text-slate-400">
                 Want your submission deleted? Email me and it&rsquo;s gone.
