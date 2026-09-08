@@ -78,53 +78,73 @@ vi.mock('@/lib/storeLinks', async () => {
 import DadTrack from './page';
 
 describe('DadTrack page', () => {
-  it('renders the refreshed cloud backup product story and screenshots', () => {
+  it('renders the refreshed product story and every screenshot', () => {
     const markup = renderToStaticMarkup(<DadTrack />);
 
+    expect(markup).toContain('📱 The Dad Journaling App');
     expect(markup).toContain(
+      'A journal that remembers the moments, the moods, and who you spent them with.',
+    );
+    expect(markup).toContain('DadTrack helps dads capture everyday moments');
+    expect(markup).not.toContain(
       'Voice journaling, daily tips, monthly recaps, cloud backup, and streak celebrations',
     );
-    expect(markup).toContain('Cloud Backup &amp; Sync');
-    expect(markup).toContain('Restore &amp; Free Up Space');
-    expect(markup).toContain('/images/dadtrack/04-journal-entry-detail-magazine.png');
-    expect(markup).toContain('/images/dadtrack/07-cloud-pending.png');
-    expect(markup).toContain('/images/dadtrack/08-cloud-all-synced.png');
+
+    for (const file of [
+      '01-home-feed',
+      '02-journal-composer',
+      '03-monthly-recap',
+      '04-journal-entry-detail',
+      '05-journal-entry-detail-magazine',
+      '06-search',
+      '07-streak',
+      '08-cloud-all-synced',
+    ]) {
+      expect(markup).toContain(`/images/dadtrack/${file}.webp`);
+    }
+    expect(markup).not.toContain('/images/dadtrack/07-cloud-pending.png');
+    expect(markup).not.toContain('/images/dadtrack/05-search.png');
+
+    expect(markup).toContain('Shared family timeline');
+    expect(markup).toContain('Cloud backup &amp; sync');
     expect(markup).toContain('Local-first with no ads, no tracking');
-    expect(markup).not.toContain('md:col-span-2 md:mx-auto md:w-[calc(50%-0.75rem)]');
     expect(markup).toContain('data-next-link="true"');
     expect(markup).toContain('href="/feedback"');
-
-    expect(markup).not.toContain('Flexible View Modes');
-    expect(markup).not.toContain('Tip History &amp; Favorites');
-    expect(markup).not.toContain('Custom Mood Tags');
-    expect(markup).not.toContain('1_homescreen_with_tip.png');
-    expect(markup).not.toContain('manage_mood_screen.png');
+    expect(markup).toContain('Share your thoughts');
   });
 
-  it('renders accessible full-size screenshot feature cards', () => {
+  it('renders the paper sheet with an accessible screenshot lightbox trigger', () => {
     const markup = renderToStaticMarkup(<DadTrack />);
 
+    expect(markup).toContain('bg-[#f4efe6]');
+    expect(markup).toContain('What&#x27;s included');
+    expect(markup).toContain('Eight screens from the app, as they look on an iPhone today.');
     expect(markup).toContain('type="button"');
-    expect(markup).toContain('aria-label="Open Shared Family Timeline screenshot"');
-    expect(markup).toContain(
-      'class="group h-full w-full cursor-zoom-in overflow-hidden rounded-2xl border border-white/10 bg-slate-900/70 text-left backdrop-blur-sm transition-all duration-300',
-    );
+    expect(markup).toContain('aria-label="Open Shared family timeline screenshot"');
+    expect(markup).toContain('Tap to enlarge');
+
+    expect(markup).not.toContain('polaroid-even');
+    expect(markup).not.toContain('min-w-0 truncate');
+    expect(markup).not.toContain('md:col-span-2 md:mx-auto md:w-[calc(50%-0.75rem)]');
   });
 
-  it('renders shrinkable truncated feature caption titles', () => {
+  it('renders the extras, the differentiators, the beta roadmap and the download CTA', () => {
     const markup = renderToStaticMarkup(<DadTrack />);
 
-    expect(markup).toContain(
-      'class="min-w-0 truncate text-sm font-semibold italic text-slate-300"',
-    );
-  });
+    expect(markup).toContain('Also in the box');
+    expect(markup).toContain('Save photos to your library');
+    expect(markup).toContain('Export anytime');
 
-  it('uses Tailwind classes for the screenshot hover overlay offset', () => {
-    const markup = renderToStaticMarkup(<DadTrack />);
+    expect(markup).toContain('Why DadTrack Is Different');
+    expect(markup).toContain('Coming soon');
+    expect(markup).toContain('In beta now, rolling out to everyone next.');
+    expect(markup).toContain('Milestone tracker');
+    expect(markup).toContain('Streak freezes');
+    expect(markup).not.toContain('Child Information Hub');
 
-    expect(markup).toContain(
-      'class="absolute inset-x-0 top-0 bottom-11 bg-black/0 group-hover:bg-black/30 transition-colors flex items-center justify-center pointer-events-none"',
-    );
-    expect(markup).not.toContain('style="bottom:44px"');
+    expect(markup).toContain('id="download"');
+    expect(markup).toContain('Get DadTrack today');
+    expect(markup).toContain('Free on iOS and Android.');
+    expect(markup).toContain('SoftwareApplication');
   });
 });
