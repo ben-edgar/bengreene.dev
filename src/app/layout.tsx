@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Fraunces, Geist, Geist_Mono } from "next/font/google";
 import { SITE_CANONICAL_URL } from "@/lib/constants";
 import "./globals.css";
 import { Analytics } from "@/components/Analytics";
@@ -13,6 +13,14 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+// Editorial display face, echoing the serif headings inside the apps.
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  display: "swap",
 });
 
 
@@ -61,7 +69,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-slate-950 text-slate-50`}
+        className={`${geistSans.variable} ${geistMono.variable} ${fraunces.variable} antialiased bg-slate-950 text-slate-50`}
       >
         {/* Before page content on purpose: effects fire in tree order, and /get needs
             window.gtag to exist by the time its own effect runs. */}

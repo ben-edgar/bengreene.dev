@@ -8,11 +8,33 @@ import {
   MOMTRACK_FEATURES,
   MOMTRACK_KEY_POINTS,
   MOMTRACK_PAGE_THEME,
+  PRODUCT_EXTRAS,
   PRODUCT_ROADMAP,
-  getOddFinalGridItemClass,
 } from './productContent';
 import * as constants from './constants';
 import * as productContent from './productContent';
+
+const FEATURE_TITLES = [
+  'Shared family timeline',
+  'A composer built for busy hands',
+  'Monthly AI recaps',
+  'Editorial journal entries',
+  'Scrapbook mode',
+  'Advanced search',
+  'Streaks & celebrations',
+  'Cloud backup & sync',
+];
+
+const SCREENSHOT_FILES = [
+  '01-home-feed',
+  '02-journal-composer',
+  '03-monthly-recap',
+  '04-journal-entry-detail',
+  '05-journal-entry-detail-magazine',
+  '06-search',
+  '07-streak',
+  '08-cloud-all-synced',
+];
 
 describe('product content', () => {
   it('defines the MomTrack App Store URL', () => {
@@ -21,61 +43,76 @@ describe('product content', () => {
     );
   });
 
-  it('uses eight DadTrack features with the refreshed v59 screenshots', () => {
-    expect(DADTRACK_FEATURES.map((feature) => feature.title)).toEqual([
-      'Shared Family Timeline',
-      'Monthly AI Recaps',
-      'Editorial Journal Entries',
-      'Scrapbook Mode',
-      'Advanced Search',
-      'Streaks & Celebrations',
-      'Cloud Backup & Sync',
-      'Restore & Free Up Space',
-    ]);
-    expect(DADTRACK_FEATURES.map((feature) => feature.image)).toEqual([
-      '/images/dadtrack/01-home-feed.png',
-      '/images/dadtrack/02-monthly-recap.png',
-      '/images/dadtrack/03-journal-entry-detail.png',
-      '/images/dadtrack/04-journal-entry-detail-magazine.png',
-      '/images/dadtrack/05-search.png',
-      '/images/dadtrack/06-streak.png',
-      '/images/dadtrack/07-cloud-pending.png',
-      '/images/dadtrack/08-cloud-all-synced.png',
-    ]);
+  it('uses eight DadTrack features with the refreshed webp screenshots', () => {
+    expect(DADTRACK_FEATURES.map((feature) => feature.title)).toEqual(FEATURE_TITLES);
+    expect(DADTRACK_FEATURES.map((feature) => feature.image)).toEqual(
+      SCREENSHOT_FILES.map((file) => `/images/dadtrack/${file}.webp`),
+    );
+    expect(DADTRACK_FEATURES[2].description).toContain('DadTrack writes an editorial');
+  });
+
+  it('gives every feature descriptive alt text', () => {
+    for (const feature of DADTRACK_FEATURES) {
+      expect(feature.alt).toContain('DadTrack');
+      expect(feature.alt.length).toBeGreaterThan(20);
+    }
+    for (const feature of MOMTRACK_FEATURES) {
+      expect(feature.alt).toContain('MomTrack');
+    }
   });
 
   it('uses eight MomTrack features with MomTrack asset paths', () => {
     expect(MOMTRACK_FEATURES).toHaveLength(8);
-    expect(MOMTRACK_FEATURES.map((feature) => feature.image)).toEqual([
-      '/images/momtrack/01-home-feed.png',
-      '/images/momtrack/02-monthly-recap.png',
-      '/images/momtrack/03-journal-entry-detail.png',
-      '/images/momtrack/04-journal-entry-detail-magazine.png',
-      '/images/momtrack/05-search.png',
-      '/images/momtrack/06-streak.png',
-      '/images/momtrack/07-cloud-pending.png',
-      '/images/momtrack/08-cloud-all-synced.png',
-    ]);
-    expect(MOMTRACK_FEATURES[7].title).toBe('Restore & Free Up Space');
+    expect(MOMTRACK_FEATURES.map((feature) => feature.image)).toEqual(
+      SCREENSHOT_FILES.map((file) => `/images/momtrack/${file}.webp`),
+    );
+    expect(MOMTRACK_FEATURES[2].description).toContain('MomTrack writes an editorial');
+    expect(MOMTRACK_FEATURES[7].title).toBe('Cloud backup & sync');
+  });
+
+  it('no longer references the retired PNG screenshots', () => {
+    const allImages = [...DADTRACK_FEATURES, ...MOMTRACK_FEATURES].map((feature) => feature.image);
+
+    expect(allImages.some((image) => image.endsWith('.png'))).toBe(false);
+    expect(allImages.some((image) => image.includes('cloud-pending'))).toBe(false);
   });
 
   it('defines the three DadTrack home showcase screenshots', () => {
     expect(DADTRACK_HOME_SHOWCASE_SCREENSHOTS.map((screenshot) => screenshot.src)).toEqual([
-      '/images/dadtrack/01-home-feed.png',
-      '/images/dadtrack/04-journal-entry-detail-magazine.png',
-      '/images/dadtrack/02-monthly-recap.png',
+      '/images/dadtrack/01-home-feed.webp',
+      '/images/dadtrack/05-journal-entry-detail-magazine.webp',
+      '/images/dadtrack/03-monthly-recap.webp',
     ]);
   });
 
-  it('keeps roadmap content shared for both product pages', () => {
+  it('lists nine shipped extras without any beta-only features', () => {
+    expect(PRODUCT_EXTRAS).toHaveLength(9);
+    expect(PRODUCT_EXTRAS.map((extra) => extra.label)).toEqual([
+      'Voice-to-text',
+      'Up to 5 photos a day',
+      'People & groups',
+      'Save photos to your library',
+      'Daily tips',
+      'Custom moods',
+      'Multiple kids',
+      'Smart reminders',
+      'Export anytime',
+    ]);
+    expect(PRODUCT_EXTRAS.every((extra) => extra.detail.length > 0)).toBe(true);
+    expect(new Set(PRODUCT_EXTRAS.map((extra) => extra.iconKey)).size).toBe(9);
+  });
+
+  it('keeps the beta roadmap shared for both product pages', () => {
     expect(PRODUCT_ROADMAP).toHaveLength(4);
     expect(PRODUCT_ROADMAP.map((section) => section.milestone)).toEqual([
-      'Milestone Tracker',
-      'Child Information Hub',
-      'Memory Highlights',
-      'Home-Screen Widget & Quick Capture',
+      'Milestone tracker',
+      'Streak freezes',
+      'Smarter recaps',
+      'A refreshed look',
     ]);
-    expect(PRODUCT_ROADMAP[3].items).toContain('Quick entry mode for one-tap journaling');
+    expect(PRODUCT_ROADMAP[1].items).toContain(
+      'Earn a shared freeze every 7 journaled days, up to 3 saved',
+    );
   });
 
   it('defines DadTrack key points with the private-by-default copy', () => {
@@ -103,13 +140,6 @@ describe('product content', () => {
     );
   });
 
-  it('centers the final odd card only when a two-column feature grid has an odd item count', () => {
-    expect(getOddFinalGridItemClass(6, 7)).toBe('md:col-span-2 md:mx-auto md:w-[calc(50%-0.75rem)]');
-    expect(getOddFinalGridItemClass(5, 7)).toBe('');
-    expect(getOddFinalGridItemClass(7, 8)).toBe('');
-    expect(getOddFinalGridItemClass(5, 6)).toBe('');
-  });
-
   it('defines literal Tailwind classes for the MomTrack showcase theme', () => {
     expect(MOMTRACK_PAGE_THEME.showcaseThemeClasses).toEqual({
       text: 'text-[#e8746e]',
@@ -130,6 +160,17 @@ describe('product content', () => {
       backgroundPrimaryGlow: 'bg-teal-500/5',
       backgroundSecondaryGlow: 'bg-purple-500/5',
     });
+  });
+
+  it('defines literal paper-sheet accent classes for both themes', () => {
+    expect(DADTRACK_PAGE_THEME.paperAccentText).toBe('text-teal-700');
+    expect(DADTRACK_PAGE_THEME.phoneGlow).toBe('bg-teal-400/25');
+    expect(MOMTRACK_PAGE_THEME.paperAccentText).toBe('text-[#9e2b3c]');
+    expect(MOMTRACK_PAGE_THEME.phoneGlow).toBe('bg-[#e8746e]/25');
+  });
+
+  it('no longer exports the retired odd-grid helper', () => {
+    expect('getOddFinalGridItemClass' in productContent).toBe(false);
   });
 
   it('defines the MomTrack download CTA using the App Store URL', () => {
