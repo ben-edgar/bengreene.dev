@@ -38,9 +38,6 @@ const EXTRA_ICONS: Record<ProductExtraIconKey, LucideIcon> = {
   fileArchive: FileArchive,
 };
 
-/** How long scroll-driven selection stays muted after an explicit click. */
-const CLICK_LOCK_MS = 600;
-
 function usePrefersReducedMotion(): boolean {
   const [reduced, setReduced] = useState(false);
 
@@ -75,17 +72,20 @@ export function FeatureExplorer({ features, extras, theme, onOpenLightbox }: Fea
   const [railIndex, setRailIndex] = useState(0);
 
   const itemRefs = useRef<Array<HTMLLIElement | null>>([]);
-  const clickLockUntil = useRef(0);
+  // Once the user explicitly clicks a list item, the phone stays pinned to
+  // that selection and scroll-driven selection is muted for good (until the
+  // component remounts / page reloads).
+  const pinnedByClick = useRef(false);
   const railRef = useRef<HTMLDivElement | null>(null);
   const railFrame = useRef<number | null>(null);
 
   const selectFromList = useCallback((index: number) => {
-    clickLockUntil.current = Date.now() + CLICK_LOCK_MS;
+    pinnedByClick.current = true;
     setDesktopIndex(index);
   }, []);
 
   // Keep the sticky phone in sync with whichever list item is crossing the
-  // vertical middle of the viewport.
+  // vertical middle of the viewport, until the user picks one explicitly.
   useEffect(() => {
     if (typeof window === 'undefined' || typeof IntersectionObserver === 'undefined') return;
 
@@ -94,7 +94,7 @@ export function FeatureExplorer({ features, extras, theme, onOpenLightbox }: Fea
 
     const observer = new IntersectionObserver(
       (entries) => {
-        if (Date.now() < clickLockUntil.current) return;
+        if (pinnedByClick.current) return;
 
         const visible = entries
           .filter((entry) => entry.isIntersecting)
