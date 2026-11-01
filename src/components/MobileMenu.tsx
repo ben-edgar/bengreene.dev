@@ -3,7 +3,8 @@
 import Link from 'next/link';
 import { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
-import { Github, Linkedin, X } from 'lucide-react';
+import { X } from 'lucide-react';
+import { Github, Linkedin } from '@/components/icons/BrandIcons';
 import { navLinks } from '@/lib/navigation';
 
 interface MobileMenuProps {

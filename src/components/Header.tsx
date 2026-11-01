@@ -4,7 +4,8 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { Github, Linkedin, Menu } from 'lucide-react';
+import { Menu } from 'lucide-react';
+import { Github, Linkedin } from '@/components/icons/BrandIcons';
 import { navLinks } from '@/lib/navigation';
 import { MobileMenu } from './MobileMenu';
 
