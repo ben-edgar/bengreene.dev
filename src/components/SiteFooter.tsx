@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Github, Linkedin } from 'lucide-react';
+import { Github, Linkedin } from '@/components/icons/BrandIcons';
 import { navLinks } from '@/lib/navigation';
 
 export function SiteFooter() {

@@ -30,7 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Detect package manager
         id: detect-package-manager
@@ -44,12 +44,13 @@ jobs:
             echo "manager=pnpm" >> $GITHUB_OUTPUT
             echo "command=install" >> $GITHUB_OUTPUT
             echo "runner=pnpm" >> $GITHUB_OUTPUT
-            # Pinned to the major this project is developed and tested against.
-            # Left unpinned, this floats to the newest pnpm major: pnpm 11 turned
-            # "dependency build script not explicitly approved" into a hard error
-            # (ERR_PNPM_IGNORED_BUILDS), breaking this deploy with no change to our own
-            # dependencies. Bump this deliberately, with a green run, not by drift.
-            npm install -g pnpm@10
+            # Pinned to the major this project is developed and tested against
+            # (keep it in step with "packageManager" in package.json). Left
+            # unpinned, this floats to the newest pnpm major. Since pnpm 11, a
+            # dependency build script that isn't approved is a hard error
+            # (ERR_PNPM_IGNORED_BUILDS); approvals live in pnpm-workspace.yaml
+            # under allowBuilds. Bump this deliberately, with a green run.
+            npm install -g pnpm@12
             exit 0
           elif [ -f "${{ github.workspace }}/package.json" ]; then
             echo "manager=npm" >> $GITHUB_OUTPUT
@@ -62,24 +63,24 @@ jobs:
           fi
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: "lts/*"
           cache: ${{ steps.detect-package-manager.outputs.manager }}
 
       - name: Setup Pages
-        uses: actions/configure-pages@v4
+        uses: actions/configure-pages@v6
 
       - name: Restore cache
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: |
             .next/cache
           # Generate a new cache whenever packages or source files change.
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock', '**/pnpm-lock.yaml') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
           # If source files changed but packages didn't, rebuild from a prior cache.
           restore-keys: |
-            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock', '**/pnpm-lock.yaml') }}-
 
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
@@ -90,9 +91,12 @@ jobs:
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: ./out
+          # Since v4, dotfiles are left out by default. out/.well-known holds the
+          # Apple and Android app-link files that make invite links open the app.
+          include-hidden-files: true
 
   # Deployment job
   deploy:
@@ -104,4 +108,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5

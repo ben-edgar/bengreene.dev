@@ -1,6 +1,6 @@
 'use client';
 
-import { FormEvent, useEffect, useState } from 'react';
+import { FormEvent, useState } from 'react';
 import confetti from 'canvas-confetti';
 import { motion } from 'framer-motion';
 import { useSearchParams } from 'next/navigation';
@@ -16,9 +16,16 @@ import {
 
 export default function FeedbackContent() {
   const searchParams = useSearchParams();
-  const [app, setApp] = useState<FeedbackApp>(() =>
-    parseFeedbackAppParam(searchParams.get('app')),
-  );
+  const appParam = searchParams.get('app');
+  const [app, setApp] = useState<FeedbackApp>(() => parseFeedbackAppParam(appParam));
+  // Follow ?app= when the URL changes, while still letting the user switch
+  // apps with the toggle. Adjusting state during render (rather than in an
+  // effect) avoids a second, cascading render.
+  const [syncedAppParam, setSyncedAppParam] = useState(appParam);
+  if (appParam !== syncedAppParam) {
+    setSyncedAppParam(appParam);
+    setApp(parseFeedbackAppParam(appParam));
+  }
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -31,10 +38,6 @@ export default function FeedbackContent() {
     message: string;
   }>({ type: null, message: '' });
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
-
-  useEffect(() => {
-    setApp(parseFeedbackAppParam(searchParams.get('app')));
-  }, [searchParams]);
 
   const copy = feedbackCopyByApp[app];
 
