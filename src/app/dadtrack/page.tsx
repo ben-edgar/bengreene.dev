@@ -11,8 +11,8 @@ import {
   DADTRACK_FEATURES,
   DADTRACK_KEY_POINTS,
   DADTRACK_PAGE_THEME,
+  PRODUCT_COMING_SOON,
   PRODUCT_EXTRAS,
-  PRODUCT_ROADMAP,
 } from '@/lib/productContent';
 import { getTrackedStoreCtas, useDetectedStorePlatform } from '@/lib/storeLinks';
 import { CONFETTI_NAVIGATION_DELAY_MS, fireConfetti } from '@/lib/confetti';
@@ -87,11 +87,11 @@ export default function DadTrack() {
     },
     tagline: 'A journal that remembers the moments, the moods, and who you spent them with.',
     lead:
-      'DadTrack helps dads capture everyday moments with photos, voice-to-text, and mood tracking, then turns them into monthly recaps you’ll actually reread. Share a family timeline with your partner, tag the people who were there, and keep every memory private by default.',
+      'DadTrack helps dads capture everyday moments with photos, voice-to-text, and moods, then turns them into scrapbook recaps you’ll actually reread. Keep a shelf of milestones, share a family timeline with your partner, and keep every memory private by default.',
     features: DADTRACK_FEATURES,
     extras: PRODUCT_EXTRAS,
     keyPoints: DADTRACK_KEY_POINTS,
-    roadmap: PRODUCT_ROADMAP,
+    comingSoon: PRODUCT_COMING_SOON,
     feedbackHref: '/feedback',
     feedbackPrefix: 'Have feedback or ideas?',
     feedbackLinkLabel: 'Share your thoughts',
