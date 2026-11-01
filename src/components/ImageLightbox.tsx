@@ -55,7 +55,9 @@ export function ImageLightbox({
   const [captionExpanded, setCaptionExpanded] = useState(false);
   const descriptionId = useId();
   // A mouse drag that ends off the photo fires a click on the backdrop; that
-  // click must not close the viewer.
+  // click must not close the viewer. The flag is cleared at the start of
+  // every pointer interaction, so a drag can only ever swallow its own click
+  // (touch swipes and drags released on the photo produce none).
   const justDragged = useRef(false);
 
   useEffect(() => {
@@ -97,6 +99,9 @@ export function ImageLightbox({
           exit={{ opacity: 0 }}
           transition={{ duration: 0.2 }}
           className="fixed inset-0 z-50 flex flex-col bg-black/[0.97] lg:flex-row lg:items-center lg:justify-center lg:gap-12 lg:px-28 lg:py-20"
+          onPointerDownCapture={() => {
+            justDragged.current = false;
+          }}
           onClick={() => {
             if (justDragged.current) {
               justDragged.current = false;
@@ -106,7 +111,7 @@ export function ImageLightbox({
           }}
         >
           {/* Top bar: in the flow on phones so it never covers the photo. */}
-          <div className="flex h-14 shrink-0 items-center justify-between px-3 pt-[env(safe-area-inset-top)] lg:absolute lg:inset-x-0 lg:top-0 lg:z-10 lg:h-auto lg:p-4">
+          <div className="flex min-h-14 shrink-0 items-center justify-between px-3 pt-[env(safe-area-inset-top)] lg:absolute lg:inset-x-0 lg:top-0 lg:z-10 lg:h-auto lg:p-4">
             {hasMultipleImages ? (
               <div className="rounded-full bg-white/10 px-3 py-1.5 text-sm font-medium tabular-nums text-white/90">
                 {currentIndex + 1} / {images.length}
@@ -127,7 +132,11 @@ export function ImageLightbox({
           {/* Photo */}
           <div
             className={`relative flex min-h-0 flex-1 items-center justify-center px-12 py-2 lg:static lg:p-0 ${
-              imageAspect ? 'lg:h-full lg:flex-none' : 'lg:self-stretch'
+              // Leave room for the caption panel (22rem / 24rem) and the gap, so
+              // a tall, narrow window shrinks the photo instead of overflowing.
+              imageAspect
+                ? 'lg:h-full lg:min-w-0 lg:max-w-[calc(100%-25rem)] lg:flex-none xl:max-w-[calc(100%-27rem)]'
+                : 'lg:self-stretch'
             }`}
           >
             {hasMultipleImages && (
@@ -152,9 +161,6 @@ export function ImageLightbox({
               drag={hasMultipleImages ? 'x' : false}
               dragConstraints={{ left: 0, right: 0 }}
               dragElastic={0.35}
-              onPointerDown={() => {
-                justDragged.current = false;
-              }}
               onDragStart={() => {
                 justDragged.current = true;
               }}
@@ -166,7 +172,7 @@ export function ImageLightbox({
                 }
               }}
               style={imageAspect ? { aspectRatio: imageAspect } : undefined}
-              className={`relative h-full w-full cursor-grab active:cursor-grabbing ${imageAspect ? 'lg:w-auto' : ''}`}
+              className={`relative h-full w-full cursor-grab active:cursor-grabbing ${imageAspect ? 'lg:w-auto lg:max-w-full' : ''}`}
               onClick={(e) => e.stopPropagation()}
             >
               <Image
