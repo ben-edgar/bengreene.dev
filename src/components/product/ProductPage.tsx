@@ -252,6 +252,7 @@ export function ProductPage({ config }: { config: ProductPageConfig }) {
         onClose={() => setLightboxOpen(false)}
         onNext={goToNext}
         onPrevious={goToPrevious}
+        imageAspect="1080 / 2347"
       />
     </div>
   );
