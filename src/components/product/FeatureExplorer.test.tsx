@@ -96,4 +96,24 @@ describe('FeatureExplorer', () => {
     expect(markup).toContain('Export anytime');
     expect(markup).toContain('focus-visible:ring-offset-[#f4efe6]');
   });
+
+  it('shows the "New" tag exactly for the isNew features and extras', () => {
+    const markup = render();
+    const newFeatures = DADTRACK_FEATURES.filter((feature) => feature.isNew);
+    const newExtras = PRODUCT_EXTRAS.filter((extra) => extra.isNew);
+
+    expect(newFeatures).toHaveLength(3);
+    expect(newExtras).toHaveLength(2);
+
+    // Each new feature is tagged in the desktop list and the mobile rail; each new extra once.
+    expect(markup.match(/>New</g)).toHaveLength(newFeatures.length * 2 + newExtras.length);
+    expect(markup.match(/>Milestone Tracker<span[^>]*>New</g)).toHaveLength(2);
+    expect(markup).toMatch(/Home screen widgets<span[^>]*>New</);
+    expect(markup).toMatch(/Made for iPad, too<span[^>]*>New</);
+
+    // Features and extras that are not new never carry the tag.
+    expect(markup).not.toMatch(/Find a memory<span[^>]*>New</);
+    expect(markup).not.toMatch(/Voice-to-text<span[^>]*>New</);
+    expect(markup).toContain('Eight screens from version 1.4, as they look on an iPhone today.');
+  });
 });

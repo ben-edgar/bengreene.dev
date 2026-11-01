@@ -4,7 +4,7 @@ import { SITE_CANONICAL_URL } from '@/lib/constants';
 export const metadata: Metadata = {
   title: 'DadTrack – Dad Life Companion App',
   description:
-    'DadTrack helps dads capture daily moments with their kids through journaling, photos, mood tracking, and memory streaks. Available on iOS and Android.',
+    'DadTrack helps dads capture daily moments with their kids: photos, voice journaling, moods, milestones, and scrapbook-style monthly recaps. Available on iOS and Android.',
   metadataBase: new URL(SITE_CANONICAL_URL),
   alternates: {
     canonical: '/dadtrack',

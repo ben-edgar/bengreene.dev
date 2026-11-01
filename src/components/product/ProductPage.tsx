@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, type ReactNode } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 
 import { Header } from '@/components/Header';
@@ -8,11 +9,11 @@ import { ImageLightbox } from '@/components/ImageLightbox';
 import { FadeIn } from '@/components/animations/FadeIn';
 import { getAssetPath } from '@/lib/basePath';
 import type {
+  ProductComingSoon,
   ProductExtra,
   ProductFeature,
   ProductKeyPoint,
   ProductPageTheme,
-  ProductRoadmapSection,
 } from '@/lib/productContent';
 import { FeatureExplorer } from './FeatureExplorer';
 import { PhoneFrame } from './PhoneFrame';
@@ -34,7 +35,7 @@ export type ProductPageConfig = {
   features: ProductFeature[];
   extras: ProductExtra[];
   keyPoints: ProductKeyPoint[];
-  roadmap: ProductRoadmapSection[];
+  comingSoon: ProductComingSoon;
   feedbackHref: string;
   feedbackPrefix?: string;
   feedbackLinkLabel: string;
@@ -55,7 +56,7 @@ export function ProductPage({ config }: { config: ProductPageConfig }) {
     features,
     extras,
     keyPoints,
-    roadmap,
+    comingSoon,
     feedbackHref,
     feedbackPrefix,
     feedbackLinkLabel,
@@ -144,14 +145,14 @@ export function ProductPage({ config }: { config: ProductPageConfig }) {
                 <div
                   className={`absolute left-1/2 top-1/2 h-[70%] w-[80%] -translate-x-1/2 -translate-y-1/2 rounded-full blur-3xl ${theme.phoneGlow}`}
                 />
-                <div className="absolute left-0 top-1/2 w-[41%] -translate-y-1/2 rotate-[-8deg] opacity-60">
+                <div className="absolute left-0 top-1/2 w-[41%] -translate-y-1/2 rotate-[-8deg] brightness-[0.55] saturate-[0.8]">
                   <PhoneFrame
                     src={getAssetPath(heroBackLeft.image)}
                     alt={heroBackLeft.alt}
                     sizes="(min-width: 1024px) 220px, 40vw"
                   />
                 </div>
-                <div className="absolute right-0 top-1/2 w-[41%] -translate-y-1/2 rotate-[8deg] opacity-60">
+                <div className="absolute right-0 top-1/2 w-[41%] -translate-y-1/2 rotate-[8deg] brightness-[0.55] saturate-[0.8]">
                   <PhoneFrame
                     src={getAssetPath(heroBackRight.image)}
                     alt={heroBackRight.alt}
@@ -195,30 +196,27 @@ export function ProductPage({ config }: { config: ProductPageConfig }) {
           </div>
         </section>
 
-        {/* Roadmap */}
+        {/* Coming soon */}
         <section className="relative mx-auto max-w-7xl px-4 pb-16 sm:px-6 md:pb-24 lg:px-8">
           <h2 className="font-display text-3xl font-semibold text-white md:text-4xl">Coming soon</h2>
-          <p className="mt-3 text-slate-400">In beta now, rolling out to everyone next.</p>
-          <div className="mt-10 grid gap-6 md:grid-cols-2">
-            {roadmap.map((section) => (
-              <div
-                key={section.milestone}
-                className="rounded-2xl border border-white/10 bg-slate-900/50 p-6"
-              >
-                <h3 className="font-display text-lg font-semibold text-white">{section.milestone}</h3>
-                <ul className="mt-4 space-y-2.5">
-                  {section.items.map((item) => (
-                    <li key={item} className="flex items-start gap-3 text-sm leading-relaxed text-slate-300">
-                      <span
-                        className={`mt-2 h-1.5 w-1.5 shrink-0 rounded-full ${theme.accentRule}`}
-                        aria-hidden="true"
-                      />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+          <p className="mt-3 text-slate-400">What I’m building next.</p>
+          <div className="mt-10 grid items-center gap-10 rounded-3xl border border-white/10 bg-slate-900/50 p-6 sm:p-10 md:grid-cols-[minmax(0,260px)_1fr] md:gap-14 lg:p-12">
+            <YearbookCover name={name} theme={theme} />
+            <div>
+              <h3 className="font-display text-2xl font-semibold text-white md:text-3xl">{comingSoon.title}</h3>
+              <p className="mt-2 text-lg text-slate-300">{comingSoon.summary}</p>
+              <ul className="mt-6 max-w-[65ch] space-y-3">
+                {comingSoon.items.map((item) => (
+                  <li key={item} className="flex items-start gap-3 leading-relaxed text-slate-300">
+                    <span
+                      className={`mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full ${theme.accentRule}`}
+                      aria-hidden="true"
+                    />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </section>
 
@@ -254,7 +252,53 @@ export function ProductPage({ config }: { config: ProductPageConfig }) {
         onClose={() => setLightboxOpen(false)}
         onNext={goToNext}
         onPrevious={goToPrevious}
+        imageAspect="1080 / 2347"
       />
+    </div>
+  );
+}
+
+/**
+ * A small hardcover drawn in CSS: cloth cover, a taped photo, the title
+ * stamped below it, and page edges peeking out on the fore-edge.
+ */
+function YearbookCover({ name, theme }: { name: string; theme: ProductPageTheme }) {
+  return (
+    <div aria-hidden="true" className="mx-auto w-full max-w-[220px] md:max-w-none">
+      <div className="relative rotate-[-3deg]">
+        {/* Page block peeking out on the fore-edge and bottom */}
+        <div className="absolute inset-0 translate-x-[6px] translate-y-[5px] rounded-r-md bg-[repeating-linear-gradient(90deg,#efe8da_0px,#efe8da_2px,#d9d0bd_2px,#d9d0bd_3px)]" />
+        <div
+          className={`relative aspect-[8.5/11] overflow-hidden rounded-r-md rounded-l-sm shadow-[0_30px_50px_-20px_rgba(0,0,0,0.8)] ${theme.bookCloth}`}
+        >
+          {/* Cloth grain and the hinge along the spine */}
+          <div className="absolute inset-0 bg-[repeating-linear-gradient(0deg,rgba(255,255,255,0.025)_0px,rgba(255,255,255,0.025)_1px,transparent_1px,transparent_3px)]" />
+          <div className="absolute inset-y-0 left-0 w-[9%] bg-gradient-to-r from-black/45 via-black/15 to-white/5" />
+          <div className="absolute inset-y-0 left-[9%] w-px bg-black/30" />
+
+          <div className="absolute inset-x-[16%] top-[13%]">
+            <div className="relative rotate-[2deg] bg-[#fbf8f1] p-[6%] pb-[16%] shadow-[0_8px_16px_-8px_rgba(0,0,0,0.7)]">
+              <div className="relative aspect-[37/39] overflow-hidden">
+                <Image
+                  src={getAssetPath('/images/shared/yearbook-cover-photo.webp')}
+                  alt=""
+                  fill
+                  sizes="200px"
+                  className="object-cover"
+                />
+              </div>
+              <span className="absolute -top-[7%] left-1/2 h-[12%] w-[38%] -translate-x-1/2 rotate-[-4deg] bg-white/55 shadow-sm backdrop-blur-[1px]" />
+            </div>
+          </div>
+
+          <div className="absolute inset-x-[12%] bottom-[9%] text-center">
+            <p className="font-display text-[clamp(1.4rem,3.2vw,2rem)] font-semibold leading-none text-[#f3ead8]/90">
+              Our year
+            </p>
+            <p className="mt-2 text-[10px] font-medium tracking-[0.2em] text-[#f3ead8]/55">{name}</p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

@@ -7,12 +7,15 @@ import {
   BellRing,
   ChevronLeft,
   ChevronRight,
+  Cloud,
   FileArchive,
   ImageDown,
   Images,
+  LayoutGrid,
   Mic,
   Sparkles,
   SmilePlus,
+  Tablet,
   Users,
   type LucideIcon,
 } from 'lucide-react';
@@ -24,19 +27,32 @@ import type {
   ProductFeature,
   ProductPageTheme,
 } from '@/lib/productContent';
-import { PhoneFrame } from './PhoneFrame';
+import { PHONE_OUTLINE_RADIUS, PhoneFrame } from './PhoneFrame';
 
 const EXTRA_ICONS: Record<ProductExtraIconKey, LucideIcon> = {
   mic: Mic,
   images: Images,
   users: Users,
-  imageDown: ImageDown,
+  widgets: LayoutGrid,
   sparkles: Sparkles,
   smile: SmilePlus,
   baby: Baby,
   bell: BellRing,
+  tablet: Tablet,
+  cloud: Cloud,
+  imageDown: ImageDown,
   fileArchive: FileArchive,
 };
+
+function NewTag({ theme }: { theme: ProductPageTheme }) {
+  return (
+    <span
+      className={`ml-2 inline-block translate-y-[-2px] rounded-full px-2 py-0.5 align-middle font-sans text-xs font-semibold ${theme.paperAccentBg} ${theme.paperAccentText}`}
+    >
+      New
+    </span>
+  );
+}
 
 function usePrefersReducedMotion(): boolean {
   const [reduced, setReduced] = useState(false);
@@ -186,7 +202,7 @@ export function FeatureExplorer({ features, extras, theme, onOpenLightbox }: Fea
               What&apos;s included
             </h2>
             <p className="mt-3 text-[15px] leading-relaxed text-slate-600">
-              Eight screens from the app, as they look on an iPhone today.
+              Eight screens from version 1.4, as they look on an iPhone today.
             </p>
           </header>
 
@@ -222,6 +238,7 @@ export function FeatureExplorer({ features, extras, theme, onOpenLightbox }: Fea
                             }`}
                           >
                             {feature.title}
+                            {feature.isNew ? <NewTag theme={theme} /> : null}
                           </span>
                           <span className="mt-1 block text-[15px] leading-relaxed text-slate-700">
                             {feature.description}
@@ -234,12 +251,13 @@ export function FeatureExplorer({ features, extras, theme, onOpenLightbox }: Fea
               })}
             </ul>
 
-            <div className="sticky top-24">
+            {/* Width is capped by viewport height so the whole phone stays on screen. */}
+            <div className="sticky top-24 mx-auto w-full max-w-[min(100%,calc((100svh-9.5rem)/2.1))]">
               <button
                 type="button"
                 aria-label={`Open ${activeFeature.title} screenshot`}
                 onClick={() => onOpenLightbox(desktopIndex)}
-                className={`block w-full cursor-zoom-in rounded-[2.4rem] ${paperFocus}`}
+                className={`block w-full cursor-zoom-in ${PHONE_OUTLINE_RADIUS} ${paperFocus}`}
               >
                 <PhoneFrame sizes="340px">
                   {features.map((feature, index) => (
@@ -275,7 +293,7 @@ export function FeatureExplorer({ features, extras, theme, onOpenLightbox }: Fea
                     type="button"
                     aria-label={`Open ${feature.title} screenshot`}
                     onClick={() => onOpenLightbox(index)}
-                    className={`block w-full cursor-zoom-in rounded-[2.4rem] ${paperFocus}`}
+                    className={`block w-full cursor-zoom-in ${PHONE_OUTLINE_RADIUS} ${paperFocus}`}
                   >
                     <PhoneFrame
                       src={getAssetPath(feature.image)}
@@ -289,6 +307,7 @@ export function FeatureExplorer({ features, extras, theme, onOpenLightbox }: Fea
                       {feature.icon}
                     </span>
                     {feature.title}
+                    {feature.isNew ? <NewTag theme={theme} /> : null}
                   </h3>
                   <p className="mt-1 text-[15px] leading-relaxed text-slate-700">{feature.description}</p>
                 </div>
@@ -355,7 +374,10 @@ export function ExtrasGrid({ extras, theme }: ExtrasGridProps) {
             <div key={extra.label} className="flex items-start gap-3">
               <Icon className={`mt-0.5 h-5 w-5 shrink-0 ${theme.paperAccentText}`} aria-hidden="true" />
               <div>
-                <dt className="text-[15px] font-semibold text-slate-900">{extra.label}</dt>
+                <dt className="text-[15px] font-semibold text-slate-900">
+                  {extra.label}
+                  {extra.isNew ? <NewTag theme={theme} /> : null}
+                </dt>
                 <dd className="text-[15px] leading-relaxed text-slate-600">{extra.detail}</dd>
               </div>
             </div>

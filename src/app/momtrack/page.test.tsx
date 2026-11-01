@@ -79,7 +79,7 @@ describe('MomTrack product route', () => {
     expect(metadata.alternates?.canonical).toBe('/momtrack');
     expect(metadata.openGraph?.title).toBe('MomTrack — Mom Journaling App');
     expect(metadata.openGraph?.description).toBe(metadataDescription);
-    expect(metadata.openGraph?.type).toBe('website');
+    expect((metadata.openGraph as { type?: string } | null | undefined)?.type).toBe('website');
     expect(metadata.openGraph?.url).toBe('/momtrack');
     expect(metadata.openGraph?.images).toEqual(
       expect.arrayContaining([
@@ -88,7 +88,7 @@ describe('MomTrack product route', () => {
         }),
       ]),
     );
-    expect(metadata.twitter?.card).toBe('summary');
+    expect((metadata.twitter as { card?: string } | null | undefined)?.card).toBe('summary');
     expect(metadata.twitter?.title).toBe('MomTrack — Mom Journaling App');
     expect(metadata.twitter?.description).toBe(metadataDescription);
     expect(metadata.twitter?.images).toEqual(
@@ -120,24 +120,34 @@ describe('MomTrack product route', () => {
 
     for (const file of [
       '01-home-feed',
+      '02-milestone-tracker',
+      '03-journal-entry-detail-magazine',
+      '04-journal-composer',
+      '05-monthly-recap',
+      '06-partner-entry',
+      '07-streak',
+      '08-search',
+    ]) {
+      expect(markup).toContain(`/images/momtrack/${file}.webp`);
+    }
+    expect(markup).not.toContain('/images/momtrack/07-cloud-pending.png');
+    for (const file of [
       '02-journal-composer',
       '03-monthly-recap',
       '04-journal-entry-detail',
       '05-journal-entry-detail-magazine',
       '06-search',
-      '07-streak',
       '08-cloud-all-synced',
     ]) {
-      expect(markup).toContain(`/images/momtrack/${file}.webp`);
+      expect(markup).not.toContain(`/images/momtrack/${file}.webp`);
     }
-    expect(markup).not.toContain('/images/momtrack/07-cloud-pending.png');
 
     expect(markup).toContain(
       'A journal that remembers the moments, the moods, and who you spent them with.',
     );
     expect(markup).toContain('MomTrack helps moms capture everyday moments');
     expect(markup).toContain('type="button"');
-    expect(markup).toContain('aria-label="Open Shared family timeline screenshot"');
+    expect(markup).toContain('aria-label="Open A scrapbook family timeline screenshot"');
     expect(markup).toContain('Why MomTrack Is Different');
     expect(markup).toContain('Mom-Focused');
     expect(markup).toContain('/feedback?app=momtrack');
@@ -153,7 +163,7 @@ describe('MomTrack product route', () => {
     );
   });
 
-  it('renders the paper sheet, the extras and the beta roadmap', () => {
+  it('renders the paper sheet, the extras and the Yearbooks coming-soon card', () => {
     const markup = renderToStaticMarkup(<MomTrack />);
 
     expect(markup).toContain('bg-[#f4efe6]');
@@ -162,8 +172,12 @@ describe('MomTrack product route', () => {
     expect(markup).toContain('Also in the box');
     expect(markup).toContain('Save photos to your library');
     expect(markup).toContain('Coming soon');
-    expect(markup).toContain('In beta now, rolling out to everyone next.');
-    expect(markup).toContain('Streak freezes');
+    expect(markup).toContain('What I’m building next.');
+    expect(markup).toContain('Yearbooks');
+    expect(markup).toContain('/images/shared/yearbook-cover-photo.webp');
+    expect(markup).not.toContain('Smarter recaps');
+    expect(markup).not.toContain('A refreshed look');
+    expect(markup).not.toContain('In beta now, rolling out to everyone next.');
     expect(markup).toContain('Get MomTrack today');
     expect(markup).toContain('Free on the App Store.');
 

@@ -5,6 +5,8 @@ import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 
+import { PhoneFrame } from "@/components/product/PhoneFrame";
+
 interface Screenshot {
     src: string;
     alt: string;
@@ -23,7 +25,6 @@ export interface MobileShowcaseThemeClasses {
 
 interface MobileShowcaseProps {
     screenshots: Screenshot[];
-    deviceColor?: string;
     backgroundColor?: string;
     heading?: string;
     themeClasses?: MobileShowcaseThemeClasses;
@@ -40,7 +41,6 @@ const DEFAULT_THEME_CLASSES: Required<MobileShowcaseThemeClasses> = {
 
 const MobileShowcase: React.FC<MobileShowcaseProps> = ({
     screenshots,
-    deviceColor = "#0f172a",
     backgroundColor = "bg-slate-950",
     heading = "DadTrack in Action",
     themeClasses,
@@ -203,56 +203,26 @@ const MobileShowcase: React.FC<MobileShowcaseProps> = ({
                             className="relative"
                         >
                             {/* Phone Device */}
-                            <div
-                                className="relative w-[280px] sm:w-[300px] h-[560px] sm:h-[600px] rounded-[3rem] p-3 shadow-2xl border border-white/10"
-                                style={{
-                                    backgroundColor: deviceColor,
-                                    boxShadow: "0 50px 100px -20px rgba(0, 0, 0, 0.7), 0 30px 60px -30px rgba(0, 0, 0, 0.7)",
-                                }}
+                            <PhoneFrame
+                                className="w-[260px] sm:w-[290px]"
+                                shadowClassName="shadow-[0_50px_100px_-20px_rgba(0,0,0,0.7),0_30px_60px_-30px_rgba(0,0,0,0.7)]"
                             >
-                                {/* Notch */}
-                                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-7 bg-black rounded-b-3xl z-20" />
-
-                                {/* Screen */}
-                                <div className="relative w-full h-full bg-slate-900 rounded-[2.5rem] overflow-hidden">
-
-                                    {/* Screenshot Content */}
-                                    <div className="w-full h-full relative">
-                                        <motion.div
-                                            key={currentIndex}
-                                            initial={{ opacity: 0, scale: 0.95 }}
-                                            animate={{ opacity: 1, scale: 1 }}
-                                            transition={{ duration: 0.4 }}
-                                            className="absolute inset-0"
-                                        >
-                                            <Image
-                                                src={currentScreenshot.src}
-                                                alt={currentScreenshot.alt}
-                                                fill
-                                                className="object-cover object-top"
-                                                sizes="(max-width: 768px) 100vw, 320px"
-                                            />
-                                        </motion.div>
-                                    </div>
-
-                                    {/* Gradient Overlay */}
-                                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent pointer-events-none" />
-                                </div>
-
-                                {/* Side Buttons */}
-                                <div
-                                    className="absolute -right-[3px] top-24 w-[3px] h-12 rounded-r-md"
-                                    style={{ backgroundColor: deviceColor }}
-                                />
-                                <div
-                                    className="absolute -right-[3px] top-40 w-[3px] h-16 rounded-r-md"
-                                    style={{ backgroundColor: deviceColor }}
-                                />
-                                <div
-                                    className="absolute -left-[3px] top-32 w-[3px] h-8 rounded-l-md"
-                                    style={{ backgroundColor: deviceColor }}
-                                />
-                            </div>
+                                <motion.div
+                                    key={currentIndex}
+                                    initial={{ opacity: 0, scale: 0.98 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    transition={{ duration: 0.4 }}
+                                    className="absolute inset-0"
+                                >
+                                    <Image
+                                        src={currentScreenshot.src}
+                                        alt={currentScreenshot.alt}
+                                        fill
+                                        className="object-cover object-top"
+                                        sizes="(max-width: 640px) 260px, 290px"
+                                    />
+                                </motion.div>
+                            </PhoneFrame>
 
                             {/* Floating Elements */}
                             <motion.div

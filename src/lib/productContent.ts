@@ -6,23 +6,30 @@ export type ProductFeature = {
   image: string;
   alt: string;
   icon: string;
+  /** Shipped in the latest release; shown with a "New" tag. */
+  isNew?: boolean;
 };
 
 export type ProductExtraIconKey =
   | 'mic'
   | 'images'
   | 'users'
-  | 'imageDown'
+  | 'widgets'
   | 'sparkles'
   | 'smile'
   | 'baby'
   | 'bell'
+  | 'tablet'
+  | 'cloud'
+  | 'imageDown'
   | 'fileArchive';
 
 export type ProductExtra = {
   label: string;
   detail: string;
   iconKey: ProductExtraIconKey;
+  /** Shipped in the latest release; shown with a "New" tag. */
+  isNew?: boolean;
 };
 
 export type ProductKeyPoint = {
@@ -30,8 +37,9 @@ export type ProductKeyPoint = {
   description: string;
 };
 
-export type ProductRoadmapSection = {
-  milestone: string;
+export type ProductComingSoon = {
+  title: string;
+  summary: string;
   items: string[];
 };
 
@@ -76,6 +84,8 @@ export type ProductPageTheme = {
   paperFocusRing: string;
   /** Soft accent glow behind the hero phones. */
   phoneGlow: string;
+  /** Cloth color of the hardcover in the Coming soon illustration. */
+  bookCloth: string;
   showcaseThemeClasses: ProductShowcaseThemeClasses;
 };
 
@@ -85,72 +95,76 @@ type FeatureBlueprint = {
   file: string;
   alt: (app: string) => string;
   icon: string;
+  isNew?: boolean;
 };
 
 const FEATURE_BLUEPRINTS: FeatureBlueprint[] = [
   {
-    title: 'Shared family timeline',
+    title: 'A scrapbook family timeline',
     description: () =>
-      'Link with your partner and see each other’s entries in one threaded family timeline, with per-entry privacy. Your AI tip of the day sits at the top, and a compact, comfortable, or showcase density toggle lets you read it your way.',
+      'Your days, gathered into monthly chapters on a paper scrapbook, with taped polaroids of your kids up top. Link with your partner to share one family timeline, keep any entry private, and pick Compact, Standard, or Large cards.',
     file: '01-home-feed',
-    alt: (app) => `${app} home feed showing the shared family timeline with the tip of the day at the top`,
+    alt: (app) => `${app} home timeline with taped polaroids of two children, a yearly recap cover, and the December chapter`,
     icon: '\u{1F91D}',
+  },
+  {
+    title: 'Milestone Tracker',
+    description: () =>
+      'Keep first steps, first snow, and whatever else matters to your family on a shelf of polaroids. It’s a keepsake, not a checklist: nothing expires or goes overdue. Add your own, or let AI find milestones you already wrote about.',
+    file: '02-milestone-tracker',
+    alt: (app) => `${app} Milestone Tracker showing a shelf of kept moments as captioned polaroids`,
+    icon: '\u{1F31F}',
+    isNew: true,
+  },
+  {
+    title: 'Scrapbook entry pages',
+    description: () =>
+      'Every memory opens on its own page, with photos taped up as polaroids and your words on ruled paper. Then scroll down to look back at what you wrote a month, three months, or a year ago.',
+    file: '03-journal-entry-detail-magazine',
+    alt: (app) => `${app} journal entry shown as a taped polaroid above a ruled note card`,
+    icon: '\u{1F5BC}️',
   },
   {
     title: 'A composer built for busy hands',
     description: () =>
-      'Photos, moods, people, and sharing each fold into their own card, with quick picks for the moods and people you tag most. Dictate hands-free, and anyone you name while writing gets tagged for you when you finish.',
-    file: '02-journal-composer',
-    alt: (app) => `${app} journal composer with photo, mood, people, and sharing cards`,
+      'Write on lined paper, or tap the mic and dictate while you hold your kid. Add up to five taped photos, pick a mood, and choose who it’s for. Anyone you name gets tagged for you when you finish.',
+    file: '04-journal-composer',
+    alt: (app) => `${app} entry composer with lined paper, a microphone button, a child picker, and a taped photo`,
     icon: '✍️',
   },
   {
-    title: 'Monthly AI recaps',
+    title: 'Monthly recaps',
     description: (app) =>
-      `Each month, ${app} writes an editorial, photo-forward recap of your journaling, with live stats, mood of the month, a tappable calendar, and shareable recap cards. Synced across all your devices.`,
-    file: '03-monthly-recap',
-    alt: (app) => `${app} monthly recap with live stats, mood of the month, and a tappable calendar`,
+      `Each month, ${app} writes a scrapbook recap of your journaling: a taped photo collage, stat stamps, the month’s moods, and the story told in order, plus a card you can share.`,
+    file: '05-monthly-recap',
+    alt: (app) => `${app} monthly recap with a taped photo collage, the month’s theme, and stat stamps`,
     icon: '\u{1F4D6}',
   },
   {
-    title: 'Editorial journal entries',
+    title: 'Stickers & margin notes',
     description: () =>
-      'Open any memory in a clean editorial layout: photo carousel, mood chip, age, and a Time Travel panel that resurfaces entries from a month, three months, or a year ago right inside the detail view.',
-    file: '04-journal-entry-detail',
-    alt: (app) => `${app} journal entry detail with a photo carousel, mood chip, and Time Travel panel`,
-    icon: '\u{1F4DD}',
+      'React to your partner’s entries with illustrated stickers, or leave a note in the margin in one of four handwriting fonts.',
+    file: '06-partner-entry',
+    alt: (app) => `${app} partner’s entry with sticker reactions on the photo and a handwritten margin note`,
+    icon: '\u{1F48C}',
+    isNew: true,
   },
   {
-    title: 'Scrapbook mode',
+    title: 'Streaks, freezes & celebrations',
     description: () =>
-      'Flip any entry into a swipeable, polaroid-style scrapbook layout made for reliving the moment. Full screen, tap to navigate, and beautifully cinematic.',
-    file: '05-journal-entry-detail-magazine',
-    alt: (app) => `${app} scrapbook mode showing an entry as a full-screen polaroid spread`,
-    icon: '\u{1F5BC}️',
-  },
-  {
-    title: 'Advanced search',
-    description: () =>
-      'Find any memory instantly by text, date range, mood, child, or photo, and now by person or group to pull up every memory someone was part of.',
-    file: '06-search',
-    alt: (app) => `${app} advanced search filtering memories by text, mood, child, and person`,
-    icon: '\u{1F50D}',
-  },
-  {
-    title: 'Streaks & celebrations',
-    description: () =>
-      'Build a consistent memory-keeping habit with per-child and family streak tracking. Hit milestones at 1, 7, 30, 100+ days and true monthly anniversaries, and watch the confetti fly.',
+      'Every seven days you journal earns a streak freeze, so one missed day doesn’t undo your streak. Reach 7, 30, or 100 days and a taped keepsake card celebrates with paper confetti.',
     file: '07-streak',
-    alt: (app) => `${app} streak screen celebrating a memory-keeping milestone`,
+    alt: (app) => `${app} streak celebration card for 30 days in a row, with paper confetti`,
     icon: '\u{1F525}',
+    isNew: true,
   },
   {
-    title: 'Cloud backup & sync',
+    title: 'Find a memory',
     description: () =>
-      'Optional cloud backup protects your memories and restores everything on a new phone. Save full-resolution photos to your library, free up space locally, and export a complete backup anytime.',
-    file: '08-cloud-all-synced',
-    alt: (app) => `${app} cloud backup screen showing every memory synced`,
-    icon: '☁️',
+      'Type a few words to pull up every entry that mentions them, then narrow the book by child, mood, person, date, or which of you wrote it.',
+    file: '08-search',
+    alt: (app) => `${app} search results for a word chip, showing a matching entry from December`,
+    icon: '\u{1F50D}',
   },
 ];
 
@@ -161,6 +175,7 @@ function buildFeatures(app: string, directory: string): ProductFeature[] {
     image: `/images/${directory}/${blueprint.file}.webp`,
     alt: blueprint.alt(app),
     icon: blueprint.icon,
+    ...(blueprint.isNew ? { isNew: true } : {}),
   }));
 }
 
@@ -175,8 +190,8 @@ export const PRODUCT_EXTRAS: ProductExtra[] = [
     iconKey: 'mic',
   },
   {
-    label: 'Up to 5 photos a day',
-    detail: 'Drag-and-drop reordering, high quality by default.',
+    label: 'Up to 5 photos an entry',
+    detail: 'Drag to reorder, high quality by default.',
     iconKey: 'images',
   },
   {
@@ -185,9 +200,10 @@ export const PRODUCT_EXTRAS: ProductExtra[] = [
     iconKey: 'users',
   },
   {
-    label: 'Save photos to your library',
-    detail: 'Full-resolution journal and recap photos, straight to your camera roll.',
-    iconKey: 'imageDown',
+    label: 'Home screen widgets',
+    detail: 'A photo from this day in an earlier year, and your streak at a glance.',
+    iconKey: 'widgets',
+    isNew: true,
   },
   {
     label: 'Daily tips',
@@ -210,6 +226,22 @@ export const PRODUCT_EXTRAS: ProductExtra[] = [
     iconKey: 'bell',
   },
   {
+    label: 'Made for iPad, too',
+    detail: 'Roomier two-column layouts on iPad and tablets.',
+    iconKey: 'tablet',
+    isNew: true,
+  },
+  {
+    label: 'Cloud backup & sync',
+    detail: 'Optional, and restores everything on a new phone.',
+    iconKey: 'cloud',
+  },
+  {
+    label: 'Save photos to your library',
+    detail: 'Full-resolution journal and recap photos, straight to your camera roll.',
+    iconKey: 'imageDown',
+  },
+  {
     label: 'Export anytime',
     detail: 'Complete backups to portable .dtb files.',
     iconKey: 'fileArchive',
@@ -219,21 +251,21 @@ export const PRODUCT_EXTRAS: ProductExtra[] = [
 export const DADTRACK_HOME_SHOWCASE_SCREENSHOTS: ShowcaseScreenshot[] = [
   {
     src: '/images/dadtrack/01-home-feed.webp',
-    alt: 'DadTrack shared family timeline',
-    title: 'Shared Family Timeline',
-    description: 'Journal together — link with your partner for a shared family view with per-entry privacy.',
+    alt: 'DadTrack scrapbook family timeline',
+    title: 'Scrapbook Family Timeline',
+    description: 'Monthly chapters on a paper scrapbook, shared with your partner, with per-entry privacy.',
   },
   {
-    src: '/images/dadtrack/05-journal-entry-detail-magazine.webp',
-    alt: 'DadTrack magazine scrapbook mode',
-    title: 'Scrapbook Mode',
-    description: 'Flip any entry into a cinematic scrapbook polaroid layout made for reliving the moment.',
+    src: '/images/dadtrack/02-milestone-tracker.webp',
+    alt: 'DadTrack Milestone Tracker shelf of kept moments',
+    title: 'Milestone Tracker',
+    description: 'A shelf of polaroids for the firsts that matter to your family. A keepsake, not a checklist.',
   },
   {
-    src: '/images/dadtrack/03-monthly-recap.webp',
+    src: '/images/dadtrack/05-monthly-recap.webp',
     alt: 'DadTrack monthly AI recap',
     title: 'Monthly AI Recaps',
-    description: 'Beautiful editorial summaries of your journaling journey, shareable and synced across devices.',
+    description: 'A scrapbook recap of every month, with a photo collage, stat stamps, and shareable cards.',
   },
 ];
 
@@ -249,7 +281,7 @@ export const DADTRACK_KEY_POINTS: ProductKeyPoint[] = [
   {
     title: 'Private by Default',
     description:
-      'Local-first with no ads, no tracking, and AI that only ever sees your text — never your photos. Optional cloud sync and partner sharing when you want them.',
+      'Local-first with no ads and no tracking. AI stays off until you turn it on, and it only ever sees your text, never your photos. Cloud sync and partner sharing are there when you want them.',
   },
 ];
 
@@ -266,44 +298,20 @@ export const MOMTRACK_KEY_POINTS: ProductKeyPoint[] = [
   {
     title: 'Private by Default',
     description:
-      'Local-first with no ads, no tracking, and AI that only ever sees your text — never your photos. Optional cloud sync and partner sharing when you want them.',
+      'Local-first with no ads and no tracking. AI stays off until you turn it on, and it only ever sees your text, never your photos. Cloud sync and partner sharing are there when you want them.',
   },
 ];
 
-export const PRODUCT_ROADMAP: ProductRoadmapSection[] = [
-  {
-    milestone: 'Milestone tracker',
-    items: [
-      'Capture first steps, first snow, whatever matters to your family',
-      'A keepsake, not a checklist: nothing expires or goes overdue',
-      'Shareable keepsake cards and milestone badges on entries',
-    ],
-  },
-  {
-    milestone: 'Streak freezes',
-    items: [
-      'Earn a shared freeze every 7 journaled days, up to 3 saved',
-      'A missed day spends a freeze instead of resetting your streak',
-      "Journaling about one child protects every sibling's streak",
-    ],
-  },
-  {
-    milestone: 'Smarter recaps',
-    items: [
-      'Recaps read your custom moods by name',
-      'Upgraded recap model for more grounded storytelling',
-      "Milestones you captured feed that month's recap",
-    ],
-  },
-  {
-    milestone: 'A refreshed look',
-    items: [
-      'Settings, Profile, People, Moods, and Tip history redesigned',
-      'Serif mastheads and paper cards to match the journal',
-      'Partners are prompted to add a child the other partner added',
-    ],
-  },
-];
+export const PRODUCT_COMING_SOON: ProductComingSoon = {
+  title: 'Yearbooks',
+  summary: 'Turn a year of your journal into a printed hardcover book.',
+  items: [
+    'One child’s year or the whole family’s, laid out by AI from your own entries, photos, and milestones. AI looks at your photos only if you say yes.',
+    'A short intro for each month and captions on your photos, with a choice of more words or mostly photos.',
+    'Preview every page, swap a photo, adjust a crop, or edit a caption before it’s final.',
+    'Download print-ready files and order an 8.5 × 11 inch hardcover from Lulu. Making the book is free.',
+  ],
+};
 
 export const DADTRACK_PAGE_THEME: ProductPageTheme = {
   accentText: 'text-teal-400',
@@ -322,6 +330,7 @@ export const DADTRACK_PAGE_THEME: ProductPageTheme = {
   paperAccentSolid: 'bg-teal-700',
   paperFocusRing: 'focus-visible:ring-teal-700',
   phoneGlow: 'bg-teal-400/25',
+  bookCloth: 'bg-[#1d3c4a]',
   showcaseThemeClasses: {
     text: 'text-teal-400',
     indicatorActive: 'bg-gradient-to-r from-teal-400 to-blue-500',
@@ -349,6 +358,7 @@ export const MOMTRACK_PAGE_THEME: ProductPageTheme = {
   paperAccentSolid: 'bg-[#9e2b3c]',
   paperFocusRing: 'focus-visible:ring-[#9e2b3c]',
   phoneGlow: 'bg-[#e8746e]/25',
+  bookCloth: 'bg-[#6e2a3a]',
   showcaseThemeClasses: {
     text: 'text-[#e8746e]',
     indicatorActive: 'bg-gradient-to-r from-[#e8746e] to-[#9e2b3c]',

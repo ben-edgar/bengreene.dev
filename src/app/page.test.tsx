@@ -122,8 +122,10 @@ describe('Home page', () => {
     expect(markup).not.toContain('Join the Beta');
     expect(markup).toContain('Download on the App Store');
     expect(markup).toContain('/images/dadtrack/01-home-feed.webp');
-    expect(markup).toContain('/images/dadtrack/05-journal-entry-detail-magazine.webp');
-    expect(markup).toContain('/images/dadtrack/03-monthly-recap.webp');
+    expect(markup).toContain('/images/dadtrack/02-milestone-tracker.webp');
+    expect(markup).toContain('/images/dadtrack/05-monthly-recap.webp');
+    expect(markup).not.toContain('05-journal-entry-detail-magazine');
+    expect(markup).not.toContain('/images/dadtrack/03-monthly-recap.webp');
     expect(markup).not.toContain('3_magazine_mode.png');
   });
 

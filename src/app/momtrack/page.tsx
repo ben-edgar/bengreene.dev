@@ -9,8 +9,8 @@ import {
   MOMTRACK_FEATURES,
   MOMTRACK_KEY_POINTS,
   MOMTRACK_PAGE_THEME,
+  PRODUCT_COMING_SOON,
   PRODUCT_EXTRAS,
-  PRODUCT_ROADMAP,
 } from '@/lib/productContent';
 
 const softwareApplicationSchema = {
@@ -61,11 +61,11 @@ export default function MomTrack() {
     },
     tagline: 'A journal that remembers the moments, the moods, and who you spent them with.',
     lead:
-      'MomTrack helps moms capture everyday moments with photos, voice-to-text, and mood tracking, then turns them into monthly recaps you’ll actually reread. Share a family timeline with your partner, tag the people who were there, and keep every memory private by default.',
+      'MomTrack helps moms capture everyday moments with photos, voice-to-text, and moods, then turns them into scrapbook recaps you’ll actually reread. Keep a shelf of milestones, share a family timeline with your partner, and keep every memory private by default.',
     features: MOMTRACK_FEATURES,
     extras: PRODUCT_EXTRAS,
     keyPoints: MOMTRACK_KEY_POINTS,
-    roadmap: PRODUCT_ROADMAP,
+    comingSoon: PRODUCT_COMING_SOON,
     feedbackHref: '/feedback?app=momtrack',
     feedbackLinkLabel: 'Have feedback?',
     downloadHeading: 'Get MomTrack today',

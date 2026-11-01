@@ -92,22 +92,33 @@ describe('DadTrack page', () => {
 
     for (const file of [
       '01-home-feed',
+      '02-milestone-tracker',
+      '03-journal-entry-detail-magazine',
+      '04-journal-composer',
+      '05-monthly-recap',
+      '06-partner-entry',
+      '07-streak',
+      '08-search',
+    ]) {
+      expect(markup).toContain(`/images/dadtrack/${file}.webp`);
+    }
+    expect(markup).not.toContain('/images/dadtrack/07-cloud-pending.png');
+    for (const file of [
       '02-journal-composer',
       '03-monthly-recap',
       '04-journal-entry-detail',
       '05-journal-entry-detail-magazine',
       '06-search',
-      '07-streak',
       '08-cloud-all-synced',
     ]) {
-      expect(markup).toContain(`/images/dadtrack/${file}.webp`);
+      expect(markup).not.toContain(`/images/dadtrack/${file}.webp`);
     }
-    expect(markup).not.toContain('/images/dadtrack/07-cloud-pending.png');
     expect(markup).not.toContain('/images/dadtrack/05-search.png');
 
-    expect(markup).toContain('Shared family timeline');
-    expect(markup).toContain('Cloud backup &amp; sync');
-    expect(markup).toContain('Local-first with no ads, no tracking');
+    expect(markup).toContain('A scrapbook family timeline');
+    expect(markup).toContain('Milestone Tracker');
+    expect(markup).toContain('Find a memory');
+    expect(markup).toContain('Local-first with no ads and no tracking');
     expect(markup).toContain('data-next-link="true"');
     expect(markup).toContain('href="/feedback"');
     expect(markup).toContain('Share your thoughts');
@@ -118,9 +129,9 @@ describe('DadTrack page', () => {
 
     expect(markup).toContain('bg-[#f4efe6]');
     expect(markup).toContain('What&#x27;s included');
-    expect(markup).toContain('Eight screens from the app, as they look on an iPhone today.');
+    expect(markup).toContain('Eight screens from version 1.4, as they look on an iPhone today.');
     expect(markup).toContain('type="button"');
-    expect(markup).toContain('aria-label="Open Shared family timeline screenshot"');
+    expect(markup).toContain('aria-label="Open A scrapbook family timeline screenshot"');
     expect(markup).toContain('Tap to enlarge');
 
     expect(markup).not.toContain('polaroid-even');
@@ -128,7 +139,7 @@ describe('DadTrack page', () => {
     expect(markup).not.toContain('md:col-span-2 md:mx-auto md:w-[calc(50%-0.75rem)]');
   });
 
-  it('renders the extras, the differentiators, the beta roadmap and the download CTA', () => {
+  it('renders the extras, the differentiators, the Yearbooks coming-soon card and the download CTA', () => {
     const markup = renderToStaticMarkup(<DadTrack />);
 
     expect(markup).toContain('Also in the box');
@@ -137,9 +148,15 @@ describe('DadTrack page', () => {
 
     expect(markup).toContain('Why DadTrack Is Different');
     expect(markup).toContain('Coming soon');
-    expect(markup).toContain('In beta now, rolling out to everyone next.');
-    expect(markup).toContain('Milestone tracker');
-    expect(markup).toContain('Streak freezes');
+    expect(markup).toContain('What I’m building next.');
+    expect(markup).toContain('Yearbooks');
+    expect(markup).toContain('Turn a year of your journal into a printed hardcover book.');
+    expect(markup).toContain('/images/shared/yearbook-cover-photo.webp');
+    expect(markup).not.toContain('Smarter recaps');
+    expect(markup).not.toContain('A refreshed look');
+    expect(markup).not.toContain('In beta now, rolling out to everyone next.');
+    expect(markup).toContain('Home screen widgets');
+    expect(markup).toContain('Made for iPad, too');
     expect(markup).not.toContain('Child Information Hub');
 
     expect(markup).toContain('id="download"');
