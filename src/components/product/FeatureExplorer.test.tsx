@@ -88,7 +88,7 @@ describe('FeatureExplorer', () => {
     const markup = render();
 
     expect(markup).toContain('page-sheet');
-    expect(markup).toContain('What&#x27;s included');
+    expect(markup).toContain('What’s included');
     expect(markup).toContain('Tap to enlarge');
     expect(markup).toContain('Also in the box');
     expect(markup).toContain('Voice-to-text');

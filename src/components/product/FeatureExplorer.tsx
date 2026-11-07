@@ -215,7 +215,7 @@ export function FeatureExplorer({ features, extras, onOpenLightbox }: FeatureExp
       <div className="page-sheet">
         <div className="px-5 py-10 sm:px-8 md:px-10 md:py-14 lg:px-12">
           <header className="max-w-2xl">
-            <h2 className="font-display text-4xl text-ink md:text-5xl">What&apos;s included</h2>
+            <h2 className="font-display text-4xl text-ink md:text-5xl">What’s included</h2>
             <p className="mt-3 leading-relaxed text-ink-muted">
               Eight screens from version 1.4, as they look on an iPhone today.
             </p>
@@ -270,7 +270,7 @@ export function FeatureExplorer({ features, extras, onOpenLightbox }: FeatureExp
                 type="button"
                 aria-label={`Open ${activeFeature.title} screenshot`}
                 onClick={() => onOpenLightbox(desktopIndex)}
-                className={`block w-full cursor-zoom-in text-ink-accent ${PHONE_OUTLINE_RADIUS}`}
+                className={`block w-full cursor-zoom-in ${PHONE_OUTLINE_RADIUS}`}
               >
                 <PhoneFrame sizes="340px">
                   {features.map((feature, index) => (
@@ -306,7 +306,7 @@ export function FeatureExplorer({ features, extras, onOpenLightbox }: FeatureExp
                     type="button"
                     aria-label={`Open ${feature.title} screenshot`}
                     onClick={() => onOpenLightbox(index)}
-                    className={`block w-full cursor-zoom-in text-ink-accent ${PHONE_OUTLINE_RADIUS}`}
+                    className={`block w-full cursor-zoom-in ${PHONE_OUTLINE_RADIUS}`}
                   >
                     <PhoneFrame
                       src={getAssetPath(feature.image)}
@@ -346,7 +346,7 @@ export function FeatureExplorer({ features, extras, onOpenLightbox }: FeatureExp
                     aria-label={`Go to ${feature.title}`}
                     aria-current={index === railIndex ? 'true' : undefined}
                     onClick={() => scrollRailTo(index)}
-                    className={`h-2 rounded-full text-ink-accent transition-all duration-200 ${
+                    className={`h-2 rounded-full transition-all duration-200 ${
                       index === railIndex ? 'w-6 bg-ink-accent' : 'w-2 bg-ink/20'
                     }`}
                   />

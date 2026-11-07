@@ -97,7 +97,7 @@ export default function About() {
         <section className="bg-cloth-raised py-16 md:py-20">
           <div className="mx-auto flex max-w-7xl flex-col gap-8 px-4 sm:px-6 lg:flex-row lg:items-end lg:justify-between lg:px-8">
             <div className="max-w-2xl">
-              <h2 className="font-display text-4xl md:text-5xl">Want to see what I&apos;m building?</h2>
+              <h2 className="font-display text-4xl md:text-5xl">Want to see what I’m building?</h2>
               <p className="mt-4 text-lg leading-relaxed text-on-cloth-muted">
                 Check out DadTrack to see the product side of my work, or reach out on LinkedIn if you want to talk engineering leadership, product thinking, or building with AI.
               </p>

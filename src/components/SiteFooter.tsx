@@ -9,7 +9,7 @@ export function SiteFooter() {
     const currentYear = new Date().getFullYear();
 
     return (
-        <footer className="w-full bg-cloth-deep">
+        <footer className="w-full bg-cloth-deep text-on-cloth">
             <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
                 <div className="flex flex-col justify-between gap-6 md:flex-row md:items-center">
                     <span className="font-display text-2xl leading-none">Ben Greene</span>

@@ -149,7 +149,7 @@ describe('MomTrack product route', () => {
 
     expect(markup).toContain('The mom journaling app');
     expect(markup).toContain('Available now on the App Store.');
-    expect(markup).toContain('aria-label="Download MomTrack on the App Store"');
+    expect(markup).toContain('aria-label="Download on the App Store: MomTrack"');
     expect(markup).toContain('data-brand="momtrack"');
     expect(markup).toContain('data-tone="momtrack"');
     expect(markup).toContain(MOMTRACK_APP_STORE_URL);
@@ -206,7 +206,7 @@ describe('MomTrack product route', () => {
     const markup = renderToStaticMarkup(<MomTrack />);
 
     expect(markup).toContain('page-sheet');
-    expect(markup).toContain('What&#x27;s included');
+    expect(markup).toContain('What’s included');
     expect(markup).toContain('Tap to enlarge');
     expect(markup).toContain('Also in the box');
     expect(markup).toContain('Save photos to your library');

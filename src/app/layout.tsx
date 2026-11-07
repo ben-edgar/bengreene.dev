@@ -75,10 +75,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${instrumentSans.variable} ${instrumentSerif.variable} ${caveat.variable} antialiased`}
-      >
+    // The font variables go on <html> because Tailwind resolves --font-sans there.
+    <html
+      lang="en"
+      className={`${instrumentSans.variable} ${instrumentSerif.variable} ${caveat.variable}`}
+    >
+      <body className="antialiased">
         {/* Before page content on purpose: effects fire in tree order, and /get needs
             window.gtag to exist by the time its own effect runs. */}
         <Analytics />

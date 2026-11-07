@@ -276,7 +276,8 @@ export const MOMTRACK_PAGE_THEME: ProductPageTheme = {
 export const MOMTRACK_STORE_CTA = {
   key: 'ios',
   href: MOMTRACK_APP_STORE_URL,
-  buttonLabel: 'Download MomTrack on the App Store',
+  // Leads with the visible text, so voice control users can say what they see.
+  buttonLabel: 'Download on the App Store: MomTrack',
   badgeLead: 'Download on the',
   badgeName: 'App Store',
 } as const;

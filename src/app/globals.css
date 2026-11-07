@@ -83,9 +83,20 @@ body {
   color: var(--ink);
 }
 
-:focus-visible {
-  outline: 2px solid currentColor;
-  outline-offset: 3px;
+/*
+ * Focus rings take their color from the surface, never the element's text: a filled
+ * button's text matches the cloth or paper behind it, so currentColor would vanish.
+ * In the base layer so that focus utilities on a control can still override them.
+ */
+@layer base {
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  .page-sheet :focus-visible {
+    outline-color: var(--ink-accent);
+  }
 }
 
 a {

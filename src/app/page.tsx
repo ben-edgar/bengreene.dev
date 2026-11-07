@@ -124,7 +124,7 @@ export default function Home() {
         <section className="mx-auto max-w-7xl px-4 pb-24 sm:px-6 lg:px-8">
           <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
             <div>
-              <h2 className="font-display text-4xl md:text-5xl">Let&apos;s connect</h2>
+              <h2 className="font-display text-4xl md:text-5xl">Let’s connect</h2>
               <p className="mt-4 text-lg leading-relaxed text-on-cloth-muted">
                 Interested in my apps or want to connect? I&apos;d love to hear from you.
               </p>

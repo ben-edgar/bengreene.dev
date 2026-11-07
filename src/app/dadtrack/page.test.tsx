@@ -128,7 +128,7 @@ describe('DadTrack page', () => {
     const markup = renderToStaticMarkup(<DadTrack />);
 
     expect(markup).toContain('page-sheet');
-    expect(markup).toContain('What&#x27;s included');
+    expect(markup).toContain('What’s included');
     expect(markup).toContain('Eight screens from version 1.4, as they look on an iPhone today.');
     expect(markup).toContain('type="button"');
     expect(markup).toContain('aria-label="Open A scrapbook family timeline screenshot"');

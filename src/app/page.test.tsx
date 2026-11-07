@@ -78,18 +78,18 @@ describe('Home page', () => {
   it('gives the MomTrack project its own tone on the spruce page', () => {
     const markup = renderToStaticMarkup(<Home />);
 
-    expect(markup).toContain('data-tone="momtrack"');
+    expect(markup).toMatch(/<article[^>]*data-tone="momtrack"/);
     expect(markup).not.toContain('data-brand');
   });
 
   it('shows each store once, leaving Learn more as a text link so buttons stay in pairs', () => {
     const markup = renderToStaticMarkup(<Home />);
-    const storeButtons = markup.match(/aria-label="[^"]*(App Store|Google Play)"/g);
+    const storeButtons = markup.match(/aria-label="[^"]*(App Store|Google Play)[^"]*"/g);
 
     expect(storeButtons).toEqual([
       'aria-label="Download on the App Store"',
       'aria-label="Get it on Google Play"',
-      'aria-label="Download MomTrack on the App Store"',
+      'aria-label="Download on the App Store: MomTrack"',
     ]);
     expect(markup).toMatch(/<a [^>]*class="[^"]*underline[^"]*"[^>]*>Learn more about DadTrack/);
   });

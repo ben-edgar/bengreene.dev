@@ -189,7 +189,7 @@ describe('product content', () => {
   it('defines the MomTrack store CTA using the App Store URL', () => {
     expect(productContent.MOMTRACK_STORE_CTA).toMatchObject({
       key: 'ios',
-      buttonLabel: 'Download MomTrack on the App Store',
+      buttonLabel: 'Download on the App Store: MomTrack',
       href: constants.MOMTRACK_APP_STORE_URL,
     });
   });

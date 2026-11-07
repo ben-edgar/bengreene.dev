@@ -94,8 +94,8 @@ Each page requires:
 ### Responsive Design
 Target desktop, tablet, and mobile. Use TailwindCSS responsive prefixes (`md:`, `lg:`, etc.).
 
-### Dark Mode
-Implement dark mode toggle in settings/header. Store preference in localStorage. Use Tailwind's `dark:` variant for styles.
+### Color Scheme
+The site has one look, the cloth and paper system described under Styling. There is no light and dark toggle.
 
 ### Performance & Animation
 - Prioritize speed and clarity over animations
