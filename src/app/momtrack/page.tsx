@@ -3,7 +3,11 @@
 import { Button } from '@/components/Button';
 import { ProductPage, type ProductPageConfig } from '@/components/product/ProductPage';
 import { CONFETTI_NAVIGATION_DELAY_MS, fireConfetti } from '@/lib/confetti';
-import { MOMTRACK_APP_STORE_URL, SITE_CANONICAL_URL } from '@/lib/constants';
+import {
+  MOMTRACK_APP_STORE_URL,
+  MOMTRACK_SHARE_IMAGE,
+  SITE_CANONICAL_URL,
+} from '@/lib/constants';
 import {
   MOMTRACK_DOWNLOAD_CTA,
   MOMTRACK_FEATURES,
@@ -22,7 +26,7 @@ const softwareApplicationSchema = {
   description:
     'A mom-focused journaling app for capturing memories, moods, and milestones. Now available to download on the App Store.',
   url: `${SITE_CANONICAL_URL}/momtrack`,
-  image: `${SITE_CANONICAL_URL}/opengraph-image.png`,
+  image: `${SITE_CANONICAL_URL}${MOMTRACK_SHARE_IMAGE}`,
   offers: {
     '@type': 'Offer',
     price: '0',

@@ -1,4 +1,6 @@
 import React, { forwardRef } from 'react';
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it, vi } from 'vitest';
 
@@ -66,7 +68,11 @@ vi.mock('@/components/Header', () => ({
 
 import MomTrackLayout, { metadata } from './layout';
 import MomTrack from './page';
-import { MOMTRACK_APP_STORE_URL, SITE_CANONICAL_URL } from '@/lib/constants';
+import {
+  MOMTRACK_APP_STORE_URL,
+  MOMTRACK_SHARE_IMAGE,
+  SITE_CANONICAL_URL,
+} from '@/lib/constants';
 
 const metadataDescription =
   'MomTrack is the mom-focused journaling app for capturing memories, moods, and milestones. Now available to download on the App Store.';
@@ -84,7 +90,7 @@ describe('MomTrack product route', () => {
     expect(metadata.openGraph?.images).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
-          url: '/opengraph-image.png',
+          url: MOMTRACK_SHARE_IMAGE,
         }),
       ]),
     );
@@ -92,7 +98,7 @@ describe('MomTrack product route', () => {
     expect(metadata.twitter?.title).toBe('MomTrack — Mom Journaling App');
     expect(metadata.twitter?.description).toBe(metadataDescription);
     expect(metadata.twitter?.images).toEqual(
-      expect.arrayContaining(['/twitter-image.png']),
+      expect.arrayContaining([MOMTRACK_SHARE_IMAGE]),
     );
 
     expect(
@@ -102,6 +108,40 @@ describe('MomTrack product route', () => {
         </MomTrackLayout>,
       ),
     ).toContain('MomTrack child content');
+  });
+
+  it('uses MomTrack art for every icon and link preview, never the DadTrack defaults', () => {
+    const icons = metadata.icons as {
+      apple: Array<{ url: string }>;
+      icon: Array<{ url: string }>;
+      shortcut: string[];
+    };
+    const urls = [
+      ...icons.icon.map((icon) => icon.url),
+      ...icons.apple.map((icon) => icon.url),
+      ...icons.shortcut,
+    ];
+
+    expect(icons.icon.length).toBeGreaterThan(0);
+    expect(icons.apple.length).toBeGreaterThan(0);
+    expect(icons.shortcut.length).toBeGreaterThan(0);
+
+    for (const url of urls) {
+      expect(url).toMatch(/^\/images\/momtrack\/icons\//);
+      expect(existsSync(join(process.cwd(), 'public', url))).toBe(true);
+    }
+
+    expect(existsSync(join(process.cwd(), 'public', MOMTRACK_SHARE_IMAGE))).toBe(true);
+    expect(renderToStaticMarkup(<MomTrack />)).toContain(
+      `${SITE_CANONICAL_URL}${MOMTRACK_SHARE_IMAGE}`,
+    );
+  });
+
+  it('keeps the site favicon out of the app directory', () => {
+    // Next prepends app/favicon.ico to every route's icons, even when a route sets its
+    // own, so leaving it there would put the DadTrack icon ahead of MomTrack's.
+    expect(existsSync(join(process.cwd(), 'src/app/favicon.ico'))).toBe(false);
+    expect(existsSync(join(process.cwd(), 'public/favicon.ico'))).toBe(true);
   });
 
   it('renders the MomTrack live product story and screenshots', () => {
