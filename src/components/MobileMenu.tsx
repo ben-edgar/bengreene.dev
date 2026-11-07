@@ -37,24 +37,24 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
     <>
       {/* Overlay */}
       <div
-        className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 transition-opacity"
+        className="fixed inset-0 z-50 bg-black/60"
         onClick={onClose}
         aria-hidden="true"
       />
 
       {/* Drawer */}
       <div
-        className={`fixed top-0 right-0 bottom-0 w-72 bg-slate-950/95 backdrop-blur-xl border-l border-white/10 shadow-2xl z-50 transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}
+        className="fixed bottom-0 right-0 top-0 z-50 w-72 bg-cloth-deep shadow-2xl"
       >
         <div className="flex flex-col h-full">
           {/* Header with Close Button */}
-          <div className="flex items-center justify-between p-5 border-b border-white/10">
-            <span className="text-lg font-bold bg-gradient-to-r from-teal-400 to-blue-400 bg-clip-text text-transparent">
+          <div className="flex items-center justify-between border-b border-on-cloth/15 p-5">
+            <span className="font-display text-2xl leading-none">
               Ben Greene
             </span>
             <button
               onClick={onClose}
-              className="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-all"
+              className="rounded-lg p-2 text-on-cloth-muted transition-colors hover:bg-on-cloth/10 hover:text-on-cloth"
               aria-label="Close menu"
             >
               <X className="w-5 h-5" />
@@ -71,9 +71,10 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                     <Link
                       href={link.href}
                       onClick={onClose}
-                      className={`block px-4 py-3 rounded-xl text-base font-medium transition-all duration-200 ${isActive
-                          ? 'bg-white/10 text-white'
-                          : 'text-slate-400 hover:text-white hover:bg-white/5'
+                      aria-current={isActive ? 'page' : undefined}
+                      className={`block rounded-lg px-4 py-3 text-base font-medium transition-colors duration-200 ${isActive
+                          ? 'bg-on-cloth/10 text-on-cloth'
+                          : 'text-on-cloth-muted hover:bg-on-cloth/5 hover:text-on-cloth'
                         }`}
                     >
                       {link.label}
@@ -85,13 +86,13 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
           </nav>
 
           {/* Social Links at bottom */}
-          <div className="p-6 border-t border-white/10">
+          <div className="border-t border-on-cloth/15 p-6">
             <div className="flex items-center gap-3">
               <a
                 href="https://github.com/ben-edgar"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-all duration-200 text-sm font-medium"
+                className="flex items-center gap-2 rounded-lg bg-on-cloth/5 px-4 py-2.5 text-sm font-medium text-on-cloth-muted transition-colors duration-200 hover:bg-on-cloth/10 hover:text-on-cloth"
               >
                 <Github className="w-4 h-4" />
                 GitHub
@@ -100,7 +101,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                 href="https://www.linkedin.com/in/ben-greene-dev/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-all duration-200 text-sm font-medium"
+                className="flex items-center gap-2 rounded-lg bg-on-cloth/5 px-4 py-2.5 text-sm font-medium text-on-cloth-muted transition-colors duration-200 hover:bg-on-cloth/10 hover:text-on-cloth"
               >
                 <Linkedin className="w-4 h-4" />
                 LinkedIn

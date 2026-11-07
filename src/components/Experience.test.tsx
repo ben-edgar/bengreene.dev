@@ -1,11 +1,11 @@
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 
-import AnimatedTimeline from './AnimatedTimeline';
+import Experience from './Experience';
 
-describe('AnimatedTimeline', () => {
-  it('renders three experience cards with narrative achievement bullets', () => {
-    const markup = renderToStaticMarkup(<AnimatedTimeline />);
+describe('Experience', () => {
+  it('renders three roles with narrative achievement bullets', () => {
+    const markup = renderToStaticMarkup(<Experience />);
 
     expect(markup).toContain('Engineering leadership, product judgment, and AI-native building');
     expect(markup).toContain('Arcadia');

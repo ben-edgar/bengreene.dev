@@ -1,5 +1,9 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { MOMTRACK_SHARE_IMAGE, SITE_CANONICAL_URL } from '@/lib/constants';
+
+export const viewport: Viewport = {
+  themeColor: '#4a1c28',
+};
 
 export const metadata: Metadata = {
   title: 'MomTrack — Mom Journaling App',

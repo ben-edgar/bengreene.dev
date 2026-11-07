@@ -147,12 +147,11 @@ describe('MomTrack product route', () => {
   it('renders the MomTrack live product story and screenshots', () => {
     const markup = renderToStaticMarkup(<MomTrack />);
 
-    expect(markup).toContain('The Mom Journaling App');
-    expect(markup).toContain('Now Available');
-    expect(markup).toContain('Download MomTrack on the App Store');
-    expect(markup).toContain('from-[#e8746e]');
-    expect(markup).toContain('to-[#9e2b3c]');
-    expect(markup).not.toContain('bg-primary-600');
+    expect(markup).toContain('The mom journaling app');
+    expect(markup).toContain('Available now on the App Store.');
+    expect(markup).toContain('aria-label="Download MomTrack on the App Store"');
+    expect(markup).toContain('data-brand="momtrack"');
+    expect(markup).toContain('data-tone="momtrack"');
     expect(markup).toContain(MOMTRACK_APP_STORE_URL);
     expect(markup).not.toContain('TestFlight');
     expect(markup).not.toContain('beta testing');
@@ -188,8 +187,8 @@ describe('MomTrack product route', () => {
     expect(markup).toContain('MomTrack helps moms capture everyday moments');
     expect(markup).toContain('type="button"');
     expect(markup).toContain('aria-label="Open A scrapbook family timeline screenshot"');
-    expect(markup).toContain('Why MomTrack Is Different');
-    expect(markup).toContain('Mom-Focused');
+    expect(markup).toContain('Why MomTrack is different');
+    expect(markup).toContain('Mom-focused');
     expect(markup).toContain('/feedback?app=momtrack');
     expect(markup).toContain('Have feedback?');
     expect(markup).toContain('data-next-link="true"');
@@ -206,7 +205,7 @@ describe('MomTrack product route', () => {
   it('renders the paper sheet, the extras and the Yearbooks coming-soon card', () => {
     const markup = renderToStaticMarkup(<MomTrack />);
 
-    expect(markup).toContain('bg-[#f4efe6]');
+    expect(markup).toContain('page-sheet');
     expect(markup).toContain('What&#x27;s included');
     expect(markup).toContain('Tap to enlarge');
     expect(markup).toContain('Also in the box');

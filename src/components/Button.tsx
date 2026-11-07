@@ -4,8 +4,11 @@ import Link from 'next/link';
 interface ButtonProps {
   children: ReactNode;
   variant?: 'primary' | 'secondary';
+  /** Re-colors the button for MomTrack when it sits on a spruce page. */
   tone?: 'dadtrack' | 'momtrack';
-  size?: 'sm' | 'md' | 'lg';
+  /** What the button sits on: the cloth shell or a paper sheet. */
+  surface?: 'cloth' | 'paper';
+  size?: 'sm' | 'md' | 'lg' | 'badge';
   fullWidth?: boolean;
   mobileFullWidth?: boolean;
   type?: 'button' | 'submit' | 'reset';
@@ -15,13 +18,36 @@ interface ButtonProps {
   rel?: string;
   externalNavigationDelayMs?: number;
   disabled?: boolean;
+  ariaLabel?: string;
   className?: string;
 }
+
+const BASE_STYLES =
+  'inline-flex cursor-pointer items-center justify-center rounded-lg font-medium transition-colors duration-200 disabled:cursor-not-allowed disabled:opacity-50';
+
+const VARIANT_STYLES = {
+  cloth: {
+    primary: 'bg-on-cloth text-cloth-deep hover:bg-white',
+    secondary: 'border border-on-cloth/40 text-on-cloth hover:border-on-cloth hover:bg-on-cloth/10',
+  },
+  paper: {
+    primary: 'bg-ink-accent text-paper-raised hover:bg-ink',
+    secondary: 'border border-ink/30 text-ink hover:border-ink hover:bg-ink/5',
+  },
+};
+
+const SIZE_STYLES = {
+  sm: 'px-4 py-2 text-sm',
+  md: 'px-5 py-2.5 text-base',
+  lg: 'px-6 py-3 text-base',
+  badge: 'min-w-36 gap-2 px-3 py-2 sm:min-w-40 sm:gap-2.5 sm:px-4',
+};
 
 export function Button({
   children,
   variant = 'primary',
   tone = 'dadtrack',
+  surface = 'cloth',
   size = 'md',
   fullWidth = false,
   mobileFullWidth = false,
@@ -32,30 +58,13 @@ export function Button({
   rel,
   externalNavigationDelayMs,
   disabled = false,
+  ariaLabel,
   className = '',
 }: ButtonProps) {
-  const baseStyles = 'font-semibold rounded-xl transition-all duration-200 inline-flex items-center justify-center cursor-pointer active:scale-95';
-
-  const variantStyles = {
-    dadtrack: {
-      primary: 'bg-primary-600 hover:bg-primary-700 !text-white border-2 border-primary-700 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none',
-      secondary: 'border-2 border-primary-400/70 bg-white/5 text-primary-300 hover:border-primary-300 hover:bg-white/10 hover:text-primary-200 shadow-sm hover:shadow-[0_18px_40px_rgba(20,184,166,0.12)] backdrop-blur-sm disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none',
-    },
-    momtrack: {
-      primary: 'bg-gradient-to-r from-[#e8746e] via-[#c4566a] to-[#9e2b3c] hover:from-[#f08a84] hover:via-[#d76578] hover:to-[#b8374b] !text-white border-2 border-[#c4566a] shadow-[0_0_20px_rgba(232,116,110,0.28)] hover:shadow-[0_0_30px_rgba(232,116,110,0.42)] disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none',
-      secondary: 'border-2 border-[#e8746e]/60 bg-white/5 text-[#f08a84] hover:border-[#f08a84] hover:bg-[#e8746e]/10 hover:text-[#ffd1cd] shadow-sm hover:shadow-[0_18px_40px_rgba(232,116,110,0.12)] backdrop-blur-sm disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none',
-    },
-  };
-
-  const sizeStyles = {
-    sm: 'px-4 py-2 text-sm',
-    md: 'px-6 py-3 text-base',
-    lg: 'px-8 py-4 text-lg',
-  };
-
   const widthStyle = fullWidth ? 'w-full' : mobileFullWidth ? 'w-full sm:w-auto' : '';
 
-  const combinedClassName = `${baseStyles} ${variantStyles[tone][variant]} ${sizeStyles[size]} ${widthStyle} ${className}`;
+  const combinedClassName = `${BASE_STYLES} ${VARIANT_STYLES[surface][variant]} ${SIZE_STYLES[size]} ${widthStyle} ${className}`;
+  const dataTone = tone === 'momtrack' ? tone : undefined;
   const relWindowFeatures = rel
     ?.split(/\s+/)
     .filter((value) => value === 'noopener' || value === 'noreferrer')
@@ -77,6 +86,8 @@ export function Button({
       return (
         <Link
           href={href}
+          aria-label={ariaLabel}
+          data-tone={dataTone}
           className={combinedClassName}
         >
           {children}
@@ -114,6 +125,8 @@ export function Button({
         target={target}
         rel={rel}
         onClick={handleExternalLinkClick}
+        aria-label={ariaLabel}
+        data-tone={dataTone}
         className={combinedClassName}
       >
         {children}
@@ -126,6 +139,8 @@ export function Button({
       type={type}
       onClick={onClick}
       disabled={disabled}
+      aria-label={ariaLabel}
+      data-tone={dataTone}
       className={combinedClassName}
     >
       {children}

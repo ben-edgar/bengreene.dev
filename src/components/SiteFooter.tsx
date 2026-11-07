@@ -2,23 +2,23 @@ import Link from 'next/link';
 import { Github, Linkedin } from '@/components/icons/BrandIcons';
 import { navLinks } from '@/lib/navigation';
 
+const SOCIAL_LINK =
+    'rounded-lg p-2 text-on-cloth-muted transition-colors duration-200 hover:bg-on-cloth/10 hover:text-on-cloth';
+
 export function SiteFooter() {
     const currentYear = new Date().getFullYear();
 
     return (
-        <footer className="w-full border-t border-white/10 bg-slate-950/80 backdrop-blur-sm">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-                {/* Top row: brand + nav links */}
-                <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 mb-8">
-                    <span className="font-bold text-lg bg-gradient-to-r from-teal-400 to-blue-400 bg-clip-text text-transparent">
-                        Ben Greene
-                    </span>
-                    <nav className="flex flex-wrap gap-1">
+        <footer className="w-full bg-cloth-deep">
+            <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+                <div className="flex flex-col justify-between gap-6 md:flex-row md:items-center">
+                    <span className="font-display text-2xl leading-none">Ben Greene</span>
+                    <nav className="flex flex-wrap gap-x-7 gap-y-2">
                         {navLinks.map((link) => (
                             <Link
                                 key={link.href}
                                 href={link.href}
-                                className="px-4 py-2 text-sm text-slate-400 hover:text-white hover:bg-white/5 rounded-lg transition-all duration-200"
+                                className="text-[15px] text-on-cloth-muted hover:text-on-cloth"
                             >
                                 {link.label}
                             </Link>
@@ -26,36 +26,31 @@ export function SiteFooter() {
                     </nav>
                 </div>
 
-                {/* Bottom row: copyright + social icons */}
-                <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-white/5">
-                    <p className="text-sm text-slate-500">
-                        © {currentYear} Ben Greene. All rights reserved.
-                        {' · '}
-                        <Link
-                            href="/privacy"
-                            className="hover:text-slate-300 transition-colors duration-200"
-                        >
+                <div className="mt-8 flex flex-col justify-between gap-4 border-t border-on-cloth/15 pt-6 sm:flex-row sm:items-center">
+                    <p className="flex flex-wrap gap-x-5 text-sm text-on-cloth-faint">
+                        <span>© {currentYear} Ben Greene. All rights reserved.</span>
+                        <Link href="/privacy" className="underline underline-offset-4 hover:text-on-cloth">
                             Privacy
                         </Link>
                     </p>
-                    <div className="flex items-center gap-1">
+                    <div className="-ml-2 flex items-center gap-1">
                         <a
                             href="https://github.com/ben-edgar"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="p-2 rounded-lg text-slate-500 hover:text-white hover:bg-white/10 transition-all duration-200"
+                            className={SOCIAL_LINK}
                             aria-label="GitHub"
                         >
-                            <Github className="w-4 h-4" />
+                            <Github className="h-[18px] w-[18px]" />
                         </a>
                         <a
                             href="https://www.linkedin.com/in/ben-greene-dev/"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="p-2 rounded-lg text-slate-500 hover:text-white hover:bg-white/10 transition-all duration-200"
+                            className={SOCIAL_LINK}
                             aria-label="LinkedIn"
                         >
-                            <Linkedin className="w-4 h-4" />
+                            <Linkedin className="h-[18px] w-[18px]" />
                         </a>
                     </div>
                 </div>

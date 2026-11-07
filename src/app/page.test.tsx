@@ -1,9 +1,15 @@
-import React, { forwardRef } from 'react';
+import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 const mockPlatform = vi.hoisted(() => ({
   current: 'ios' as 'ios' | 'android' | 'other' | null,
+}));
+
+vi.mock('next/image', () => ({
+  default: ({ fill: _fill, priority: _priority, ...props }: React.ComponentProps<'img'> & { fill?: boolean; priority?: boolean }) => (
+    <img {...props} />
+  ),
 }));
 
 vi.mock('next/link', () => ({
@@ -22,34 +28,6 @@ vi.mock('next/link', () => ({
   ),
 }));
 
-vi.mock('framer-motion', () => {
-  const motion = new Proxy(
-    {},
-    {
-      get: (_target, tag: string) => {
-        const MotionComponent = forwardRef<
-          HTMLElement,
-          React.HTMLAttributes<HTMLElement> & {
-            animate?: unknown;
-            exit?: unknown;
-            initial?: unknown;
-            style?: React.CSSProperties;
-            transition?: unknown;
-            variants?: unknown;
-          }
-        >(({ animate: _animate, exit: _exit, initial: _initial, transition: _transition, variants: _variants, children, ...props }, ref) =>
-          React.createElement(tag, { ...props, ref }, children),
-        );
-        MotionComponent.displayName = `MockMotion.${tag}`;
-
-        return MotionComponent;
-      },
-    },
-  );
-
-  return { motion };
-});
-
 vi.mock('@/components/Header', () => ({
   Header: () => <div>Header</div>,
 }));
@@ -58,31 +36,8 @@ vi.mock('@/components/HeroSection', () => ({
   default: () => <section>HeroSection</section>,
 }));
 
-vi.mock('@/components/AnimatedTimeline', () => ({
-  default: () => <div>AnimatedTimeline</div>,
-}));
-
-vi.mock('@/components/MobileShowcase', () => ({
-  default: ({
-    screenshots,
-  }: {
-    screenshots: Array<{
-      alt: string;
-      description: string;
-      src: string;
-      title: string;
-    }>;
-  }) => (
-    <section data-testid="mobile-showcase">
-      {screenshots.map((screenshot) => (
-        <article key={screenshot.src}>
-          <img src={screenshot.src} alt={screenshot.alt} />
-          <h3>{screenshot.title}</h3>
-          <p>{screenshot.description}</p>
-        </article>
-      ))}
-    </section>
-  ),
+vi.mock('@/components/Experience', () => ({
+  default: () => <div>Experience</div>,
 }));
 
 vi.mock('@/lib/storeLinks', async () => {
@@ -104,29 +59,39 @@ describe('Home page', () => {
     mockPlatform.current = 'ios';
   });
 
-  it('renders both current projects and the refreshed DadTrack showcase', () => {
+  it('renders both current projects with their live status', () => {
     const markup = renderToStaticMarkup(<Home />);
 
-    expect(markup).toContain('Current Projects');
+    expect(markup).toContain('Current projects');
     expect(markup).toContain('Live on iOS &amp; Android');
     expect(markup).toContain('Live on iOS');
-    expect(markup).toContain('Learn More');
-    expect(markup).toContain('Download MomTrack');
-    expect(markup).toContain('from-[#e8746e]');
-    expect(markup).toContain('border-[#e8746e]/60');
-    expect(markup).not.toContain('bg-rose-600');
-    expect(markup).not.toContain('border-rose-300/60');
+    expect(markup).toContain('Learn more about DadTrack');
+    expect(markup).toContain('Learn more about MomTrack');
     expect(markup).toContain(MOMTRACK_APP_STORE_URL);
+    expect(markup).toContain('/images/dadtrack/01-home-feed.webp');
+    expect(markup).toContain('/images/momtrack/01-home-feed.webp');
     expect(markup).not.toContain('TestFlight');
     expect(markup).not.toContain('Now in Beta');
     expect(markup).not.toContain('Join the Beta');
-    expect(markup).toContain('Download on the App Store');
-    expect(markup).toContain('/images/dadtrack/01-home-feed.webp');
-    expect(markup).toContain('/images/dadtrack/02-milestone-tracker.webp');
-    expect(markup).toContain('/images/dadtrack/05-monthly-recap.webp');
-    expect(markup).not.toContain('05-journal-entry-detail-magazine');
-    expect(markup).not.toContain('/images/dadtrack/03-monthly-recap.webp');
-    expect(markup).not.toContain('3_magazine_mode.png');
+  });
+
+  it('gives the MomTrack project its own tone on the spruce page', () => {
+    const markup = renderToStaticMarkup(<Home />);
+
+    expect(markup).toContain('data-tone="momtrack"');
+    expect(markup).not.toContain('data-brand');
+  });
+
+  it('shows each store once, leaving Learn more as a text link so buttons stay in pairs', () => {
+    const markup = renderToStaticMarkup(<Home />);
+    const storeButtons = markup.match(/aria-label="[^"]*(App Store|Google Play)"/g);
+
+    expect(storeButtons).toEqual([
+      'aria-label="Download on the App Store"',
+      'aria-label="Get it on Google Play"',
+      'aria-label="Download MomTrack on the App Store"',
+    ]);
+    expect(markup).toMatch(/<a [^>]*class="[^"]*underline[^"]*"[^>]*>Learn more about DadTrack/);
   });
 
   it('renders both DadTrack store CTAs before platform detection completes', () => {
@@ -134,7 +99,17 @@ describe('Home page', () => {
 
     const markup = renderToStaticMarkup(<Home />);
 
-    expect(markup.match(/Download on the App Store/g)).toHaveLength(2);
-    expect(markup.match(/Get it on Google Play/g)).toHaveLength(2);
+    expect(markup.match(/aria-label="Download on the App Store"/g)).toHaveLength(1);
+    expect(markup.match(/aria-label="Get it on Google Play"/g)).toHaveLength(1);
+  });
+
+  it('leads with the store the visitor can actually use', () => {
+    mockPlatform.current = 'android';
+
+    const markup = renderToStaticMarkup(<Home />);
+
+    expect(markup.indexOf('Get it on Google Play')).toBeLessThan(
+      markup.indexOf('Download on the App Store'),
+    );
   });
 });

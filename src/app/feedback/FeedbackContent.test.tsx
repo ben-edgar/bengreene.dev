@@ -1,4 +1,3 @@
-import React, { forwardRef } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
@@ -22,44 +21,6 @@ vi.mock('next/navigation', () => ({
   },
 }));
 
-vi.mock('framer-motion', () => {
-  type MockMotionProps = React.HTMLAttributes<HTMLElement> & {
-    animate?: unknown;
-    exit?: unknown;
-    initial?: unknown;
-    style?: React.CSSProperties;
-    transition?: unknown;
-    variants?: unknown;
-  };
-
-  const motion = new Proxy(
-    {},
-    {
-      get: (_target, tag: string) => {
-        const MotionComponent = forwardRef<HTMLElement, MockMotionProps>(
-          (
-            { animate, exit, initial, transition, variants, children, ...props },
-            ref,
-          ) => {
-            void animate;
-            void exit;
-            void initial;
-            void transition;
-            void variants;
-
-            return React.createElement(tag, { ...props, ref }, children);
-          },
-        );
-        MotionComponent.displayName = `MockMotion.${tag}`;
-
-        return MotionComponent;
-      },
-    },
-  );
-
-  return { motion };
-});
-
 vi.mock('@/components/Header', () => ({
   Header: () => <div>Header</div>,
 }));
@@ -76,5 +37,13 @@ describe('FeedbackContent', () => {
 
     expect(markup).toContain('Help us shape MomTrack');
     expect(markup).not.toContain('Help us build the best dad journaling app');
+  });
+
+  it('wears the cloth of the app the feedback is for', () => {
+    expect(renderToStaticMarkup(<FeedbackContent />)).toContain('data-brand="momtrack"');
+
+    mockAppParam.current = 'dadtrack';
+
+    expect(renderToStaticMarkup(<FeedbackContent />)).toContain('data-brand="dadtrack"');
   });
 });

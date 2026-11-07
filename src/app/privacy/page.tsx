@@ -17,15 +17,15 @@ export default function Privacy() {
     <div className="flex min-h-screen flex-col">
       <Header />
 
-      <main className="flex-1 bg-slate-950">
-        <article className="mx-auto max-w-3xl px-4 py-24 sm:px-6 lg:px-8">
-          <h1 className="text-3xl font-bold text-white sm:text-4xl">Privacy</h1>
-          <p className="mt-3 text-sm text-slate-500">Last updated {LAST_UPDATED}</p>
+      <main className="flex-1">
+        <article className="mx-auto max-w-3xl px-4 py-14 sm:px-6 md:py-20 lg:px-8">
+          <h1 className="font-display text-6xl tracking-[-0.02em] md:text-7xl">Privacy</h1>
+          <p className="mt-3 text-sm text-on-cloth-faint">Last updated {LAST_UPDATED}</p>
 
-          <div className="mt-10 space-y-10 text-slate-300">
+          <div className="mt-10 space-y-10 leading-relaxed text-on-cloth-muted">
             <section className="space-y-3">
-              <p className="text-slate-400">
-                This page covers <strong className="text-slate-200">this website</strong> only.
+              <p>
+                This page covers <strong className="text-on-cloth">this website</strong> only.
                 The DadTrack and MomTrack apps store your journal entries and photos on your
                 device and are covered by their own privacy policy, available on their App
                 Store and Google Play listings.
@@ -33,7 +33,7 @@ export default function Privacy() {
             </section>
 
             <section className="space-y-3">
-              <h2 className="text-xl font-semibold text-white">Analytics</h2>
+              <h2 className="font-display text-3xl text-on-cloth">Analytics</h2>
               <p>
                 This site uses Google Analytics to count visits and understand which pages
                 and links people find useful. It records things like which page you viewed,
@@ -46,10 +46,10 @@ export default function Privacy() {
                 your Google account, used to build an advertising profile, or tracked across
                 devices. This site runs no advertising and shares no data with ad networks.
               </p>
-              <p className="text-slate-400">
+              <p>
                 To opt out entirely, use{' '}
                 <a
-                  className="text-teal-400 underline underline-offset-4 hover:text-teal-300"
+                  className="text-accent underline underline-offset-4 hover:text-on-cloth"
                   href="https://tools.google.com/dlpage/gaoptout"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -61,7 +61,7 @@ export default function Privacy() {
             </section>
 
             <section className="space-y-3">
-              <h2 className="text-xl font-semibold text-white">Links to the app stores</h2>
+              <h2 className="font-display text-3xl text-on-cloth">Links to the app stores</h2>
               <p>
                 Links to the App Store and Google Play carry a campaign tag identifying which
                 page or social post you came from. This tells me that a post led to an
@@ -71,17 +71,17 @@ export default function Privacy() {
             </section>
 
             <section className="space-y-3">
-              <h2 className="text-xl font-semibold text-white">Forms</h2>
+              <h2 className="font-display text-3xl text-on-cloth">Forms</h2>
               <p>
                 If you submit the waitlist or feedback form, the name, email address, and
                 message you enter are stored privately and read only by me. I use them to
                 reply to you and to send occasional updates about the apps. They are not
                 sold, shared, or added to any marketing list beyond that.
               </p>
-              <p className="text-slate-400">
+              <p>
                 Want your submission deleted? Ask through the{' '}
                 <Link
-                  className="text-teal-400 underline underline-offset-4 hover:text-teal-300"
+                  className="text-accent underline underline-offset-4 hover:text-on-cloth"
                   href="/feedback"
                 >
                   feedback form
@@ -91,7 +91,7 @@ export default function Privacy() {
             </section>
 
             <section className="space-y-3">
-              <h2 className="text-xl font-semibold text-white">Hosting</h2>
+              <h2 className="font-display text-3xl text-on-cloth">Hosting</h2>
               <p>
                 This site is static and hosted on GitHub Pages. GitHub may log requests as
                 part of serving it; see GitHub&rsquo;s own privacy statement for details.
@@ -99,11 +99,11 @@ export default function Privacy() {
             </section>
 
             <section className="space-y-3">
-              <h2 className="text-xl font-semibold text-white">Contact</h2>
+              <h2 className="font-display text-3xl text-on-cloth">Contact</h2>
               <p>
                 Questions, or want data removed? Get in touch through the{' '}
                 <Link
-                  className="text-teal-400 underline underline-offset-4 hover:text-teal-300"
+                  className="text-accent underline underline-offset-4 hover:text-on-cloth"
                   href="/feedback"
                 >
                   feedback page
