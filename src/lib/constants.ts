@@ -13,6 +13,9 @@ export const MOMTRACK_APP_STORE_URL =
 
 export const SITE_CANONICAL_URL = 'https://bengreene.dev';
 
+/** Link preview image for /momtrack. The site default shows the DadTrack art. */
+export const MOMTRACK_SHARE_IMAGE = '/images/momtrack/icons/opengraph-image.png';
+
 /**
  * Google Analytics 4 measurement id for the bengreene.dev web stream.
  *

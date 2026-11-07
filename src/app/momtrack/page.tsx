@@ -1,14 +1,17 @@
 'use client';
 
-import { Button } from '@/components/Button';
 import { ProductPage, type ProductPageConfig } from '@/components/product/ProductPage';
-import { CONFETTI_NAVIGATION_DELAY_MS, fireConfetti } from '@/lib/confetti';
-import { MOMTRACK_APP_STORE_URL, SITE_CANONICAL_URL } from '@/lib/constants';
+import { StoreButton } from '@/components/StoreButton';
 import {
-  MOMTRACK_DOWNLOAD_CTA,
+  MOMTRACK_APP_STORE_URL,
+  MOMTRACK_SHARE_IMAGE,
+  SITE_CANONICAL_URL,
+} from '@/lib/constants';
+import {
   MOMTRACK_FEATURES,
   MOMTRACK_KEY_POINTS,
   MOMTRACK_PAGE_THEME,
+  MOMTRACK_STORE_CTA,
   PRODUCT_COMING_SOON,
   PRODUCT_EXTRAS,
 } from '@/lib/productContent';
@@ -22,7 +25,7 @@ const softwareApplicationSchema = {
   description:
     'A mom-focused journaling app for capturing memories, moods, and milestones. Now available to download on the App Store.',
   url: `${SITE_CANONICAL_URL}/momtrack`,
-  image: `${SITE_CANONICAL_URL}/opengraph-image.png`,
+  image: `${SITE_CANONICAL_URL}${MOMTRACK_SHARE_IMAGE}`,
   offers: {
     '@type': 'Offer',
     price: '0',
@@ -34,31 +37,14 @@ const softwareApplicationSchema = {
 
 export default function MomTrack() {
   const renderStoreCtas = (keyPrefix = '') => (
-    <Button
-      key={`${keyPrefix}app-store`}
-      href={MOMTRACK_DOWNLOAD_CTA.href}
-      size="lg"
-      tone="momtrack"
-      mobileFullWidth
-      target="_blank"
-      rel="noopener noreferrer"
-      externalNavigationDelayMs={CONFETTI_NAVIGATION_DELAY_MS}
-      onClick={() => fireConfetti('momtrack')}
-    >
-      {MOMTRACK_DOWNLOAD_CTA.label}
-    </Button>
+    <StoreButton key={`${keyPrefix}app-store`} cta={MOMTRACK_STORE_CTA} tone="momtrack" />
   );
 
   const config: ProductPageConfig = {
     name: 'MomTrack',
     theme: MOMTRACK_PAGE_THEME,
-    eyebrow: '📱 The Mom Journaling App',
-    availability: {
-      label: 'Now Available on the App Store',
-      pillClass: 'border border-rose-300/25 bg-rose-400/10 text-rose-200',
-      pingClass: 'bg-rose-300',
-      dotClass: 'bg-rose-300',
-    },
+    eyebrow: 'The mom journaling app',
+    availability: 'Available now on the App Store.',
     tagline: 'A journal that remembers the moments, the moods, and who you spent them with.',
     lead:
       'MomTrack helps moms capture everyday moments with photos, voice-to-text, and moods, then turns them into scrapbook recaps you’ll actually reread. Keep a shelf of milestones, share a family timeline with your partner, and keep every memory private by default.',

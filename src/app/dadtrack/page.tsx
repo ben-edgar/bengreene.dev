@@ -1,7 +1,7 @@
 'use client';
 
-import { Button } from '@/components/Button';
 import { ProductPage, type ProductPageConfig } from '@/components/product/ProductPage';
+import { StoreButton } from '@/components/StoreButton';
 import {
   DADTRACK_APP_STORE_URL,
   DADTRACK_GOOGLE_PLAY_URL,
@@ -15,7 +15,6 @@ import {
   PRODUCT_EXTRAS,
 } from '@/lib/productContent';
 import { getTrackedStoreCtas, useDetectedStorePlatform } from '@/lib/storeLinks';
-import { CONFETTI_NAVIGATION_DELAY_MS, fireConfetti } from '@/lib/confetti';
 
 const softwareApplicationSchema = {
   '@context': 'https://schema.org',
@@ -46,12 +45,12 @@ export default function DadTrack() {
         <>
           <div
             key={`${keyPrefix}loading-primary`}
-            className="h-14 w-64 rounded-xl bg-slate-800 animate-pulse"
+            className="h-[3.25rem] w-40 animate-pulse rounded-lg bg-on-cloth/10"
             aria-hidden="true"
           />
           <div
             key={`${keyPrefix}loading-secondary`}
-            className="h-14 w-64 rounded-xl bg-slate-800 animate-pulse"
+            className="h-[3.25rem] w-40 animate-pulse rounded-lg bg-on-cloth/10"
             aria-hidden="true"
           />
         </>
@@ -59,32 +58,19 @@ export default function DadTrack() {
     }
 
     return storeCtas.map((cta, index) => (
-      <Button
+      <StoreButton
         key={`${keyPrefix}${cta.key}`}
-        href={cta.href}
-        variant={index === 0 ? undefined : 'secondary'}
-        size="lg"
-        mobileFullWidth
-        target="_blank"
-        rel="noopener noreferrer"
-        externalNavigationDelayMs={CONFETTI_NAVIGATION_DELAY_MS}
-        onClick={() => fireConfetti('dadtrack')}
-      >
-        {cta.buttonLabel}
-      </Button>
+        cta={cta}
+        variant={index === 0 ? 'primary' : 'secondary'}
+      />
     ));
   };
 
   const config: ProductPageConfig = {
     name: 'DadTrack',
     theme: DADTRACK_PAGE_THEME,
-    eyebrow: '📱 The Dad Journaling App',
-    availability: {
-      label: 'Now Available on iOS and Android!',
-      pillClass: 'bg-green-900/50 text-green-300',
-      pingClass: 'bg-green-400',
-      dotClass: 'bg-green-500',
-    },
+    eyebrow: 'The dad journaling app',
+    availability: 'Available now on iOS and Android.',
     tagline: 'A journal that remembers the moments, the moods, and who you spent them with.',
     lead:
       'DadTrack helps dads capture everyday moments with photos, voice-to-text, and moods, then turns them into scrapbook recaps you’ll actually reread. Keep a shelf of milestones, share a family timeline with your partner, and keep every memory private by default.',

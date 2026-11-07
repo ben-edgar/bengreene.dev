@@ -81,7 +81,7 @@ describe('DadTrack page', () => {
   it('renders the refreshed product story and every screenshot', () => {
     const markup = renderToStaticMarkup(<DadTrack />);
 
-    expect(markup).toContain('📱 The Dad Journaling App');
+    expect(markup).toContain('The dad journaling app');
     expect(markup).toContain(
       'A journal that remembers the moments, the moods, and who you spent them with.',
     );
@@ -127,8 +127,8 @@ describe('DadTrack page', () => {
   it('renders the paper sheet with an accessible screenshot lightbox trigger', () => {
     const markup = renderToStaticMarkup(<DadTrack />);
 
-    expect(markup).toContain('bg-[#f4efe6]');
-    expect(markup).toContain('What&#x27;s included');
+    expect(markup).toContain('page-sheet');
+    expect(markup).toContain('What’s included');
     expect(markup).toContain('Eight screens from version 1.4, as they look on an iPhone today.');
     expect(markup).toContain('type="button"');
     expect(markup).toContain('aria-label="Open A scrapbook family timeline screenshot"');
@@ -146,7 +146,7 @@ describe('DadTrack page', () => {
     expect(markup).toContain('Save photos to your library');
     expect(markup).toContain('Export anytime');
 
-    expect(markup).toContain('Why DadTrack Is Different');
+    expect(markup).toContain('Why DadTrack is different');
     expect(markup).toContain('Coming soon');
     expect(markup).toContain('What I’m building next.');
     expect(markup).toContain('Yearbooks');

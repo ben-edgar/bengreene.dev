@@ -46,14 +46,13 @@ vi.mock('@/components/Header', () => ({
 }));
 
 import { FeatureExplorer } from './FeatureExplorer';
-import { DADTRACK_FEATURES, DADTRACK_PAGE_THEME, PRODUCT_EXTRAS } from '@/lib/productContent';
+import { DADTRACK_FEATURES, PRODUCT_EXTRAS } from '@/lib/productContent';
 
 function render() {
   return renderToStaticMarkup(
     <FeatureExplorer
       features={DADTRACK_FEATURES}
       extras={PRODUCT_EXTRAS}
-      theme={DADTRACK_PAGE_THEME}
       onOpenLightbox={() => {}}
     />,
   );
@@ -88,13 +87,16 @@ describe('FeatureExplorer', () => {
   it('renders the paper sheet chrome, the enlarge hint and the extras', () => {
     const markup = render();
 
-    expect(markup).toContain('bg-[#f4efe6]');
-    expect(markup).toContain('What&#x27;s included');
+    expect(markup).toContain('page-sheet');
+    expect(markup).toContain('What’s included');
     expect(markup).toContain('Tap to enlarge');
     expect(markup).toContain('Also in the box');
     expect(markup).toContain('Voice-to-text');
     expect(markup).toContain('Export anytime');
-    expect(markup).toContain('focus-visible:ring-offset-[#f4efe6]');
+  });
+
+  it('draws feature icons as lucide glyphs, once per layout', () => {
+    expect(render().match(/lucide-flame/g)).toHaveLength(2);
   });
 
   it('shows the "New" tag exactly for the isNew features and extras', () => {

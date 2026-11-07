@@ -20,7 +20,7 @@ describe('Feedback route shell', () => {
     const markup = renderToStaticMarkup(<FeedbackPage />);
 
     expect(markup).toContain('Header');
-    expect(markup).toContain('Share Your Feedback');
+    expect(markup).toContain('Share your feedback');
     expect(markup).toContain('Loading the feedback form');
   });
 });

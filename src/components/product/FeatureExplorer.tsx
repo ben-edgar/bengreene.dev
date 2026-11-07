@@ -5,16 +5,24 @@ import Image from 'next/image';
 import {
   Baby,
   BellRing,
+  BookHeart,
+  CalendarHeart,
   ChevronLeft,
   ChevronRight,
   Cloud,
   FileArchive,
+  Flame,
   ImageDown,
   Images,
   LayoutGrid,
   Mic,
+  NotebookPen,
+  PenLine,
+  Search,
   Sparkles,
   SmilePlus,
+  Star,
+  Sticker,
   Tablet,
   Users,
   type LucideIcon,
@@ -25,9 +33,20 @@ import type {
   ProductExtra,
   ProductExtraIconKey,
   ProductFeature,
-  ProductPageTheme,
+  ProductFeatureIconKey,
 } from '@/lib/productContent';
 import { PHONE_OUTLINE_RADIUS, PhoneFrame } from './PhoneFrame';
+
+const FEATURE_ICONS: Record<ProductFeatureIconKey, LucideIcon> = {
+  timeline: BookHeart,
+  milestone: Star,
+  entry: NotebookPen,
+  composer: PenLine,
+  recap: CalendarHeart,
+  stickers: Sticker,
+  streak: Flame,
+  search: Search,
+};
 
 const EXTRA_ICONS: Record<ProductExtraIconKey, LucideIcon> = {
   mic: Mic,
@@ -44,14 +63,18 @@ const EXTRA_ICONS: Record<ProductExtraIconKey, LucideIcon> = {
   fileArchive: FileArchive,
 };
 
-function NewTag({ theme }: { theme: ProductPageTheme }) {
+function NewTag() {
   return (
-    <span
-      className={`ml-2 inline-block translate-y-[-2px] rounded-full px-2 py-0.5 align-middle font-sans text-xs font-semibold ${theme.paperAccentBg} ${theme.paperAccentText}`}
-    >
+    <span className="ml-2 inline-block translate-y-[-2px] rounded-sm bg-ink-accent/10 px-1.5 py-0.5 align-middle font-sans text-xs font-semibold text-ink-accent">
       New
     </span>
   );
+}
+
+function FeatureIcon({ iconKey, className }: { iconKey: ProductFeatureIconKey; className: string }) {
+  const Icon = FEATURE_ICONS[iconKey];
+
+  return <Icon className={className} aria-hidden="true" />;
 }
 
 function usePrefersReducedMotion(): boolean {
@@ -75,11 +98,10 @@ function usePrefersReducedMotion(): boolean {
 interface FeatureExplorerProps {
   features: ProductFeature[];
   extras: ProductExtra[];
-  theme: ProductPageTheme;
   onOpenLightbox: (index: number) => void;
 }
 
-export function FeatureExplorer({ features, extras, theme, onOpenLightbox }: FeatureExplorerProps) {
+export function FeatureExplorer({ features, extras, onOpenLightbox }: FeatureExplorerProps) {
   const prefersReducedMotion = usePrefersReducedMotion();
 
   // The desktop list and the mobile rail are separate DOM, so they keep
@@ -188,20 +210,13 @@ export function FeatureExplorer({ features, extras, theme, onOpenLightbox }: Fea
 
   const activeFeature = features[desktopIndex] ?? features[0];
 
-  const paperFocus = `focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[#f4efe6] ${theme.paperFocusRing}`;
-
   return (
-    <section className="relative px-4 py-16 sm:px-6 md:py-24 lg:px-8">
-      <div className="relative mx-auto max-w-7xl overflow-hidden rounded-3xl bg-[#f4efe6] text-slate-800 shadow-[0_40px_90px_-30px_rgba(0,0,0,0.85)] ring-1 ring-black/10 lg:rounded-[2rem]">
-        {/* Inner top highlight — the sheen of a paper card catching light. */}
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-white/70 to-transparent" />
-
-        <div className="relative px-5 py-10 sm:px-8 md:px-10 md:py-14 lg:px-12">
-          <header className="max-w-2xl text-center lg:text-left">
-            <h2 className="font-display text-3xl font-semibold text-slate-900 md:text-4xl">
-              What&apos;s included
-            </h2>
-            <p className="mt-3 text-[15px] leading-relaxed text-slate-600">
+    <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="page-sheet">
+        <div className="px-5 py-10 sm:px-8 md:px-10 md:py-14 lg:px-12">
+          <header className="max-w-2xl">
+            <h2 className="font-display text-4xl text-ink md:text-5xl">What’s included</h2>
+            <p className="mt-3 leading-relaxed text-ink-muted">
               Eight screens from version 1.4, as they look on an iPhone today.
             </p>
           </header>
@@ -223,24 +238,22 @@ export function FeatureExplorer({ features, extras, theme, onOpenLightbox }: Fea
                       type="button"
                       aria-pressed={isActive}
                       onClick={() => selectFromList(index)}
-                      className={`w-full rounded-2xl px-5 py-4 text-left transition-colors duration-200 ${paperFocus} ${
-                        isActive ? 'bg-white shadow-sm ring-1 ring-black/5' : 'bg-transparent hover:bg-white/60'
+                      className={`w-full rounded-md px-5 py-4 text-left text-ink transition-colors duration-200 ${
+                        isActive ? 'bg-paper-raised shadow-sm' : 'bg-transparent hover:bg-paper-raised/60'
                       }`}
                     >
                       <span className="flex items-start gap-4">
-                        <span aria-hidden="true" className="mt-0.5 text-2xl leading-none">
-                          {feature.icon}
-                        </span>
+                        <FeatureIcon iconKey={feature.iconKey} className="mt-1 h-5 w-5 shrink-0 text-ink-accent" />
                         <span className="block">
                           <span
-                            className={`block font-display text-xl font-semibold ${
-                              isActive ? theme.paperAccentText : 'text-slate-900'
+                            className={`block font-display text-2xl leading-tight ${
+                              isActive ? 'text-ink-accent' : 'text-ink'
                             }`}
                           >
                             {feature.title}
-                            {feature.isNew ? <NewTag theme={theme} /> : null}
+                            {feature.isNew ? <NewTag /> : null}
                           </span>
-                          <span className="mt-1 block text-[15px] leading-relaxed text-slate-700">
+                          <span className="mt-1 block text-[15px] leading-relaxed text-ink-muted">
                             {feature.description}
                           </span>
                         </span>
@@ -257,7 +270,7 @@ export function FeatureExplorer({ features, extras, theme, onOpenLightbox }: Fea
                 type="button"
                 aria-label={`Open ${activeFeature.title} screenshot`}
                 onClick={() => onOpenLightbox(desktopIndex)}
-                className={`block w-full cursor-zoom-in ${PHONE_OUTLINE_RADIUS} ${paperFocus}`}
+                className={`block w-full cursor-zoom-in ${PHONE_OUTLINE_RADIUS}`}
               >
                 <PhoneFrame sizes="340px">
                   {features.map((feature, index) => (
@@ -276,7 +289,7 @@ export function FeatureExplorer({ features, extras, theme, onOpenLightbox }: Fea
                   ))}
                 </PhoneFrame>
               </button>
-              <p className="mt-3 text-center text-sm text-slate-500">Tap to enlarge</p>
+              <p className="mt-3 text-center text-sm text-ink-muted">Tap to enlarge</p>
             </div>
           </div>
 
@@ -293,7 +306,7 @@ export function FeatureExplorer({ features, extras, theme, onOpenLightbox }: Fea
                     type="button"
                     aria-label={`Open ${feature.title} screenshot`}
                     onClick={() => onOpenLightbox(index)}
-                    className={`block w-full cursor-zoom-in ${PHONE_OUTLINE_RADIUS} ${paperFocus}`}
+                    className={`block w-full cursor-zoom-in ${PHONE_OUTLINE_RADIUS}`}
                   >
                     <PhoneFrame
                       src={getAssetPath(feature.image)}
@@ -302,14 +315,15 @@ export function FeatureExplorer({ features, extras, theme, onOpenLightbox }: Fea
                       sizes="(min-width: 768px) 320px, 78vw"
                     />
                   </button>
-                  <h3 className="mt-4 font-display text-lg font-semibold text-slate-900">
-                    <span aria-hidden="true" className="mr-2">
-                      {feature.icon}
-                    </span>
+                  <h3 className="mt-4 font-display text-2xl leading-tight text-ink">
+                    <FeatureIcon
+                      iconKey={feature.iconKey}
+                      className="mr-2 inline h-5 w-5 -translate-y-0.5 text-ink-accent"
+                    />
                     {feature.title}
-                    {feature.isNew ? <NewTag theme={theme} /> : null}
+                    {feature.isNew ? <NewTag /> : null}
                   </h3>
-                  <p className="mt-1 text-[15px] leading-relaxed text-slate-700">{feature.description}</p>
+                  <p className="mt-1 text-[15px] leading-relaxed text-ink-muted">{feature.description}</p>
                 </div>
               ))}
             </div>
@@ -319,7 +333,7 @@ export function FeatureExplorer({ features, extras, theme, onOpenLightbox }: Fea
                 type="button"
                 aria-label="Previous screen"
                 onClick={() => scrollRailTo(railIndex - 1)}
-                className={`flex h-11 w-11 items-center justify-center rounded-full text-slate-600 transition-colors hover:bg-white/70 ${paperFocus}`}
+                className="flex h-11 w-11 items-center justify-center rounded-full text-ink-muted transition-colors hover:bg-paper-raised"
               >
                 <ChevronLeft className="h-5 w-5" aria-hidden="true" />
               </button>
@@ -332,8 +346,8 @@ export function FeatureExplorer({ features, extras, theme, onOpenLightbox }: Fea
                     aria-label={`Go to ${feature.title}`}
                     aria-current={index === railIndex ? 'true' : undefined}
                     onClick={() => scrollRailTo(index)}
-                    className={`h-2 rounded-full transition-all duration-200 ${paperFocus} ${
-                      index === railIndex ? `w-6 ${theme.paperAccentSolid}` : 'w-2 bg-slate-900/20'
+                    className={`h-2 rounded-full transition-all duration-200 ${
+                      index === railIndex ? 'w-6 bg-ink-accent' : 'w-2 bg-ink/20'
                     }`}
                   />
                 ))}
@@ -343,14 +357,14 @@ export function FeatureExplorer({ features, extras, theme, onOpenLightbox }: Fea
                 type="button"
                 aria-label="Next screen"
                 onClick={() => scrollRailTo(railIndex + 1)}
-                className={`flex h-11 w-11 items-center justify-center rounded-full text-slate-600 transition-colors hover:bg-white/70 ${paperFocus}`}
+                className="flex h-11 w-11 items-center justify-center rounded-full text-ink-muted transition-colors hover:bg-paper-raised"
               >
                 <ChevronRight className="h-5 w-5" aria-hidden="true" />
               </button>
             </div>
           </div>
 
-          <ExtrasGrid extras={extras} theme={theme} />
+          <ExtrasGrid extras={extras} />
         </div>
       </div>
     </section>
@@ -359,26 +373,25 @@ export function FeatureExplorer({ features, extras, theme, onOpenLightbox }: Fea
 
 interface ExtrasGridProps {
   extras: ProductExtra[];
-  theme: ProductPageTheme;
 }
 
-export function ExtrasGrid({ extras, theme }: ExtrasGridProps) {
+export function ExtrasGrid({ extras }: ExtrasGridProps) {
   return (
-    <div className="mt-12 border-t border-black/10 pt-10 md:mt-16">
-      <h3 className="font-display text-2xl font-semibold text-slate-900">Also in the box</h3>
+    <div className="mt-12 border-t border-ink/10 pt-10 md:mt-16">
+      <h3 className="font-display text-3xl text-ink">Also in the box</h3>
       <dl className="mt-6 grid gap-x-8 gap-y-4 sm:grid-cols-2 lg:grid-cols-3">
         {extras.map((extra) => {
           const Icon = EXTRA_ICONS[extra.iconKey];
 
           return (
             <div key={extra.label} className="flex items-start gap-3">
-              <Icon className={`mt-0.5 h-5 w-5 shrink-0 ${theme.paperAccentText}`} aria-hidden="true" />
+              <Icon className="mt-0.5 h-5 w-5 shrink-0 text-ink-accent" aria-hidden="true" />
               <div>
-                <dt className="text-[15px] font-semibold text-slate-900">
+                <dt className="text-[15px] font-semibold text-ink">
                   {extra.label}
-                  {extra.isNew ? <NewTag theme={theme} /> : null}
+                  {extra.isNew ? <NewTag /> : null}
                 </dt>
-                <dd className="text-[15px] leading-relaxed text-slate-600">{extra.detail}</dd>
+                <dd className="text-[15px] leading-relaxed text-ink-muted">{extra.detail}</dd>
               </div>
             </div>
           );

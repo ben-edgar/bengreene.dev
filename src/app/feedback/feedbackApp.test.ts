@@ -18,7 +18,7 @@ describe('feedback app helpers', () => {
     expect(parseFeedbackAppParam('momtrack')).toBe('momtrack');
   });
 
-  it('defines app-specific feedback copy and styling hooks', () => {
+  it('defines app-specific feedback copy', () => {
     expect(feedbackCopyByApp.dadtrack.subtitle).toBe(
       'Help us build the best dad journaling app',
     );
@@ -27,15 +27,6 @@ describe('feedback app helpers', () => {
       'MomTrack is now live',
     );
     expect(feedbackCopyByApp.momtrack.body).not.toContain('beta');
-    expect(feedbackCopyByApp.momtrack.submitButtonClass).toContain(
-      'from-[#e8746e]',
-    );
-    expect(feedbackCopyByApp.momtrack.submittingButtonClass).toContain(
-      'bg-[#9e2b3c]',
-    );
-    expect(feedbackCopyByApp.momtrack.submittingButtonClass).not.toContain(
-      'bg-teal-700',
-    );
   });
 
   it('builds a typed feedback submission payload with app context', () => {

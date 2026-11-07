@@ -204,12 +204,12 @@ export function ImageLightbox({
           {/* Caption */}
           {hasCaption && (
             <div
-              className="w-full shrink-0 self-center rounded-t-2xl bg-slate-900/95 px-5 pb-[max(1rem,env(safe-area-inset-bottom))] pt-4 text-white ring-1 ring-white/10 md:max-w-2xl lg:w-[22rem] lg:rounded-2xl lg:p-6 xl:w-[24rem]"
+              className="w-full shrink-0 self-center rounded-t-2xl bg-cloth-deep px-5 pb-[max(1rem,env(safe-area-inset-bottom))] pt-4 text-white ring-1 ring-white/10 md:max-w-2xl lg:w-[22rem] lg:rounded-2xl lg:p-6 xl:w-[24rem]"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex items-start justify-between gap-3">
                 {currentImage.title && (
-                  <h3 className="font-display text-lg font-semibold leading-snug lg:text-2xl">
+                  <h3 className="font-display text-2xl leading-snug lg:text-3xl">
                     {currentImage.title}
                   </h3>
                 )}

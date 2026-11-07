@@ -2,10 +2,11 @@
 
 import { FormEvent, useState } from 'react';
 import confetti from 'canvas-confetti';
-import { motion } from 'framer-motion';
 import { useSearchParams } from 'next/navigation';
 
+import { Button } from '@/components/Button';
 import { Header } from '@/components/Header';
+import { confettiColors } from '@/lib/confetti';
 import { submitToGoogleSheet } from '@/lib/formSubmit';
 import {
   buildFeedbackSubmissionPayload,
@@ -13,6 +14,11 @@ import {
   parseFeedbackAppParam,
   type FeedbackApp,
 } from './feedbackApp';
+
+const FIELD_STYLES =
+  'w-full rounded-md border border-ink/25 bg-paper-raised px-4 py-3 text-ink placeholder-ink-muted transition-colors duration-200 focus:border-ink-accent focus:outline-2 focus:outline-offset-0 focus:outline-ink-accent';
+
+const LABEL_STYLES = 'block text-sm font-medium text-ink';
 
 export default function FeedbackContent() {
   const searchParams = useSearchParams();
@@ -103,11 +109,13 @@ export default function FeedbackContent() {
         });
         setFormData({ name: '', email: '', comment: '', website: '' });
 
+        const colors = confettiColors(app);
+
         confetti({
           particleCount: 100,
           spread: 70,
           origin: { y: 0.6 },
-          colors: ['#0ea5e9', '#3b82f6', '#6366f1', '#8b5cf6', '#ec4899'],
+          colors,
         });
 
         setTimeout(() => {
@@ -116,7 +124,7 @@ export default function FeedbackContent() {
             angle: 60,
             spread: 55,
             origin: { x: 0 },
-            colors: ['#0ea5e9', '#3b82f6', '#6366f1'],
+            colors,
           });
         }, 250);
 
@@ -126,7 +134,7 @@ export default function FeedbackContent() {
             angle: 120,
             spread: 55,
             origin: { x: 1 },
-            colors: ['#8b5cf6', '#ec4899', '#f43f5e'],
+            colors,
           });
         }, 400);
       } else {
@@ -146,62 +154,37 @@ export default function FeedbackContent() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div data-brand={app} className="flex min-h-screen flex-col">
       <Header />
 
-      <main className="relative flex-1">
-        <div className="pointer-events-none absolute inset-0 overflow-hidden">
-          <div className="absolute top-1/4 left-1/2 h-[700px] w-[700px] -translate-x-1/2 rounded-full bg-purple-500/5 blur-3xl" />
-          <div className="absolute right-1/4 bottom-0 h-[400px] w-[400px] rounded-full bg-teal-500/5 blur-3xl" />
-        </div>
+      <main className="flex-1">
+        <section className="mx-auto grid max-w-7xl gap-12 px-4 py-14 sm:px-6 md:py-20 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:gap-16 lg:px-8">
+          <div>
+            <h1 className="font-display text-[clamp(3.5rem,7vw,5.5rem)] leading-[0.98] tracking-[-0.02em]">
+              Share your feedback
+            </h1>
+            <p className="mt-6 font-display text-[1.75rem] italic leading-tight">{copy.subtitle}</p>
+            <p className="mt-4 max-w-[34rem] text-lg leading-relaxed text-on-cloth-muted">{copy.body}</p>
+            <p className="mt-6 max-w-[34rem] leading-relaxed text-on-cloth-muted">
+              We read every piece of feedback and appreciate your input. We&apos;ll get back to you as
+              soon as possible.
+            </p>
+          </div>
 
-        <section className="relative mx-auto max-w-2xl px-4 py-20 sm:px-6 md:py-32 lg:px-8">
-          <div className="space-y-10">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="space-y-4 text-center"
-            >
-              <div className="mb-2 inline-flex items-center gap-2 rounded-full border border-purple-500/20 bg-purple-500/10 px-3 py-1.5 text-sm font-medium text-purple-400">
-                Share Your Thoughts
-              </div>
-              <h1 className="text-5xl font-bold text-white md:text-6xl">
-                Share Your{' '}
-                <span className="bg-gradient-to-r from-purple-400 via-blue-400 to-teal-400 bg-clip-text text-transparent">
-                  Feedback
-                </span>
-              </h1>
-              <p className="text-xl font-medium text-slate-300">
-                {copy.subtitle}
-              </p>
-              <p className="text-lg leading-relaxed text-slate-400">
-                {copy.body}
-              </p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.2 }}
-              className="rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur-xl"
-            >
+          <div className="page-sheet p-6 sm:p-10">
               <div
                 aria-label="Choose app for feedback"
-                className="mb-6 grid grid-cols-2 gap-2 rounded-2xl bg-black/20 p-1"
+                className="mb-7 grid grid-cols-2 gap-1 rounded-lg bg-ink/5 p-1"
                 role="group"
               >
                 {(['dadtrack', 'momtrack'] as const).map((appOption) => {
                   const isSelected = app === appOption;
-                  const optionCopy = feedbackCopyByApp[appOption];
 
                   return (
                     <button
                       aria-pressed={isSelected}
-                      className={`rounded-xl px-4 py-3 text-sm font-semibold transition-all duration-200 ${
-                        isSelected
-                          ? optionCopy.activePillClass
-                          : optionCopy.inactivePillClass
+                      className={`rounded-md px-4 py-2.5 text-sm font-semibold transition-colors duration-200 ${
+                        isSelected ? 'bg-ink-accent text-paper-raised' : 'text-ink-muted hover:text-ink'
                       }`}
                       key={appOption}
                       onClick={() => setApp(appOption)}
@@ -217,9 +200,9 @@ export default function FeedbackContent() {
                 <div className="space-y-2">
                   <label
                     htmlFor="feedback-name"
-                    className="block text-sm font-medium text-slate-300"
+                    className={LABEL_STYLES}
                   >
-                    Name <span className="text-red-400">*</span>
+                    Name <span className="text-ink-accent">*</span>
                   </label>
                   <input
                     id="feedback-name"
@@ -229,19 +212,19 @@ export default function FeedbackContent() {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-slate-100 placeholder-slate-500 transition-all duration-200 focus:border-teal-500/50 focus:ring-1 focus:ring-teal-500/30 focus:outline-none"
+                    className={FIELD_STYLES}
                   />
                   {errors.name && (
-                    <p className="text-sm text-red-400">{errors.name}</p>
+                    <p className="text-sm text-red-800">{errors.name}</p>
                   )}
                 </div>
 
                 <div className="space-y-2">
                   <label
                     htmlFor="feedback-email"
-                    className="block text-sm font-medium text-slate-300"
+                    className={LABEL_STYLES}
                   >
-                    Email <span className="text-red-400">*</span>
+                    Email <span className="text-ink-accent">*</span>
                   </label>
                   <input
                     id="feedback-email"
@@ -251,19 +234,19 @@ export default function FeedbackContent() {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-slate-100 placeholder-slate-500 transition-all duration-200 focus:border-teal-500/50 focus:ring-1 focus:ring-teal-500/30 focus:outline-none"
+                    className={FIELD_STYLES}
                   />
                   {errors.email && (
-                    <p className="text-sm text-red-400">{errors.email}</p>
+                    <p className="text-sm text-red-800">{errors.email}</p>
                   )}
                 </div>
 
                 <div className="space-y-2">
                   <label
                     htmlFor="feedback-comment"
-                    className="block text-sm font-medium text-slate-300"
+                    className={LABEL_STYLES}
                   >
-                    Your Feedback <span className="text-red-400">*</span>
+                    Your feedback <span className="text-ink-accent">*</span>
                   </label>
                   <textarea
                     id="feedback-comment"
@@ -273,10 +256,10 @@ export default function FeedbackContent() {
                     onChange={handleChange}
                     rows={6}
                     required
-                    className="w-full resize-none rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-slate-100 placeholder-slate-500 transition-all duration-200 focus:border-teal-500/50 focus:ring-1 focus:ring-teal-500/30 focus:outline-none"
+                    className={`resize-none ${FIELD_STYLES}`}
                   />
                   {errors.comment && (
-                    <p className="text-sm text-red-400">{errors.comment}</p>
+                    <p className="text-sm text-red-800">{errors.comment}</p>
                   )}
                 </div>
 
@@ -292,50 +275,25 @@ export default function FeedbackContent() {
                 />
 
                 {submitStatus.type === 'success' && (
-                  <div className="rounded-xl border border-green-800/50 bg-green-950/50 p-4">
-                    <p className="font-medium text-green-300">
+                  <div role="status" className="rounded-md border border-green-800/30 bg-green-800/10 p-4">
+                    <p className="font-medium text-green-900">
                       {submitStatus.message}
                     </p>
                   </div>
                 )}
 
                 {submitStatus.type === 'error' && (
-                  <div className="rounded-xl border border-red-800/50 bg-red-950/50 p-4">
-                    <p className="font-medium text-red-300">
+                  <div role="alert" className="rounded-md border border-red-800/30 bg-red-800/10 p-4">
+                    <p className="font-medium text-red-900">
                       {submitStatus.message}
                     </p>
                   </div>
                 )}
 
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className={`group relative w-full overflow-hidden rounded-xl px-6 py-4 font-semibold text-white transition-all duration-300 ${
-                    isSubmitting
-                      ? copy.submittingButtonClass
-                      : copy.submitButtonClass
-                  }`}
-                >
-                  <span className="relative z-10">
-                    {isSubmitting ? 'Submitting...' : 'Submit Feedback'}
-                  </span>
-                </button>
+                <Button type="submit" surface="paper" size="lg" fullWidth disabled={isSubmitting}>
+                  {isSubmitting ? 'Submitting...' : 'Submit feedback'}
+                </Button>
               </form>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.5 }}
-              className="space-y-2 text-center"
-            >
-              <p className="text-slate-400">
-                We read every piece of feedback and appreciate your input.
-              </p>
-              <p className="text-sm text-slate-500">
-                We&apos;ll get back to you as soon as possible.
-              </p>
-            </motion.div>
           </div>
         </section>
       </main>

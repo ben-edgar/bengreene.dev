@@ -42,7 +42,16 @@ All pages are pre-rendered at build time. This means:
 The React Compiler (`reactCompiler: true` in `next.config.ts`) automatically memoizes components where beneficial. This improves performance without manual optimization.
 
 ### Styling
-TailwindCSS v4 with PostCSS. Dark mode support should be implemented using Tailwind's `dark:` variant system.
+TailwindCSS v4 with PostCSS. The design tokens live in `src/app/globals.css`.
+
+The site is bound like the yearbooks the apps print: a cloth shell with paper sheets on top (`.page-sheet`). Use the tokens (`bg-cloth`, `text-on-cloth-muted`, `text-ink`, `text-ink-accent`) rather than raw colors, and keep emoji out of the copy (`src/lib/noEmoji.test.ts` enforces this).
+
+- `data-brand="momtrack"` on a page element re-covers the whole document in the MomTrack wine cloth.
+- `data-tone="momtrack"` re-colors one element, for MomTrack content on a spruce page.
+- Display type is Instrument Serif and handwriting is Caveat, matching the apps. Instrument Serif has one weight, so never pair `font-display` with a bold utility.
+
+### Favicons
+Keep the site favicon in `public/`, not `src/app/`. Next prepends an `app/favicon.ico` to every route's icons, which would put the DadTrack icon ahead of the MomTrack icons that `src/app/momtrack/layout.tsx` sets.
 
 ## Page Structure
 
@@ -85,8 +94,8 @@ Each page requires:
 ### Responsive Design
 Target desktop, tablet, and mobile. Use TailwindCSS responsive prefixes (`md:`, `lg:`, etc.).
 
-### Dark Mode
-Implement dark mode toggle in settings/header. Store preference in localStorage. Use Tailwind's `dark:` variant for styles.
+### Color Scheme
+The site has one look, the cloth and paper system described under Styling. There is no light and dark toggle.
 
 ### Performance & Animation
 - Prioritize speed and clarity over animations

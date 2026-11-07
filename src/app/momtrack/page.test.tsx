@@ -1,4 +1,6 @@
 import React, { forwardRef } from 'react';
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it, vi } from 'vitest';
 
@@ -66,7 +68,11 @@ vi.mock('@/components/Header', () => ({
 
 import MomTrackLayout, { metadata } from './layout';
 import MomTrack from './page';
-import { MOMTRACK_APP_STORE_URL, SITE_CANONICAL_URL } from '@/lib/constants';
+import {
+  MOMTRACK_APP_STORE_URL,
+  MOMTRACK_SHARE_IMAGE,
+  SITE_CANONICAL_URL,
+} from '@/lib/constants';
 
 const metadataDescription =
   'MomTrack is the mom-focused journaling app for capturing memories, moods, and milestones. Now available to download on the App Store.';
@@ -84,7 +90,7 @@ describe('MomTrack product route', () => {
     expect(metadata.openGraph?.images).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
-          url: '/opengraph-image.png',
+          url: MOMTRACK_SHARE_IMAGE,
         }),
       ]),
     );
@@ -92,7 +98,7 @@ describe('MomTrack product route', () => {
     expect(metadata.twitter?.title).toBe('MomTrack — Mom Journaling App');
     expect(metadata.twitter?.description).toBe(metadataDescription);
     expect(metadata.twitter?.images).toEqual(
-      expect.arrayContaining(['/twitter-image.png']),
+      expect.arrayContaining([MOMTRACK_SHARE_IMAGE]),
     );
 
     expect(
@@ -104,15 +110,48 @@ describe('MomTrack product route', () => {
     ).toContain('MomTrack child content');
   });
 
+  it('uses MomTrack art for every icon and link preview, never the DadTrack defaults', () => {
+    const icons = metadata.icons as {
+      apple: Array<{ url: string }>;
+      icon: Array<{ url: string }>;
+      shortcut: string[];
+    };
+    const urls = [
+      ...icons.icon.map((icon) => icon.url),
+      ...icons.apple.map((icon) => icon.url),
+      ...icons.shortcut,
+    ];
+
+    expect(icons.icon.length).toBeGreaterThan(0);
+    expect(icons.apple.length).toBeGreaterThan(0);
+    expect(icons.shortcut.length).toBeGreaterThan(0);
+
+    for (const url of urls) {
+      expect(url).toMatch(/^\/images\/momtrack\/icons\//);
+      expect(existsSync(join(process.cwd(), 'public', url))).toBe(true);
+    }
+
+    expect(existsSync(join(process.cwd(), 'public', MOMTRACK_SHARE_IMAGE))).toBe(true);
+    expect(renderToStaticMarkup(<MomTrack />)).toContain(
+      `${SITE_CANONICAL_URL}${MOMTRACK_SHARE_IMAGE}`,
+    );
+  });
+
+  it('keeps the site favicon out of the app directory', () => {
+    // Next prepends app/favicon.ico to every route's icons, even when a route sets its
+    // own, so leaving it there would put the DadTrack icon ahead of MomTrack's.
+    expect(existsSync(join(process.cwd(), 'src/app/favicon.ico'))).toBe(false);
+    expect(existsSync(join(process.cwd(), 'public/favicon.ico'))).toBe(true);
+  });
+
   it('renders the MomTrack live product story and screenshots', () => {
     const markup = renderToStaticMarkup(<MomTrack />);
 
-    expect(markup).toContain('The Mom Journaling App');
-    expect(markup).toContain('Now Available');
-    expect(markup).toContain('Download MomTrack on the App Store');
-    expect(markup).toContain('from-[#e8746e]');
-    expect(markup).toContain('to-[#9e2b3c]');
-    expect(markup).not.toContain('bg-primary-600');
+    expect(markup).toContain('The mom journaling app');
+    expect(markup).toContain('Available now on the App Store.');
+    expect(markup).toContain('aria-label="Download on the App Store: MomTrack"');
+    expect(markup).toContain('data-brand="momtrack"');
+    expect(markup).toContain('data-tone="momtrack"');
     expect(markup).toContain(MOMTRACK_APP_STORE_URL);
     expect(markup).not.toContain('TestFlight');
     expect(markup).not.toContain('beta testing');
@@ -148,8 +187,8 @@ describe('MomTrack product route', () => {
     expect(markup).toContain('MomTrack helps moms capture everyday moments');
     expect(markup).toContain('type="button"');
     expect(markup).toContain('aria-label="Open A scrapbook family timeline screenshot"');
-    expect(markup).toContain('Why MomTrack Is Different');
-    expect(markup).toContain('Mom-Focused');
+    expect(markup).toContain('Why MomTrack is different');
+    expect(markup).toContain('Mom-focused');
     expect(markup).toContain('/feedback?app=momtrack');
     expect(markup).toContain('Have feedback?');
     expect(markup).toContain('data-next-link="true"');
@@ -166,8 +205,8 @@ describe('MomTrack product route', () => {
   it('renders the paper sheet, the extras and the Yearbooks coming-soon card', () => {
     const markup = renderToStaticMarkup(<MomTrack />);
 
-    expect(markup).toContain('bg-[#f4efe6]');
-    expect(markup).toContain('What&#x27;s included');
+    expect(markup).toContain('page-sheet');
+    expect(markup).toContain('What’s included');
     expect(markup).toContain('Tap to enlarge');
     expect(markup).toContain('Also in the box');
     expect(markup).toContain('Save photos to your library');

@@ -1,85 +1,58 @@
-import React from 'react';
 import { Button } from '@/components/Button';
-import { ArrowRight, Sparkles } from 'lucide-react';
+import { Polaroid } from '@/components/Polaroid';
 
-const HeroSection = () => {
+const POLAROID_SIZES = '(min-width: 1024px) 320px, 46vw';
+
+export default function HeroSection() {
     return (
-        <div className="relative min-h-screen w-full overflow-hidden flex items-center justify-center bg-slate-950 px-4 sm:px-6 lg:px-8">
-            {/* Animated background gradients */}
-            <div className="absolute inset-0 bg-slate-950">
-                <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl animate-pulse" />
-                <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse delay-700" />
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-purple-500/10 rounded-full blur-3xl animate-pulse delay-1000" />
-            </div>
-
-            {/* Grid pattern overlay */}
-            <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
-
-            {/* Glow effects */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-teal-500/50 to-transparent" />
-
-            {/* Content */}
-            <div className="relative z-10 max-w-5xl mx-auto text-center mt-20">
-                {/* Title with gradient */}
-                <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-4 animate-[fade-in-up_0.8s_ease-out_forwards]">
-                    <span className="text-slate-50">
-                        Ben Greene
-                    </span>
-                    <br className="my-2 block" />
-                    <span className="bg-gradient-to-r from-teal-400 via-blue-400 to-purple-400 bg-clip-text text-transparent animate-[gradient_8s_ease_infinite] bg-[length:200%_200%] pb-2">
-                        Portfolio
-                    </span>
+        <section className="mx-auto grid max-w-7xl items-center gap-14 px-4 pb-20 pt-12 sm:px-6 md:pb-28 md:pt-20 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-10 lg:px-8">
+            <div>
+                <h1 className="font-display text-[clamp(4.25rem,11vw,9rem)] leading-[0.92] tracking-[-0.02em]">
+                    Ben Greene
                 </h1>
-
-                {/* Subtitle — mirrors deployed site */}
-                <p className="text-xl md:text-2xl font-semibold text-slate-300 mb-8 animate-[fade-in-up_0.8s_ease-out_0.15s_forwards]">
-                    Engineering Leader &amp; Builder
+                <p className="mt-5 font-display text-2xl italic text-on-cloth md:text-[2rem] md:leading-tight">
+                    Engineering leader, builder, dad.
                 </p>
-
-                {/* Bio */}
-                <p className="text-lg md:text-xl text-slate-400 mb-12 max-w-2xl mx-auto leading-relaxed animate-[fade-in-up_0.8s_ease-out_0.3s_forwards]">
-                    Professional engineering leader passionate about building effective teams, shipping software, and mentoring engineers.
+                <p className="mt-6 max-w-[34rem] text-lg leading-relaxed text-on-cloth-muted">
+                    I build effective teams, ship software, and mentor engineers. Outside of work,
+                    I make DadTrack and MomTrack, journaling apps for parents.
                 </p>
-
-                {/* CTA Buttons */}
-                <div className="flex w-full max-w-md mx-auto flex-col items-stretch gap-4 mb-16 animate-[fade-in-up_0.8s_ease-out_0.4s_forwards] sm:max-w-none sm:flex-row sm:items-center sm:justify-center">
-                    <Button
-                        size="lg"
-                        href="/about"
-                        mobileFullWidth
-                        className="group relative overflow-hidden bg-teal-600 text-white hover:bg-teal-500 px-8 py-6 text-lg"
-                    >
-                        <span className="relative z-10 flex items-center gap-2">
-                            About Me
-                            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                        </span>
-                        <div className="absolute inset-0 bg-gradient-to-r from-teal-500 via-blue-500 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="mt-9 flex flex-wrap gap-3">
+                    <Button href="/about" size="lg">
+                        About me
                     </Button>
-
                     <Button
-                        size="lg"
-                        variant="secondary"
                         href="https://github.com/ben-edgar"
-                        mobileFullWidth
+                        variant="secondary"
+                        size="lg"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="border-white/10 bg-white/5 hover:bg-white/10 hover:text-white px-8 py-6 text-lg backdrop-blur-sm"
                     >
                         GitHub
                     </Button>
                 </div>
-
             </div>
 
-            {/* Floating elements */}
-            <div className="absolute top-32 left-10 w-20 h-20 border border-teal-500/20 rounded-lg rotate-12 animate-[float_6s_ease-in-out_infinite]" />
-            <div className="absolute bottom-32 right-10 w-16 h-16 border border-purple-500/20 rounded-full animate-[float_6s_ease-in-out_infinite] [animation-delay:0.5s]" />
-            <div className="absolute top-1/2 right-20 w-12 h-12 border border-blue-500/20 rounded-lg -rotate-12 animate-[float_6s_ease-in-out_infinite] [animation-delay:1s]" />
-
-            {/* Bottom gradient fade */}
-            <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-slate-950 to-transparent pointer-events-none" />
-        </div>
+            <div className="relative mx-auto aspect-[10/8] w-full max-w-[36rem]">
+                <Polaroid
+                    src="/images/shared/polaroid-dadtrack.webp"
+                    caption="DadTrack"
+                    href="/dadtrack"
+                    tilt={-6}
+                    sizes={POLAROID_SIZES}
+                    className="absolute left-[2%] top-[2%] z-10 w-[51%] lg:left-0 lg:w-[53%]"
+                />
+                <Polaroid
+                    src="/images/shared/polaroid-momtrack.webp"
+                    caption="MomTrack"
+                    href="/momtrack"
+                    tilt={5}
+                    tone="momtrack"
+                    landingDelayMs={140}
+                    sizes={POLAROID_SIZES}
+                    className="absolute bottom-[2%] right-[2%] z-20 w-[51%] lg:right-0 lg:w-[53%]"
+                />
+            </div>
+        </section>
     );
-};
-
-export default HeroSection;
+}

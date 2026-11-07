@@ -2,7 +2,6 @@ import { describe, expect, it } from 'vitest';
 
 import {
   DADTRACK_FEATURES,
-  DADTRACK_HOME_SHOWCASE_SCREENSHOTS,
   DADTRACK_KEY_POINTS,
   DADTRACK_PAGE_THEME,
   MOMTRACK_FEATURES,
@@ -112,20 +111,11 @@ describe('product content', () => {
     const allImages = [
       ...DADTRACK_FEATURES,
       ...MOMTRACK_FEATURES,
-      ...DADTRACK_HOME_SHOWCASE_SCREENSHOTS.map((screenshot) => ({ image: screenshot.src })),
     ].map((entry) => entry.image);
 
     for (const file of RETIRED_SCREENSHOT_FILES) {
       expect(allImages.some((image) => image.endsWith(`/${file}.webp`))).toBe(false);
     }
-  });
-
-  it('defines the three DadTrack home showcase screenshots', () => {
-    expect(DADTRACK_HOME_SHOWCASE_SCREENSHOTS.map((screenshot) => screenshot.src)).toEqual([
-      '/images/dadtrack/01-home-feed.webp',
-      '/images/dadtrack/02-milestone-tracker.webp',
-      '/images/dadtrack/05-monthly-recap.webp',
-    ]);
   });
 
   it('lists twelve extras, flagging only widgets and iPad support as new', () => {
@@ -165,7 +155,7 @@ describe('product content', () => {
     expect(DADTRACK_KEY_POINTS).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
-          title: 'Private by Default',
+          title: 'Private by default',
           description: expect.stringContaining('Local-first with no ads and no tracking'),
         }),
       ]),
@@ -176,53 +166,38 @@ describe('product content', () => {
     expect(MOMTRACK_KEY_POINTS).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
-          title: 'Mom-Focused',
+          title: 'Mom-focused',
         }),
         expect.objectContaining({
-          title: 'Private by Default',
+          title: 'Private by default',
           description: expect.stringContaining('it only ever sees your text, never your photos'),
         }),
       ]),
     );
   });
 
-  it('defines literal Tailwind classes for the MomTrack showcase theme', () => {
-    expect(MOMTRACK_PAGE_THEME.showcaseThemeClasses).toEqual({
-      text: 'text-[#e8746e]',
-      indicatorActive: 'bg-gradient-to-r from-[#e8746e] to-[#9e2b3c]',
-      primaryGlow: 'bg-rose-500/20',
-      secondaryGlow: 'bg-red-700/20',
-      backgroundPrimaryGlow: 'bg-rose-500/5',
-      backgroundSecondaryGlow: 'bg-red-700/5',
-    });
-  });
-
-  it('defines literal Tailwind classes for the DadTrack showcase theme', () => {
-    expect(DADTRACK_PAGE_THEME.showcaseThemeClasses).toEqual({
-      text: 'text-teal-400',
-      indicatorActive: 'bg-gradient-to-r from-teal-400 to-blue-500',
-      primaryGlow: 'bg-teal-500/20',
-      secondaryGlow: 'bg-purple-500/20',
-      backgroundPrimaryGlow: 'bg-teal-500/5',
-      backgroundSecondaryGlow: 'bg-purple-500/5',
-    });
-  });
-
-  it('defines literal paper-sheet accent classes for both themes', () => {
-    expect(DADTRACK_PAGE_THEME.paperAccentText).toBe('text-teal-700');
-    expect(DADTRACK_PAGE_THEME.phoneGlow).toBe('bg-teal-400/25');
-    expect(MOMTRACK_PAGE_THEME.paperAccentText).toBe('text-[#9e2b3c]');
-    expect(MOMTRACK_PAGE_THEME.phoneGlow).toBe('bg-[#e8746e]/25');
+  it('gives each brand its own cloth', () => {
+    expect(DADTRACK_PAGE_THEME.brand).toBe('dadtrack');
+    expect(MOMTRACK_PAGE_THEME.brand).toBe('momtrack');
+    expect(DADTRACK_PAGE_THEME.bookCloth).not.toBe(MOMTRACK_PAGE_THEME.bookCloth);
   });
 
   it('no longer exports the retired odd-grid helper', () => {
     expect('getOddFinalGridItemClass' in productContent).toBe(false);
   });
 
-  it('defines the MomTrack download CTA using the App Store URL', () => {
-    expect(productContent.MOMTRACK_DOWNLOAD_CTA).toEqual({
-      label: 'Download MomTrack on the App Store',
+  it('defines the MomTrack store CTA using the App Store URL', () => {
+    expect(productContent.MOMTRACK_STORE_CTA).toMatchObject({
+      key: 'ios',
+      buttonLabel: 'Download on the App Store: MomTrack',
       href: constants.MOMTRACK_APP_STORE_URL,
     });
   });
+
+  it('gives every feature its own icon', () => {
+    for (const features of [DADTRACK_FEATURES, MOMTRACK_FEATURES]) {
+      expect(new Set(features.map((feature) => feature.iconKey)).size).toBe(features.length);
+    }
+  });
+
 });

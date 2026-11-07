@@ -73,15 +73,15 @@ export default function Get() {
   }, [platform]);
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center gap-6 bg-slate-950 px-6 text-center">
+    <main className="flex min-h-screen flex-col items-center justify-center gap-6 px-6 text-center">
       <div
         aria-hidden="true"
-        className="h-10 w-10 animate-spin rounded-full border-2 border-slate-700 border-t-teal-400"
+        className="h-10 w-10 animate-spin rounded-full border-2 border-on-cloth/20 border-t-accent motion-reduce:animate-none"
       />
 
       <div className="space-y-2">
-        <h1 className="text-xl font-semibold text-slate-100">Opening DadTrack…</h1>
-        <p className="text-sm text-slate-400" role="status">
+        <h1 className="font-display text-3xl">Opening DadTrack…</h1>
+        <p className="text-sm text-on-cloth-muted" role="status">
           Taking you to the right store for your device.
         </p>
       </div>
@@ -91,14 +91,14 @@ export default function Get() {
       {destination ? (
         destination.isStore ? (
           <a
-            className="text-sm font-medium text-teal-400 underline underline-offset-4 hover:text-teal-300"
+            className="text-sm font-medium text-accent underline underline-offset-4 hover:text-on-cloth"
             href={destination.href}
           >
             {destination.label}
           </a>
         ) : (
           <Link
-            className="text-sm font-medium text-teal-400 underline underline-offset-4 hover:text-teal-300"
+            className="text-sm font-medium text-accent underline underline-offset-4 hover:text-on-cloth"
             href={destination.href}
           >
             {destination.label}
@@ -106,7 +106,7 @@ export default function Get() {
         )
       ) : (
         <Link
-          className="text-sm font-medium text-teal-400 underline underline-offset-4 hover:text-teal-300"
+          className="text-sm font-medium text-accent underline underline-offset-4 hover:text-on-cloth"
           href="/dadtrack"
         >
           View DadTrack
